@@ -2,13 +2,13 @@
 
 
 #include "SLGridManager.h"
+#include "SLGridTile.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
 	// Create a 2D Array
 
 }
@@ -18,17 +18,19 @@ void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Grid2DArray.SetNumZeroed(GridWidth);
-	for (int32 i = 0; i < Grid2DArray.Num(); i++)
-	{
-		Grid2DArray[i].SetNumZeroed(GridHeight);
-	}
+	FVector SpawnPosition = FVector::ZeroVector;
 
-	for (int32 y = 0; y < GridHeight; ++y)
+	for (int32 y = 0; y < RowNum; ++y)
 	{
-		for (int32 x = 0; x < GridWidth; ++x)
+		SpawnPosition.X = y * WidthOffset;
+		for (int32 x = 0; x < ColNum; ++x)
 		{
-			ASLGridTile* newTile = GetWorld()->SpawnActor<ASLGridTile>()
+			SpawnPosition.Y = x * LengthOffset;
+			ASLGridTile* NewTile = GetWorld()->SpawnActor<ASLGridTile>(SpawnActorClass,SpawnPosition, FRotator::ZeroRotator);
+
+			NewTile->TileIndex = FIntPoint(x,y);
+			NewTile->SetActorLabel(FString::Printf(TEXT("Tile_%d-%d"), x, y));
+			
 		}
 	}
 	

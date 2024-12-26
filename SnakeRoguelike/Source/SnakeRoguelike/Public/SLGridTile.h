@@ -33,6 +33,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Tile")
 	UStaticMeshComponent* TileMesh;
 
-public:	
+public:
+	UPROPERTY(VisibleInstanceOnly)
+	FIntPoint TileIndex;
 
 };

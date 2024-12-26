@@ -6,19 +6,32 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
+class ASLGridTile;
+
 UCLASS()
 class SNAKEROGUELIKE_API ASLGridManager : public AActor
 {
 	GENERATED_BODY()
 
 protected:
+
 	TArray<TArray<ASLGridTile*>> Grid2DArray;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 GridWidth;
+	int32 WidthOffset;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 GridHeight;
+	int32 LengthOffset;
+	
+	UPROPERTY(EditAnywhere, Category= "Grid Layout")
+	int32 RowNum;
+	
+	UPROPERTY(EditAnywhere, Category= "Grid Layout")
+	int32 ColNum;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> SpawnActorClass;
+	
 	
 public:	
 	// Sets default values for this actor's properties
