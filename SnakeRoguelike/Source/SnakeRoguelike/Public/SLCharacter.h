@@ -3,11 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "SLCharacter.generated.h"
 
+class USLInteractionComponent;
+class UInputAction;
+class UInputMappingContext;
+class UCameraComponent;
+
 UCLASS()
-class SNAKEROGUELIKE_API ASLCharacter : public ACharacter
+class SNAKEROGUELIKE_API ASLCharacter : public APawn
 {
 	GENERATED_BODY()
 
@@ -16,8 +20,19 @@ public:
 	ASLCharacter();
 
 protected:
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComp;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	UInputMappingContext* PlayerMappingContext;
+	
+	UPROPERTY(EditAnywhere)
+	USLInteractionComponent* InteractionComp;
+
+	/*void PrimaryInteract(const FInputActionValue& Value);*/
 
 public:	
 	// Called every frame

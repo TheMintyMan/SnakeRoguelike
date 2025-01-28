@@ -2,6 +2,9 @@
 
 
 #include "SLCharacter.h"
+#include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
+#include "SLInteractionComponent.h"
 
 // Sets default values
 ASLCharacter::ASLCharacter()
@@ -9,14 +12,35 @@ ASLCharacter::ASLCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
+	CameraComp->SetupAttachment(RootComponent);
+	
+	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
 }
 
 // Called when the game starts or when spawned
 void ASLCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC)
+	{
+		PC->bShowMouseCursor = true;
+		PC->bEnableClickEvents = true;
+		PC->bEnableMouseOverEvents = true;
+	} else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
+	}
 	
 }
+
+/*void ASLCharacter::PrimaryInteract(const FInputActionValue& Value)
+{
+	
+	
+}*/
 
 // Called every frame
 void ASLCharacter::Tick(float DeltaTime)
@@ -31,4 +55,5 @@ void ASLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
 

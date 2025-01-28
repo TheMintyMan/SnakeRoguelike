@@ -31,6 +31,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> SpawnActorClass;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 GlobalOffset;
 	
 	
 public:	
@@ -42,7 +45,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	//virtual void Tick(float DeltaTime) override;
+	//Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 };
