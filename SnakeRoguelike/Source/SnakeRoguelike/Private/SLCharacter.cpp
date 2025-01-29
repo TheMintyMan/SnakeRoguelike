@@ -2,6 +2,8 @@
 
 
 #include "SLCharacter.h"
+
+#include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "SLInteractionComponent.h"
@@ -42,6 +44,21 @@ void ASLCharacter::BeginPlay()
 	
 }*/
 
+void ASLCharacter::NotifyActorBeginCursorOver()
+{
+	Super::NotifyActorBeginCursorOver();
+}
+
+void ASLCharacter::NotifyActorEndCursorOver()
+{
+	Super::NotifyActorEndCursorOver();
+}
+
+void ASLCharacter::ButtonClicked(const FInputActionValue& Value)
+{
+	
+}
+
 // Called every frame
 void ASLCharacter::Tick(float DeltaTime)
 {
@@ -53,6 +70,11 @@ void ASLCharacter::Tick(float DeltaTime)
 void ASLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	if(UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLCharacter::ButtonClicked);
+	}
 
 }
 

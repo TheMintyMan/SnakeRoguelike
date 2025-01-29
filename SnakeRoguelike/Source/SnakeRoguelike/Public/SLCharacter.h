@@ -9,6 +9,7 @@ class USLInteractionComponent;
 class UInputAction;
 class UInputMappingContext;
 class UCameraComponent;
+class UStaticMeshComponent;
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLCharacter : public APawn
@@ -26,11 +27,29 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
-	UInputMappingContext* PlayerMappingContext;
+	
 	
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* CharacterMesh;
+
+	
+	virtual void NotifyActorBeginCursorOver() override;
+	virtual void NotifyActorEndCursorOver() override;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	UInputMappingContext* PlayerMappingContext;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* ButtonClickedAction;
+
+	UFUNCTION()
+	void ButtonClicked(const FInputActionValue& Value);
+
+	
 
 	/*void PrimaryInteract(const FInputActionValue& Value);*/
 
