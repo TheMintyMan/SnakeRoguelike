@@ -44,9 +44,9 @@ protected:
 	UFUNCTION()
 	void Clicked(const FInputActionValue& Value);
 
-	
+	UPROPERTY(EditAnywhere)
+	USLInteractionComponent* InteractionComp;
 
-	/*void PrimaryInteract(const FInputActionValue& Value);*/
 
 public:	
 	// Called every frame

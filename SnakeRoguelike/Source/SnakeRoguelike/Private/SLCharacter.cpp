@@ -7,7 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "Kismet/GameplayStatics.h"
+#include "SLInteractionComponent.h"
 
 // Sets default values
 ASLCharacter::ASLCharacter()
@@ -20,6 +20,9 @@ ASLCharacter::ASLCharacter()
 	
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(RootComponent);
+
+	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
+	
 }
 
 // Called when the game starts or when spawned
@@ -48,7 +51,12 @@ void ASLCharacter::BeginPlay()
 
 void ASLCharacter::Clicked(const FInputActionValue& Value)
 {
-	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (InteractionComp)
+	{
+		InteractionComp->PrimaryInteract();
+	}
+	
+	/*APlayerController* PC = Cast<APlayerController>(GetController());
 	FVector MouseWorldLoc;
 	FVector MouseWorldDirection;
 	
@@ -70,7 +78,7 @@ void ASLCharacter::Clicked(const FInputActionValue& Value)
 	QueryParams.AddIgnoredActor(this);
 	
 	GetWorld()->LineTraceSingleByChannel(Hit, MouseWorldLoc, TraceEnd, ECC_WorldDynamic, QueryParams);
-	DrawDebugLine(GetWorld(), MouseWorldLoc, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 3.0f, 0, 1.0f);
+	DrawDebugLine(GetWorld(), MouseWorldLoc, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 3.0f, 0, 1.0f);*/
 	
 	/*GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Clicked X: %f"), MouseX);
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Clicked Y: %f"), MouseY);*/

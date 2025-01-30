@@ -3,6 +3,8 @@
 
 #include "SLInteractionComponent.h"
 
+#include "SLInterface.h"
+
 // Sets default values for this component's properties
 USLInteractionComponent::USLInteractionComponent()
 {
@@ -12,6 +14,7 @@ USLInteractionComponent::USLInteractionComponent()
 
 	// ...
 }
+
 
 
 // Called when the game starts
@@ -32,3 +35,35 @@ void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
+void USLInteractionComponent::PrimaryInteract()
+{
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	AActor* MyOwner = GetOwner();
+	
+	FVector Start;
+	FVector MouseWorldDirection;
+	APlayerController* PC = Cast<APlayerController>(MyOwner->GetInstigatorController());
+	PC->DeprojectMousePositionToWorld(Start,MouseWorldDirection);
+	
+	FVector End = MouseWorldDirection*10000+Start;
+
+	
+	
+	FHitResult Hit;
+	
+	GetWorld()->LineTraceSingleByObjectType(Hit, Start, End, ObjectQueryParams);
+
+	AActor* HitActor = Hit.GetActor();
+	if (HitActor)
+	{  
+		if (HitActor->Implements<USLInterface>())
+		{
+			APawn* MyPawn = Cast<APawn>(MyOwner);
+			ISLInterface::Execute_Interact(HitActor, MyPawn);
+		}
+	}
+	
+	DrawDebugLine(GetWorld(), Start, End, Hit.bBlockingHit ? FColor::Green : FColor::Red, false, 1.0f, 0, 0.1f);
+	
+}
