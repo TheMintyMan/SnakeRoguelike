@@ -23,11 +23,12 @@ protected:
 
 	virtual void PostInitializeComponents() override;
 
+	UFUNCTION()
+	void OnActorHit(UPrimitiveComponent* Component, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const
+							  FHitResult& Hit);
+
 	UPROPERTY(EditDefaultsOnly, Category="components")
 	UStaticMeshComponent* ButtonMeshComp;
-
-	UFUNCTION()
-	void OnActorHit();
 	
 public:	
 	// Called every frame
