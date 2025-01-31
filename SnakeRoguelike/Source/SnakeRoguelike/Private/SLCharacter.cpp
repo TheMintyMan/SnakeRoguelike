@@ -29,7 +29,7 @@ ASLCharacter::ASLCharacter()
 void ASLCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	
 	if (PC)
@@ -59,7 +59,48 @@ void ASLCharacter::Clicked()
 
 void ASLCharacter::Up()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Up has been pressed"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up"));
+	Test.Broadcast(UpAction);
+}
+
+void ASLCharacter::Down()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down"));
+	Test.Broadcast(DownAction);
+}
+
+void ASLCharacter::Left()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Left"));
+	Test.Broadcast(LeftAction);
+}
+
+void ASLCharacter::Right()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Right"));
+	Test.Broadcast(RightAction);
+}
+
+void ASLCharacter::UpReleased()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up Released"));
+	InputReleased.Broadcast(UpAction);
+}
+
+void ASLCharacter::DownReleased()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down Released"));
+	InputReleased.Broadcast(DownAction);
+}
+
+void ASLCharacter::LeftReleased()
+{
+	InputReleased.Broadcast(LeftAction);
+}
+
+void ASLCharacter::RightReleased()
+{
+	InputReleased.Broadcast(RightAction);
 }
 
 // Called every frame
@@ -78,6 +119,13 @@ void ASLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	{
 		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLCharacter::Clicked);
 		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Triggered, this, &ASLCharacter::Up);
+		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Triggered, this, &ASLCharacter::Down);
+		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Triggered, this, &ASLCharacter::Left);
+		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Triggered, this, &ASLCharacter::Right);
+		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLCharacter::UpReleased);
+		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLCharacter::DownReleased);
+		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLCharacter::LeftReleased);
+		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLCharacter::RightReleased);
 	}
 
 }

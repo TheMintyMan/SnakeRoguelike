@@ -5,6 +5,12 @@
 #include "CoreMinimal.h"
 #include "SLCharacter.generated.h"
 
+
+// Test Delegate
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTestDelegate, UInputAction*, TriggeredAction);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, UInputAction*, ReleasedAction);
+
+
 class USLInteractionComponent;
 class UInputAction;
 class UInputMappingContext;
@@ -20,6 +26,9 @@ class SNAKEROGUELIKE_API ASLCharacter : public APawn
 public:
 	// Sets default values for this character's properties
 	ASLCharacter();
+
+	FTestDelegate Test;
+	FReleasedActionDelegate InputReleased;
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -41,14 +50,43 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
 
+	// All the input actions
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* UpAction;
-
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* DownAction;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* LeftAction;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* RightAction;
+	
 	UFUNCTION()
 	void Clicked();
 
 	UFUNCTION()
 	void Up();
+
+	UFUNCTION()
+	void Down();
+
+	UFUNCTION()
+	void Left();
+
+	UFUNCTION()
+	void Right();
+
+	UFUNCTION()
+	void UpReleased();
+
+	UFUNCTION()
+	void DownReleased();
+
+	UFUNCTION()
+	void LeftReleased();
+
+	UFUNCTION()
+	void RightReleased();
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;
@@ -61,4 +99,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
+	
 };

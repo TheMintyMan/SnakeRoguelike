@@ -2,9 +2,10 @@
 
 
 #include "SLButtonAbility.h"
-#include "EnhancedInputComponent.h"
-#include "Kismet/GameplayStatics.h"
 
+#include "InputAction.h"
+#include "SLCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASLButtonAbility::ASLButtonAbility()
@@ -17,38 +18,53 @@ ASLButtonAbility::ASLButtonAbility()
 
 	ButtonMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("ButtonMesh");
 	ButtonMeshComp->SetupAttachment(RootComp);
-
-	TargetLocation = -150;
 }
 
 // Called when the game starts or when spawned
 void ASLButtonAbility::BeginPlay()
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	EnableInput(PC);
+	Super::BeginPlay();
+
+	ASLCharacter* Character = Cast<ASLCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	if (Character)
+	{
+		Character->Test.AddDynamic(this, &ASLButtonAbility::Trigger);
+		Character->InputReleased.AddDynamic(this, &ASLButtonAbility::Release);
+	}
 	
+}
+
+void ASLButtonAbility::Trigger(UInputAction* TriggeredAction)
+{
+	if (TriggeredAction == ButtonClickedAction)
+	{
+		PressedAnim();
+	}
+}
+
+void ASLButtonAbility::Release(UInputAction* TriggeredAction)
+{
+	if (TriggeredAction == ButtonClickedAction)
+	{
+		ReleasedAnim();
+	}
+}
+
+void ASLButtonAbility::PressedAnim_Implementation()
+{
+}
+
+void ASLButtonAbility::ReleasedAnim_Implementation()
+{
 }
 
 void ASLButtonAbility::Interact_Implementation(APawn* InstigatorPawn)
 {
-	ButtonMeshComp->SetRelativeLocation(FVector(0, 0, TargetLocation));
-}
-
-void ASLButtonAbility::Pressed(FInputActionValue& InputActionValue)
-{
-	if (ButtonClickedAction)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("It worked?"));
-	}
+	PressedAnim();
 }
 
 // Called every frame
 void ASLButtonAbility::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
-
-void ASLButtonAbility::SetupMyPlayerInputComponent(UInputComponent* myInputComponent)
-{
-	// Not sure what I'm doing here
 }

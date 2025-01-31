@@ -7,10 +7,11 @@
 #include "GameFramework/Actor.h"
 #include "SLButtonAbility.generated.h"
 
-struct FInputActionValue;
+class ASLCharacter;
 class UStaticMeshComponent;
 class USceneComponent;
 class UInputAction;
+
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLButtonAbility : public AActor, public ISLInterface
@@ -22,8 +23,6 @@ public:
 	float TargetLocation;
 	
 	void Interact_Implementation(APawn* InstigatorPawn) override;
-
-	
 	
 	// Sets default values for this actor's properties
 	ASLButtonAbility();
@@ -33,7 +32,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category="components")
 	USceneComponent* RootComp;
 	
-	UPROPERTY(VisibleAnywhere, Category="components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="components")
 	UStaticMeshComponent* ButtonMeshComp;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
@@ -42,12 +41,22 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void Pressed(FInputActionValue& InputActionValue);
+	UFUNCTION()
+	void Trigger(UInputAction* TriggeredAction);
+	
+	UFUNCTION()
+	void Release(UInputAction* TriggeredAction);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void PressedAnim();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ReleasedAnim();
+
+	
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
-	void SetupMyPlayerInputComponent(UInputComponent* myInputComponent);
-
 };
