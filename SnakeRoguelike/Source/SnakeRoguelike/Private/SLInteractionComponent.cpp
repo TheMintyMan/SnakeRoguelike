@@ -47,8 +47,6 @@ void USLInteractionComponent::PrimaryInteract()
 	PC->DeprojectMousePositionToWorld(Start,MouseWorldDirection);
 	
 	FVector End = MouseWorldDirection*10000+Start;
-
-	
 	
 	FHitResult Hit;
 	

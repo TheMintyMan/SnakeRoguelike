@@ -41,8 +41,14 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
 
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* UpAction;
+
 	UFUNCTION()
-	void Clicked(const FInputActionValue& Value);
+	void Clicked();
+
+	UFUNCTION()
+	void Up();
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;

@@ -49,54 +49,17 @@ void ASLCharacter::BeginPlay()
 	
 }
 
-void ASLCharacter::Clicked(const FInputActionValue& Value)
+void ASLCharacter::Clicked()
 {
 	if (InteractionComp)
 	{
 		InteractionComp->PrimaryInteract();
 	}
-	
-	/*APlayerController* PC = Cast<APlayerController>(GetController());
-	FVector MouseWorldLoc;
-	FVector MouseWorldDirection;
-	
+}
 
-	//PC->GetMousePosition(MouseX, MouseY);
-	PC->DeprojectMousePositionToWorld(MouseWorldLoc,MouseWorldDirection);
-	FVector TraceEnd = MouseWorldDirection*10000+MouseWorldLoc;
-	
-	float MouseX = TraceEnd.X;
-	float MouseY = TraceEnd.Y;
-	float MouseZ = TraceEnd.Z;
-
-	
-	
-	UE_LOG(LogTemp, Warning, TEXT("Mouse Location: %f, %f, %f"), MouseX, MouseY, MouseZ);
-	
-	FHitResult Hit;
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-	
-	GetWorld()->LineTraceSingleByChannel(Hit, MouseWorldLoc, TraceEnd, ECC_WorldDynamic, QueryParams);
-	DrawDebugLine(GetWorld(), MouseWorldLoc, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 3.0f, 0, 1.0f);*/
-	
-	/*GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Clicked X: %f"), MouseX);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Clicked Y: %f"), MouseY);*/
-	
-	
-
-	/*if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
-	{
-		UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
-	}*/
-	
-	/*
-	if(PC->GetHitResultUnderCursor(ECC_WorldDynamic, true, Hit))
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Hit"));
-	}
-	
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Clicked"));*/
+void ASLCharacter::Up()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Up has been pressed"));
 }
 
 // Called every frame
@@ -114,6 +77,7 @@ void ASLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	if(UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLCharacter::Clicked);
+		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Triggered, this, &ASLCharacter::Up);
 	}
 
 }
