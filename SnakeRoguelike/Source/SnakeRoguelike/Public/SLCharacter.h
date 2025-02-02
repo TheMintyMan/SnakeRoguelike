@@ -40,10 +40,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* RootComp;
 
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* CharacterMesh;
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	UInputMappingContext* PlayerMappingContext;
 	
@@ -93,9 +89,6 @@ protected:
 
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

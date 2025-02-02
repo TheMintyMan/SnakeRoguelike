@@ -103,13 +103,6 @@ void ASLCharacter::RightReleased()
 	InputReleased.Broadcast(RightAction);
 }
 
-// Called every frame
-void ASLCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 // Called to bind functionality to input
 void ASLCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
