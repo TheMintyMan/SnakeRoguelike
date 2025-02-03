@@ -26,7 +26,7 @@ ASLCharacter::ASLCharacter()
 }
 
 // Called when the game starts or when spawned
-void ASLCharacter::BeginPlay()
+void ASLCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
 	

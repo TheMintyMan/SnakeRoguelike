@@ -12,20 +12,19 @@ ASLGridManager::ASLGridManager()
 	// Create a 2D Array
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>("RootComp");
-
+	
+	WidthOffset = 100;
+	LengthOffset = 100;
+	RowNum = 22;
+	ColNum = 22;
+		
 }
 
-// Called when the game starts or when spawned
-void ASLGridManager::BeginPlay()
+void ASLGridManager::PostInitializeComponents()
 {
-	Super::BeginPlay();
-	
-	FVector SpawnPosition = FVector::ZeroVector;
-	
-	GlobalOffset = RowNum/2*100+100;
-	
-	if(GEngine)
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(TEXT("%d"), GlobalOffset));
+	Super::PostInitializeComponents();
+
+	GlobalOffset = RowNum/2*100;
 	
 	for (int32 y = 0; y < RowNum; ++y)
 	{
@@ -33,16 +32,19 @@ void ASLGridManager::BeginPlay()
 		for (int32 x = 0; x < ColNum; ++x)
 		{
 			SpawnPosition.Y = x * LengthOffset-GlobalOffset;
+						
 			ASLGridTile* NewTile = GetWorld()->SpawnActor<ASLGridTile>(SpawnActorClass,SpawnPosition, FRotator::ZeroRotator);
-
-			NewTile->TileIndex = FIntPoint(x,y);
-			NewTile->SetActorLabel(FString::Printf(TEXT("Tile_%d-%d"), x, y));
 			
+			NewTile->SetActorLabel(FString::Printf(TEXT("Tile_%d-%d"), x, y));
 		}
 	}
 	
-	/*FVector NewGridLocation = FVector(-12.5,-12.5,0);
-	SetActorLocation(NewGridLocation);*/
+}
+
+// Called when the game starts or when spawned
+void ASLGridManager::BeginPlay()
+{
+	Super::BeginPlay();
 	
 }
 
