@@ -24,6 +24,14 @@ void ASLGridManager::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
+	GridArray.SetNum(RowNum);
+
+	for(TArray<FCellInfo>&  CurrentRow : GridArray)
+	{
+		CurrentRow.SetNum(ColNum);
+		UE_LOG(LogTemp, Warning, TEXT("%i"), 0);
+	}
+	
 	GlobalOffset = RowNum/2*100;
 	
 	for (int32 y = 0; y < RowNum; ++y)
@@ -34,6 +42,11 @@ void ASLGridManager::PostInitializeComponents()
 			SpawnPosition.Y = x * LengthOffset-GlobalOffset;
 						
 			ASLGridTile* NewTile = GetWorld()->SpawnActor<ASLGridTile>(SpawnActorClass,SpawnPosition, FRotator::ZeroRotator);
+
+			CurrentCellInfo.Location.Set(x,y,0);
+			CurrentCellInfo.CellState = ECellState::Empty;
+			
+			GridArray[x][y] = CurrentCellInfo;
 			
 			NewTile->SetActorLabel(FString::Printf(TEXT("Tile_%d-%d"), x, y));
 		}
@@ -45,7 +58,28 @@ void ASLGridManager::PostInitializeComponents()
 void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 3.0f, true, 1.0f);
+}
+
+void ASLGridManager::UpdateTime()
+{
+	UpdateTimeDelegate.Broadcast();
+}
+
+void ASLGridManager::GetGridInfo()
+{
 	
+}
+
+FString ASLGridManager::GetHello()
+{
+	return Hello;
+}
+
+TArray<TArray<FCellInfo>> ASLGridManager::GetGrid()
+{
+	return GridArray;
 }
 
 // Called every frame

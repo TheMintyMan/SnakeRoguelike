@@ -6,7 +6,7 @@
 #include "SLCharacter.generated.h"
 
 
-// Test Delegate
+// Event Dispatchers for InputAction
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTestDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, UInputAction*, ReleasedAction);
 

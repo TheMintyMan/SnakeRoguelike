@@ -9,7 +9,7 @@
 class ASLGridTile;
 
 UENUM(BlueprintType)
-enum class EGridState : uint8
+enum class ECellState : uint8
 {
 	Empty = 0 UMETA(DisplayName = "Empty"),
 	Snake = 1 UMETA(DisplayName = "Snake"),
@@ -17,30 +17,34 @@ enum class EGridState : uint8
 };
 
 USTRUCT(BlueprintType)
-struct FGridInfo
+struct FCellInfo
 	{
 		GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector Location;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EGridState GridState;
+	ECellState CellState;
 
 	// Default Constructor
-	FGridInfo()
-		: Location(FVector::ZeroVector), GridState(EGridState::Empty)
+	FCellInfo()
+		: Location(FVector::ZeroVector), CellState(ECellState::Empty)
 	{}
 
-	FGridInfo(FVector InLocation, EGridState InGridState)
-		: Location(InLocation), GridState(InGridState)
+	FCellInfo(FVector InLocation, ECellState InGridState)
+		: Location(InLocation), CellState(InGridState)
 	{}
-	
 	};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateTimeDelegate);
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLGridManager : public AActor
 {
 	GENERATED_BODY()
+
+public:
+	FUpdateTimeDelegate UpdateTimeDelegate;
 
 protected:
 	
@@ -64,25 +68,37 @@ protected:
 	
 	FVector SpawnPosition = FVector::ZeroVector;
 	
-	TArray<TArray<FGridInfo>> MyArray;
+	float TimerSpeed;
 
-	
+	FCellInfo CurrentCellInfo;
+
+	FString Hello = "Hello From Grid Manager";
+
+	TArray<TArray<FCellInfo>> GridArray;
+
+	FTimerHandle TimerHandle;
 	
 public:	
 	// Sets default values for this actor's properties
 	ASLGridManager();
 
+	UFUNCTION()
+	void UpdateTime();
+
+	UFUNCTION()
+	void GetGridInfo();
 	
+	FString GetHello();
+
+	TArray<TArray<FCellInfo>> GetGrid();		
 
 protected:
 
 	UFUNCTION(BlueprintCallable)
-
 	virtual void PostInitializeComponents() override;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 
 public:	
 	//Called every frame

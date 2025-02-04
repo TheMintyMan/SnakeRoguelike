@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+class ASLGridManager;
+
 UCLASS()
 class SNAKEROGUELIKE_API ASLSnake : public AActor
 {
@@ -21,6 +23,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* SnakeBodyMesh;
+
+	UPROPERTY()
+	ASLGridManager* GridManager;
+
+	UFUNCTION()
+	void UpdateSnake();
 
 public:	
 	// Called every frame

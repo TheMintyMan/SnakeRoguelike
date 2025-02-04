@@ -28,7 +28,7 @@ public:
 	ASLButtonAbility();
 
 protected:
-
+	
 	UPROPERTY(VisibleAnywhere, Category="components")
 	USceneComponent* RootComp;
 	
@@ -53,7 +53,6 @@ protected:
 	UFUNCTION(BlueprintNativeEvent)
 	void ReleasedAnim();
 
-	
 
 public:	
 	// Called every frame
