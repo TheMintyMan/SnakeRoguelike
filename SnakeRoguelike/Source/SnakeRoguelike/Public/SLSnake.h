@@ -27,11 +27,11 @@ protected:
 	UPROPERTY()
 	ASLGridManager* GridManager;
 
+	
+
 	UFUNCTION()
 	void UpdateSnake();
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };

@@ -7,6 +7,7 @@
 #include "SLGridManager.generated.h"
 
 class ASLGridTile;
+class ASLSnake;
 
 UENUM(BlueprintType)
 enum class ECellState : uint8
@@ -45,7 +46,7 @@ class SNAKEROGUELIKE_API ASLGridManager : public AActor
 
 public:
 	FUpdateTimeDelegate UpdateTimeDelegate;
-
+	
 protected:
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
@@ -60,28 +61,39 @@ protected:
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 ColNum;
 
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
-	TSubclassOf<AActor> SpawnActorClass;
+	TSubclassOf<AActor> SpawnActorClassTile;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 GlobalOffset;
 	
 	FVector SpawnPosition = FVector::ZeroVector;
-	
+
+	UPROPERTY(BlueprintReadOnly)
 	float TimerSpeed;
 
+	UPROPERTY()
 	FCellInfo CurrentCellInfo;
-
+	
 	FString Hello = "Hello From Grid Manager";
 
 	TArray<TArray<FCellInfo>> GridArray;
+	
+	FString TileName;
 
 	FTimerHandle TimerHandle;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
+	TSubclassOf<AActor> SnakeActor;
+
+	UFUNCTION()
+	void SpawnSnake();
 	
 public:	
 	// Sets default values for this actor's properties
 	ASLGridManager();
-
+	
 	UFUNCTION()
 	void UpdateTime();
 
@@ -99,9 +111,4 @@ protected:
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	//Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 };

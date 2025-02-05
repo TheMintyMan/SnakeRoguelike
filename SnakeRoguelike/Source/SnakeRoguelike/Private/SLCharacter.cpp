@@ -9,6 +9,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "SLInteractionComponent.h"
 
+#define print(x) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, x);
+
 // Sets default values
 ASLCharacter::ASLCharacter()
 {
@@ -29,6 +31,9 @@ ASLCharacter::ASLCharacter()
 void ASLCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
+
+	FString TestString = "YO Yo Yo";
+	print((("Hello: %s"), TestString));
 	
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	
@@ -46,7 +51,6 @@ void ASLCharacter::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
 	}
-	
 }
 
 void ASLCharacter::Clicked()
@@ -59,37 +63,37 @@ void ASLCharacter::Clicked()
 
 void ASLCharacter::Up()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up"));
 	Test.Broadcast(UpAction);
 }
 
 void ASLCharacter::Down()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down"));
 	Test.Broadcast(DownAction);
 }
 
 void ASLCharacter::Left()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Left"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Left"));
 	Test.Broadcast(LeftAction);
 }
 
 void ASLCharacter::Right()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Right"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Right"));
 	Test.Broadcast(RightAction);
 }
 
 void ASLCharacter::UpReleased()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up Released"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up Released"));
 	InputReleased.Broadcast(UpAction);
 }
 
 void ASLCharacter::DownReleased()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down Released"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down Released"));
 	InputReleased.Broadcast(DownAction);
 }
 

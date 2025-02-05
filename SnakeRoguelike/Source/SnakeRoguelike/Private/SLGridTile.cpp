@@ -14,5 +14,4 @@ ASLGridTile::ASLGridTile()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	TileMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	TileMesh->SetupAttachment(RootComponent);
-	
 }

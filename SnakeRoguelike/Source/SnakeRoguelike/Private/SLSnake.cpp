@@ -15,8 +15,6 @@ ASLSnake::ASLSnake()
 	 
 	SnakeBodyMesh = CreateDefaultSubobject<UStaticMeshComponent>("SnakeBodyMesh");
 	SnakeBodyMesh->SetupAttachment(RootComponent);
-	
-	
 }
 
 // Called when the game starts or when spawned
@@ -30,21 +28,18 @@ void ASLSnake::BeginPlay()
 
 	if(GridManager)
 	{
-		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::UpdateSnake);
+		// GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::UpdateSnake);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
 	}
 
-	FVector StartingLocation = GridManager->grid;
+	// TODO fix this
+	// TArray<TArray<FCellInfo>> CellInfo = GridManager->GetGrid();
+	// int32 SizeOfGrid = CellInfo.GetTypeSize();
+	// SizeOfGrid/2;
 }
 
 void ASLSnake::UpdateSnake()
 {
 	//SetActorLocation();
-}
-
-// Called every frame
-void ASLSnake::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }
 
