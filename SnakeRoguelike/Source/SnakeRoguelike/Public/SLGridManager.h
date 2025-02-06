@@ -46,6 +46,12 @@ class SNAKEROGUELIKE_API ASLGridManager : public AActor
 
 public:
 	FUpdateTimeDelegate UpdateTimeDelegate;
+
+	UPROPERTY(EditAnywhere, Category= "Grid Layout")
+	int32 RowNum;
+	
+	UPROPERTY(EditAnywhere, Category= "Grid Layout")
+	int32 ColNum;
 	
 protected:
 	
@@ -54,13 +60,6 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 LengthOffset;
-	
-	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 RowNum;
-	
-	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 ColNum;
-
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
 	TSubclassOf<AActor> SpawnActorClassTile;
@@ -83,6 +82,8 @@ protected:
 	FString TileName;
 
 	FTimerHandle TimerHandle;
+
+	FTimerHandle LoopingTimerHandle;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
 	TSubclassOf<AActor> SnakeActor;

@@ -4,7 +4,7 @@
 #include "SLButtonAbility.h"
 
 #include "InputAction.h"
-#include "SLCharacter.h"
+#include "..\Public\SLPlayerPawn.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -25,10 +25,10 @@ void ASLButtonAbility::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ASLCharacter* Character = Cast<ASLCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	ASLPlayerPawn* Character = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	if (Character)
 	{
-		Character->Test.AddDynamic(this, &ASLButtonAbility::Trigger);
+		Character->InputTriggered.AddDynamic(this, &ASLButtonAbility::Trigger);
 		Character->InputReleased.AddDynamic(this, &ASLButtonAbility::Release);
 	}
 	

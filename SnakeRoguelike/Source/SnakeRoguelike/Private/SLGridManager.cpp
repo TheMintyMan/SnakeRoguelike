@@ -70,8 +70,8 @@ void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 3.0f, true, 1.0f);
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 1.0f, true, 6.0f);
+	GetWorldTimerManager().SetTimer(LoopingTimerHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
 }
 
 void ASLGridManager::SpawnSnake()
@@ -83,6 +83,7 @@ void ASLGridManager::SpawnSnake()
 
 void ASLGridManager::UpdateTime()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Tick"));
 	UpdateTimeDelegate.Broadcast();
 }
 

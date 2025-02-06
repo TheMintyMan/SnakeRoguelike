@@ -3,10 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SLGridManager.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+enum class ESnakeDirection;
+class ASLPlayerPawn;
 class ASLGridManager;
+
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLSnake : public AActor
@@ -16,6 +20,9 @@ class SNAKEROGUELIKE_API ASLSnake : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASLSnake();
+
+	int32 PosX;
+	int32 PosY;
 
 protected:
 	// Called when the game starts or when spawned
@@ -27,10 +34,21 @@ protected:
 	UPROPERTY()
 	ASLGridManager* GridManager;
 
+	UPROPERTY()
+	ASLPlayerPawn* PlayerPawn;
+
+
+	ESnakeDirection SnakeDirectionUpdate;
+	
+	UFUNCTION()
+	void SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate);
+
 	
 
 	UFUNCTION()
-	void UpdateSnake();
+	void SnakeMove();
+
+	TArray<TArray<FCellInfo>> SnakeGrid;
 
 public:	
 

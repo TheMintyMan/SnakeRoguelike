@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SLCharacter.generated.h"
+#include "SLPlayerPawn.generated.h"
 
 
 // Event Dispatchers for InputAction
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTestDelegate, UInputAction*, TriggeredAction);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputTriggeredDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, UInputAction*, ReleasedAction);
+
 
 
 class USLInteractionComponent;
@@ -18,19 +19,34 @@ class UCameraComponent;
 class UStaticMeshComponent;
 class USceneComponent;
 
+UENUM()
+enum class ESnakeDirection
+{
+	Up      UMETA(DisplayName = "Up"),
+	Down    UMETA(DisplayName = "Down"),
+	Left    UMETA(DisplayName = "Left"),
+	Right   UMETA(DisplayName = "Right")
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionEnumDelegate, ESnakeDirection, SnakeDirection);
+
 UCLASS()
-class SNAKEROGUELIKE_API ASLCharacter : public APawn
+class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	ASLCharacter();
+	ASLPlayerPawn();
 
-	FTestDelegate Test;
+	FDirectionEnumDelegate DirectionEnumDelegate;
+	FInputTriggeredDelegate InputTriggered;
 	FReleasedActionDelegate InputReleased;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ESnakeDirection CurrentDirection;
 
-protected:
+protected:	
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 	
@@ -71,6 +87,18 @@ protected:
 
 	UFUNCTION()
 	void Right();
+	
+	UFUNCTION()
+	void UpStarted();
+
+	UFUNCTION()
+	void DownStarted();
+
+	UFUNCTION()
+	void LeftStarted();
+
+	UFUNCTION()
+	void RightStarted();
 
 	UFUNCTION()
 	void UpReleased();

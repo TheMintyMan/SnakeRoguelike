@@ -7,11 +7,10 @@
 #include "GameFramework/Actor.h"
 #include "SLButtonAbility.generated.h"
 
-class ASLCharacter;
+class ASLPlayerPawn;
 class UStaticMeshComponent;
 class USceneComponent;
 class UInputAction;
-
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLButtonAbility : public AActor, public ISLInterface

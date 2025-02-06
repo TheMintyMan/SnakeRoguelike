@@ -3,7 +3,9 @@
 
 #include "SLSnake.h"
 #include "SLGridManager.h"
+#include "SLPlayerPawn.h"
 #include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 ASLSnake::ASLSnake()
@@ -23,23 +25,82 @@ void ASLSnake::BeginPlay()
 	Super::BeginPlay();
 
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
-
+	
 	GridManager = Cast<ASLGridManager>(Grid);
 
 	if(GridManager)
 	{
-		// GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::UpdateSnake);
+		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::SnakeMove);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
+		SnakeGrid = GridManager->GetGrid();
 	}
 
+	AActor* SnakeHead = UGameplayStatics::GetActorOfClass(GetWorld(),ASLPlayerPawn::StaticClass());
+
+	PlayerPawn = Cast<ASLPlayerPawn>(SnakeHead);
+
+	if(PlayerPawn)
+	{
+		PlayerPawn->DirectionEnumDelegate.AddDynamic(this, &ASLSnake::SetSnakeDirection);
+	}
+		
+	PosX = GridManager->ColNum/2;
+	PosY = 0;
+
+	UE_LOG(LogTemp, Warning, TEXT("Testing Location %s"), *SnakeGrid[5][5].Location.ToString());
+	
 	// TODO fix this
 	// TArray<TArray<FCellInfo>> CellInfo = GridManager->GetGrid();
 	// int32 SizeOfGrid = CellInfo.GetTypeSize();
 	// SizeOfGrid/2;
+
+	
+	
 }
 
-void ASLSnake::UpdateSnake()
+void ASLSnake::SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate)
 {
-	//SetActorLocation();
+	SnakeDirectionUpdate = NewSnakeDirectionUpdate;
+}
+
+void ASLSnake::SnakeMove()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), PosX, PosY);
+	
+	switch (SnakeDirectionUpdate)
+	{
+		case ESnakeDirection::Up:
+			if(PosY >= 0 && PosY < GridManager->ColNum - 1)
+			{
+				PosY = PosY + 1;
+				SetActorLocation(SnakeGrid[PosX][PosY].Location);
+			}
+		break;
+
+		case ESnakeDirection::Down:
+
+			if(PosY >= 0 && PosY < GridManager->ColNum - 1)
+			{
+				PosY = PosY - 1;
+				SetActorLocation(SnakeGrid[PosX][PosY].Location);
+			}
+		break;
+
+		case ESnakeDirection::Left:
+			if(PosX >= 0 && PosX < GridManager->ColNum - 1)
+			{
+				PosX = PosX - 1;
+				SetActorLocation(SnakeGrid[PosX][PosY].Location);
+			}
+		break;
+
+		case ESnakeDirection::Right:
+			if(PosX >= 0 && PosX < GridManager->ColNum - 1)
+			{
+				PosX = PosX + 1;
+				SetActorLocation(SnakeGrid[PosX][PosY].Location);
+			}
+		break;
+	}
 }
 
