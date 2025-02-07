@@ -19,16 +19,7 @@ class UCameraComponent;
 class UStaticMeshComponent;
 class USceneComponent;
 
-UENUM()
-enum class ESnakeDirection
-{
-	Up      UMETA(DisplayName = "Up"),
-	Down    UMETA(DisplayName = "Down"),
-	Left    UMETA(DisplayName = "Left"),
-	Right   UMETA(DisplayName = "Right")
-};
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionEnumDelegate, ESnakeDirection, SnakeDirection);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint, DirectionSend);
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn
@@ -39,12 +30,9 @@ public:
 	// Sets default values for this character's properties
 	ASLPlayerPawn();
 
-	FDirectionEnumDelegate DirectionEnumDelegate;
+	FDirectionDelegate DirectionDelegate;
 	FInputTriggeredDelegate InputTriggered;
 	FReleasedActionDelegate InputReleased;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESnakeDirection CurrentDirection;
 
 protected:	
 	UPROPERTY(VisibleAnywhere)
@@ -52,7 +40,7 @@ protected:
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	
 	UPROPERTY(EditAnywhere)
 	USceneComponent* RootComp;
 
@@ -65,56 +53,23 @@ protected:
 	// All the input actions
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	UInputAction* UpAction;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	UInputAction* DownAction;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	UInputAction* LeftAction;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	UInputAction* RightAction;
+	UInputAction* MoveAction;
 	
 	UFUNCTION()
 	void Clicked();
 
 	UFUNCTION()
-	void Up();
+	void Move(const FInputActionValue& Value);
 
 	UFUNCTION()
-	void Down();
-
-	UFUNCTION()
-	void Left();
-
-	UFUNCTION()
-	void Right();
-	
-	UFUNCTION()
-	void UpStarted();
-
-	UFUNCTION()
-	void DownStarted();
-
-	UFUNCTION()
-	void LeftStarted();
-
-	UFUNCTION()
-	void RightStarted();
-
-	UFUNCTION()
-	void UpReleased();
-
-	UFUNCTION()
-	void DownReleased();
-
-	UFUNCTION()
-	void LeftReleased();
-
-	UFUNCTION()
-	void RightReleased();
+	void MoveReleased();
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;
+	
 
+	UPROPERTY(BlueprintReadOnly, Category="Input")
+	FIntPoint Direction;
 
 public:	
 	// Called to bind functionality to input

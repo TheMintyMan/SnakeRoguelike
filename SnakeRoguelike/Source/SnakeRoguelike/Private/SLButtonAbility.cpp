@@ -25,16 +25,16 @@ void ASLButtonAbility::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ASLPlayerPawn* Character = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
-	if (Character)
+	ASLPlayerPawn* Controller = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	if (Controller)
 	{
-		Character->InputTriggered.AddDynamic(this, &ASLButtonAbility::Trigger);
-		Character->InputReleased.AddDynamic(this, &ASLButtonAbility::Release);
+		Controller->InputTriggered.AddDynamic(this, &ASLButtonAbility::PressKey);
+		Controller->InputReleased.AddDynamic(this, &ASLButtonAbility::ReleaseKey);
 	}
 	
 }
 
-void ASLButtonAbility::Trigger(UInputAction* TriggeredAction)
+void ASLButtonAbility::PressKey(UInputAction* TriggeredAction)
 {
 	if (TriggeredAction == ButtonClickedAction)
 	{
@@ -42,7 +42,7 @@ void ASLButtonAbility::Trigger(UInputAction* TriggeredAction)
 	}
 }
 
-void ASLButtonAbility::Release(UInputAction* TriggeredAction)
+void ASLButtonAbility::ReleaseKey(UInputAction* TriggeredAction)
 {
 	if (TriggeredAction == ButtonClickedAction)
 	{

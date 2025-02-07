@@ -70,7 +70,7 @@ void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 1.0f, true, 6.0f);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 0.5f, true, 6.0f);
 	GetWorldTimerManager().SetTimer(LoopingTimerHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
 }
 

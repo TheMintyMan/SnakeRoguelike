@@ -41,10 +41,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void Trigger(UInputAction* TriggeredAction);
+	void PressKey(UInputAction* TriggeredAction);
 	
 	UFUNCTION()
-	void Release(UInputAction* TriggeredAction);
+	void ReleaseKey(UInputAction* TriggeredAction);
 
 	UFUNCTION(BlueprintNativeEvent)
 	void PressedAnim();

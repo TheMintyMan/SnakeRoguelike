@@ -41,7 +41,7 @@ void ASLSnake::BeginPlay()
 
 	if(PlayerPawn)
 	{
-		PlayerPawn->DirectionEnumDelegate.AddDynamic(this, &ASLSnake::SetSnakeDirection);
+		// PlayerPawn->DirectionEnumDelegate.AddDynamic(this, &ASLSnake::SetSnakeDirection);
 	}
 		
 	PosX = GridManager->ColNum/2;
@@ -58,49 +58,15 @@ void ASLSnake::BeginPlay()
 	
 }
 
-void ASLSnake::SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate)
+/*void ASLSnake::SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate)
 {
 	SnakeDirectionUpdate = NewSnakeDirectionUpdate;
-}
+}*/
 
-void ASLSnake::SnakeMove()
+/*void ASLSnake::SnakeMove()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), PosX, PosY);
 	
-	switch (SnakeDirectionUpdate)
-	{
-		case ESnakeDirection::Up:
-			if(PosY >= 0 && PosY < GridManager->ColNum - 1)
-			{
-				PosY = PosY + 1;
-				SetActorLocation(SnakeGrid[PosX][PosY].Location);
-			}
-		break;
-
-		case ESnakeDirection::Down:
-
-			if(PosY >= 0 && PosY < GridManager->ColNum - 1)
-			{
-				PosY = PosY - 1;
-				SetActorLocation(SnakeGrid[PosX][PosY].Location);
-			}
-		break;
-
-		case ESnakeDirection::Left:
-			if(PosX >= 0 && PosX < GridManager->ColNum - 1)
-			{
-				PosX = PosX - 1;
-				SetActorLocation(SnakeGrid[PosX][PosY].Location);
-			}
-		break;
-
-		case ESnakeDirection::Right:
-			if(PosX >= 0 && PosX < GridManager->ColNum - 1)
-			{
-				PosX = PosX + 1;
-				SetActorLocation(SnakeGrid[PosX][PosY].Location);
-			}
-		break;
-	}
-}
+	
+}*/
 
