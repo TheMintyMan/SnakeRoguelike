@@ -47,7 +47,7 @@ void ASLSnake::BeginPlay()
 	PosX = GridManager->ColNum/2;
 	PosY = 0;
 
-	UE_LOG(LogTemp, Warning, TEXT("Testing Location %s"), *SnakeGrid[5][5].Location.ToString());
+	// UE_LOG(LogTemp, Warning, TEXT("Testing Location %s"), *SnakeGrid[5][5].Location.ToString());
 	
 	// TODO fix this
 	// TArray<TArray<FCellInfo>> CellInfo = GridManager->GetGrid();
@@ -63,10 +63,10 @@ void ASLSnake::BeginPlay()
 	SnakeDirectionUpdate = NewSnakeDirectionUpdate;
 }*/
 
-/*void ASLSnake::SnakeMove()
+void ASLSnake::SnakeMove()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), PosX, PosY);
 	
 	
-}*/
+}
 

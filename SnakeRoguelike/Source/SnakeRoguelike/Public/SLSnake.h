@@ -37,12 +37,9 @@ protected:
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
-	
 	// UFUNCTION()
 	// void SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate);
-
 	
-
 	UFUNCTION()
 	void SnakeMove();
 

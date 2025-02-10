@@ -64,7 +64,8 @@ void ASLPlayerPawn::Clicked()
 void ASLPlayerPawn::Move(const FInputActionValue& Value)
 {
 	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up"));
-	Direction = (FMath::RoundToInt(Value.Get<FVector2d>));
+	FVector2d RawDirection = Value.Get<FVector2d>();
+	Direction = (FMath::RoundToInt(RawDirection.X), FMath::RoundToInt(RawDirection.Y));
 	DirectionDelegate.Broadcast(Direction);
 	print((("Current Direction: %s"), Direction.ToString()));
 }
