@@ -7,10 +7,8 @@
 
 
 // Event Dispatchers for InputAction
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputTriggeredDelegate, UInputAction*, TriggeredAction);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, UInputAction*, ReleasedAction);
-
-
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputTriggeredDelegate, UInputAction*, TriggeredAction);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, FIntPoint, DirectionSend);
 
 class USLInteractionComponent;
 class UInputAction;
@@ -31,7 +29,7 @@ public:
 	ASLPlayerPawn();
 
 	FDirectionDelegate DirectionDelegate;
-	FInputTriggeredDelegate InputTriggered;
+	// FInputTriggeredDelegate InputTriggered;
 	FReleasedActionDelegate InputReleased;
 
 protected:	
@@ -51,7 +49,6 @@ protected:
 	UInputAction* ButtonClickedAction;
 
 	// All the input actions
-	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* MoveAction;
 	
@@ -68,8 +65,8 @@ protected:
 	USLInteractionComponent* InteractionComp;
 	
 
-	UPROPERTY(BlueprintReadOnly, Category="Input")
-	FIntPoint Direction;
+	// UPROPERTY(BlueprintReadOnly, Category="Input")
+	FInt32Point Direction;
 
 public:	
 	// Called to bind functionality to input

@@ -37,13 +37,24 @@ protected:
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
-	// UFUNCTION()
-	// void SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate);
+	FInt32Point DirectionUpdate;
+
+	// Sets the Direction based on the player input in (X,Y) format
+	UFUNCTION()
+	void SetDirection(FIntPoint Direction);
 	
 	UFUNCTION()
 	void SnakeMove();
 
 	TArray<TArray<FCellInfo>> SnakeGrid;
+
+	UPROPERTY(EditDefaultsOnly, Category="Components")
+	float MinPos;
+	
+	UPROPERTY(EditDefaultsOnly, Category="Components")
+	float MaxPos;
+	
+	FInt32Point NewLocation;	
 
 public:	
 

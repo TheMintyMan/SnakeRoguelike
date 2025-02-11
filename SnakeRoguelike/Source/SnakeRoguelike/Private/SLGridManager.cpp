@@ -76,20 +76,15 @@ void ASLGridManager::BeginPlay()
 
 void ASLGridManager::SpawnSnake()
 {
-	FVector SpawnLocation = GridArray[ColNum/2][0].Location;
+	const FVector SpawnLocation = GridArray[ColNum/2][0].Location;
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, SpawnLocation, FRotator::ZeroRotator);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
+	// UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
 }
 
-void ASLGridManager::UpdateTime()
+void ASLGridManager::UpdateTime() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tick"));
+	// UE_LOG(LogTemp, Warning, TEXT("Tick"));
 	UpdateTimeDelegate.Broadcast();
-}
-
-void ASLGridManager::GetGridInfo()
-{
-	
 }
 
 FString ASLGridManager::GetHello()

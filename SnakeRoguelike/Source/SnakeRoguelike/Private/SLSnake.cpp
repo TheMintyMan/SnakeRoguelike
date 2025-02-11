@@ -17,6 +17,10 @@ ASLSnake::ASLSnake()
 	 
 	SnakeBodyMesh = CreateDefaultSubobject<UStaticMeshComponent>("SnakeBodyMesh");
 	SnakeBodyMesh->SetupAttachment(RootComponent);
+
+	MaxPos = 22.f;
+
+	MinPos = 0.f;
 }
 
 // Called when the game starts or when spawned
@@ -41,7 +45,7 @@ void ASLSnake::BeginPlay()
 
 	if(PlayerPawn)
 	{
-		// PlayerPawn->DirectionEnumDelegate.AddDynamic(this, &ASLSnake::SetSnakeDirection);
+		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::SetDirection);
 	}
 		
 	PosX = GridManager->ColNum/2;
@@ -54,19 +58,25 @@ void ASLSnake::BeginPlay()
 	// int32 SizeOfGrid = CellInfo.GetTypeSize();
 	// SizeOfGrid/2;
 
-	
-	
+	DirectionUpdate = FInt32Point(0,1);
 }
 
-/*void ASLSnake::SetSnakeDirection(ESnakeDirection NewSnakeDirectionUpdate)
+
+void ASLSnake::SetDirection(FIntPoint NewDirection)
 {
-	SnakeDirectionUpdate = NewSnakeDirectionUpdate;
-}*/
+	DirectionUpdate = NewDirection;
+}
 
 void ASLSnake::SnakeMove()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), PosX, PosY);
+	// UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), DirectionUpdate.X, DirectionUpdate.Y);
 	
+	PosX = PosX + DirectionUpdate.X;
+	PosY = PosY + DirectionUpdate.Y;
+
+	PosX = FMath::Clamp(PosX,MinPos,MaxPos);
+	PosY = FMath::Clamp(PosY,MinPos,MaxPos);
 	
+	SetActorLocation(SnakeGrid[PosX][PosY].Location);
 }
 

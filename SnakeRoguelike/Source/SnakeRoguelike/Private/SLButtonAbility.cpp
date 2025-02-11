@@ -18,6 +18,8 @@ ASLButtonAbility::ASLButtonAbility()
 
 	ButtonMeshComp = CreateDefaultSubobject<UStaticMeshComponent>("ButtonMesh");
 	ButtonMeshComp->SetupAttachment(RootComp);
+
+	SetAction = FIntPoint(0,1);
 }
 
 // Called when the game starts or when spawned
@@ -28,25 +30,30 @@ void ASLButtonAbility::BeginPlay()
 	ASLPlayerPawn* Controller = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	if (Controller)
 	{
-		Controller->InputTriggered.AddDynamic(this, &ASLButtonAbility::PressKey);
+		Controller->DirectionDelegate.AddDynamic(this, &ASLButtonAbility::PressKey);
 		Controller->InputReleased.AddDynamic(this, &ASLButtonAbility::ReleaseKey);
 	}
 	
 }
 
-void ASLButtonAbility::PressKey(UInputAction* TriggeredAction)
+void ASLButtonAbility::PressKey(FIntPoint NewDirection)
 {
-	if (TriggeredAction == ButtonClickedAction)
+	if (SetAction == NewDirection)
 	{
 		PressedAnim();
 	}
-}
-
-void ASLButtonAbility::ReleaseKey(UInputAction* TriggeredAction)
-{
-	if (TriggeredAction == ButtonClickedAction)
+	else
 	{
 		ReleasedAnim();
+	}
+}
+
+void ASLButtonAbility::ReleaseKey(FIntPoint NewDirection)
+{
+	if (SetAction == NewDirection || SetAction != NewDirection)
+	{
+		ReleasedAnim();
+		UE_LOG(LogTemp, Warning, TEXT("Released %i, %i"), SetAction.X, SetAction.Y);
 	}
 }
 

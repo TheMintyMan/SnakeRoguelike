@@ -96,10 +96,7 @@ public:
 	ASLGridManager();
 	
 	UFUNCTION()
-	void UpdateTime();
-
-	UFUNCTION()
-	void GetGridInfo();
+	void UpdateTime() const;
 	
 	FString GetHello();
 
@@ -107,6 +104,7 @@ public:
 
 protected:
 
+	// Creates the grid before begin play and sets all cell states to "Empty"
 	UFUNCTION(BlueprintCallable)
 	virtual void PostInitializeComponents() override;
 	

@@ -24,6 +24,8 @@ ASLPlayerPawn::ASLPlayerPawn()
 	CameraComp->SetupAttachment(RootComponent);
 
 	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
+
+	Direction = FInt32Point(0,1);
 	
 }
 
@@ -63,17 +65,17 @@ void ASLPlayerPawn::Clicked()
 
 void ASLPlayerPawn::Move(const FInputActionValue& Value)
 {
-	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Up"));
-	FVector2d RawDirection = Value.Get<FVector2d>();
-	Direction = (FMath::RoundToInt(RawDirection.X), FMath::RoundToInt(RawDirection.Y));
+	const FVector2d RawDirection = Value.Get<FVector2d>();
+	Direction = FInt32Point(FMath::RoundToInt(RawDirection.X), FMath::RoundToInt(RawDirection.Y));
 	DirectionDelegate.Broadcast(Direction);
-	print((("Current Direction: %s"), Direction.ToString()));
+	// UE_LOG(LogTemp, Warning, TEXT("Pressed: %i, %i"), Direction.X, Direction.Y);
 }
 
 void ASLPlayerPawn::MoveReleased()
 {
 	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down"));
-	// InputTriggered.Broadcast(DownAction);
+	InputReleased.Broadcast(Direction);
+	UE_LOG(LogTemp, Warning, TEXT("Released: %i, %i"), Direction.X, Direction.Y);
 }
 
 // Called to bind functionality to input
@@ -87,8 +89,7 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Move);
 
-		//EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::MoveReleased);
-
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::MoveReleased);
 	}
 
 }
