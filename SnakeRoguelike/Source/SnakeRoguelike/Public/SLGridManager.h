@@ -100,13 +100,16 @@ public:
 	
 	FString GetHello();
 
-	TArray<TArray<FCellInfo>> GetGrid();		
+	TArray<TArray<FCellInfo>> GetGrid();
 
 protected:
 
 	// Creates the grid before begin play and sets all cell states to "Empty"
 	UFUNCTION(BlueprintCallable)
 	virtual void PostInitializeComponents() override;
+
+	UFUNCTION()
+	void BuildGrid();
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

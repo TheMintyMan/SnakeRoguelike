@@ -22,45 +22,52 @@ ASLGridManager::ASLGridManager()
 void ASLGridManager::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+	
+	BuildGrid();
+}
 
-	GridArray.SetNum(RowNum);
+void ASLGridManager::BuildGrid()
+{
+	// Do not execute if tiles array already contains tiles
+	if(GridArray.Num() == 0)
+	{
+		GridArray.SetNum(RowNum);
 
-	for(TArray<FCellInfo>&  CurrentRow : GridArray)
-	{
-		CurrentRow.SetNum(ColNum);
-		UE_LOG(LogTemp, Warning, TEXT("%i"), 0);
-	}
-	
-	GlobalOffset = RowNum/2*100;
-	
-	FActorSpawnParameters TileSpawnParams;
-	
-	for (int32 y = 0; y < RowNum; y++)
-	{
-		SpawnPosition.X = y * WidthOffset-GlobalOffset;
-		for (int32 x = 0; x < ColNum; x++)
+		for(TArray<FCellInfo>&  CurrentRow : GridArray)
 		{
-			SpawnPosition.Y = x * LengthOffset-GlobalOffset;
-			
-			TileSpawnParams.bNoFail = true;
-			TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
-			TileSpawnParams.Name = FName(*TileName);
-						
-			ASLGridTile* NewTile = GetWorld()->SpawnActor<ASLGridTile>(SpawnActorClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
-
-			UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
-
-			CurrentCellInfo.Location.Set(SpawnPosition.X, SpawnPosition.Y, SpawnPosition.Z);
-			CurrentCellInfo.CellState = ECellState::Empty;
-
-			GridArray[x][y] = CurrentCellInfo;
-
-			if(NewTile)
+			CurrentRow.SetNum(ColNum);
+			UE_LOG(LogTemp, Warning, TEXT("%i"), 0);
+		}
+	
+		GlobalOffset = RowNum/2*100;
+	
+		FActorSpawnParameters TileSpawnParams;
+		for (int32 y = 0; y < RowNum; y++)
+		{
+			SpawnPosition.X = y * WidthOffset-GlobalOffset;
+			for (int32 x = 0; x < ColNum; x++)
 			{
-				NewTile->SetActorLabel(*TileName);
-				NewTile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
-			}
+				SpawnPosition.Y = x * LengthOffset-GlobalOffset;
+			
+				TileSpawnParams.bNoFail = true;
+				TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
+				TileSpawnParams.Name = FName(*TileName);
+						
+				ASLGridTile* NewTile = GetWorld()->SpawnActor<ASLGridTile>(SpawnActorClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
 
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
+
+				CurrentCellInfo.Location.Set(SpawnPosition.X, SpawnPosition.Y, SpawnPosition.Z);
+				CurrentCellInfo.CellState = ECellState::Empty;
+
+				GridArray[x][y] = CurrentCellInfo;
+
+				if(NewTile)
+				{
+					NewTile->SetActorLabel(*TileName);
+					NewTile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+				}
+			}
 		}
 	}
 }
