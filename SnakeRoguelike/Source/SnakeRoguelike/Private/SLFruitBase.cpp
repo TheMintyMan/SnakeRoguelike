@@ -2,8 +2,6 @@
 
 
 #include "SLFruitBase.h"
-
-#include "ShaderPrintParameters.h"
 #include "SLSnake.h"
 #include "Components/BoxComponent.h"
 
@@ -19,9 +17,7 @@ ASLFruitBase::ASLFruitBase()
 	FruitMeshComp->SetupAttachment(RootComponent);
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>("BoxComp");
-
-	TailAddition = 1;
-
+	BoxComp->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -30,25 +26,21 @@ void ASLFruitBase::BeginPlay()
 	Super::BeginPlay();
 
 	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &ASLFruitBase::OnActorOverlap);
-	
 }
 
 void ASLFruitBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	
-	if (OtherActor == GetInstigator())
+	if (OtherActor != GetInstigator())
 	{
 		ASLSnake* SnakeActor = Cast<ASLSnake>(OtherActor);
 		if (SnakeActor)
 		{
-			
-			UE_LOG(LogTemp, Warning, TEXT("Nom Nom"));
+			NomNomDelegate.Broadcast();
 			Destroy();
 		}
 	}
 }
-
 
 
 

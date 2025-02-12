@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "..\Public\SLPlayerPawn.h"
-
+#include "../Public/SLPlayerPawn.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
@@ -68,14 +66,11 @@ void ASLPlayerPawn::Move(const FInputActionValue& Value)
 	const FVector2d RawDirection = Value.Get<FVector2d>();
 	Direction = FInt32Point(FMath::RoundToInt(RawDirection.X), FMath::RoundToInt(RawDirection.Y));
 	DirectionDelegate.Broadcast(Direction);
-	// UE_LOG(LogTemp, Warning, TEXT("Pressed: %i, %i"), Direction.X, Direction.Y);
 }
 
 void ASLPlayerPawn::MoveReleased()
 {
-	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Down"));
 	InputReleased.Broadcast(Direction);
-	UE_LOG(LogTemp, Warning, TEXT("Released: %i, %i"), Direction.X, Direction.Y);
 }
 
 // Called to bind functionality to input

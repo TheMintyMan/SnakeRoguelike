@@ -2,8 +2,12 @@
 
 
 #include "SLSnake.h"
+
+#include "SLFruitBase.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
+#include "SLSnakeTail.h"
+#include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -17,10 +21,17 @@ ASLSnake::ASLSnake()
 	 
 	SnakeBodyMesh = CreateDefaultSubobject<UStaticMeshComponent>("SnakeBodyMesh");
 	SnakeBodyMesh->SetupAttachment(RootComponent);
+	
+	BoxComp = CreateDefaultSubobject<UBoxComponent>("BoxComp");
+	BoxComp->SetupAttachment(RootComponent);
 
 	MaxPos = 22.f;
 
 	MinPos = 0.f;
+
+	SnakeLength.SetNum(1);
+
+	TailSpawnLocation = FVector(0,0,0);
 }
 
 // Called when the game starts or when spawned
@@ -29,9 +40,7 @@ void ASLSnake::BeginPlay()
 	Super::BeginPlay();
 
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
-	
 	GridManager = Cast<ASLGridManager>(Grid);
-
 	if(GridManager)
 	{
 		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::SnakeMove);
@@ -46,6 +55,14 @@ void ASLSnake::BeginPlay()
 	if(PlayerPawn)
 	{
 		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::SetDirection);
+	}
+
+	AActor* Fruit = UGameplayStatics::GetActorOfClass(GetWorld(),ASLFruitBase::StaticClass());
+	FruitActor = Cast<ASLFruitBase>(Fruit);
+	
+	if(FruitActor)
+	{
+		FruitActor->NomNomDelegate.AddDynamic(this, &ASLSnake::NomNom);
 	}
 		
 	PosX = GridManager->ColNum/2;
@@ -69,7 +86,7 @@ void ASLSnake::SetDirection(FIntPoint NewDirection)
 
 void ASLSnake::SnakeMove()
 {
-	// UE_LOG(LogTemp, Warning, TEXT("Current X and Y %i %i"), DirectionUpdate.X, DirectionUpdate.Y);
+	UE_LOG(LogTemp, Warning, TEXT("Snake has moved to %i, %i"), PosX, PosY);
 	
 	PosX = PosX + DirectionUpdate.X;
 	PosY = PosY + DirectionUpdate.Y;
@@ -78,5 +95,12 @@ void ASLSnake::SnakeMove()
 	PosY = FMath::Clamp(PosY,MinPos,MaxPos);
 	
 	SetActorLocation(SnakeGrid[PosX][PosY].Location);
+}
+
+void ASLSnake::NomNom()
+{
+	ASLSnakeTail* NewTail = GetWorld()->SpawnActor<ASLSnakeTail>(TailActor, TailSpawnLocation, FRotator::ZeroRotator);
+	SnakeLength.Add(1);
+	UE_LOG(LogTemp, Warning, TEXT("Nom Nom added"));
 }
 

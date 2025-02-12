@@ -4,24 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SLSnakeTail.generated.h"
+#include "SLObstacleBase.generated.h"
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLSnakeTail : public AActor
+class SNAKEROGUELIKE_API ASLObstacleBase : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASLSnakeTail();
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UStaticMeshComponent* SnakeTailMesh;
+	ASLObstacleBase();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-
 };

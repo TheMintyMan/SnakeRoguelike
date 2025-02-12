@@ -7,6 +7,9 @@
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+class ASLSnakeTail;
+class UBoxComponent;
+class ASLFruitBase;
 enum class ESnakeDirection;
 class ASLPlayerPawn;
 class ASLGridManager;
@@ -31,13 +34,24 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* SnakeBodyMesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	UBoxComponent* BoxComp;
+
 	UPROPERTY()
 	ASLGridManager* GridManager;
+
+	UPROPERTY()
+	ASLFruitBase* FruitActor;
 
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
 	FInt32Point DirectionUpdate;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Components")
+	TSubclassOf<AActor> TailActor;
+	
+	FVector TailSpawnLocation;
 
 	// Sets the Direction based on the player input in (X,Y) format
 	UFUNCTION()
@@ -45,6 +59,10 @@ protected:
 	
 	UFUNCTION()
 	void SnakeMove();
+
+	// When the snake eats a fruit
+	UFUNCTION()
+	void NomNom();
 
 	TArray<TArray<FCellInfo>> SnakeGrid;
 
@@ -54,7 +72,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	float MaxPos;
 	
-	FInt32Point NewLocation;	
+	FInt32Point NewLocation;
+
+	UPROPERTY()
+	TArray<int32> SnakeLength;
 
 public:	
 

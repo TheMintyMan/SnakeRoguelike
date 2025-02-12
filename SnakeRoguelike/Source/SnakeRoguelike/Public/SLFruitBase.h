@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "SLFruitBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAddNomNom);
+
 class UBoxComponent;
 
 UCLASS()
@@ -17,13 +19,15 @@ public:
 	// Sets default values for this actor's properties
 	ASLFruitBase();
 
+	FAddNomNom NomNomDelegate;
+
 protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UBoxComponent* BoxComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
-	UStaticMeshComponent* FruitMeshComp;
+	UStaticMeshComponent* FruitMeshComp;	
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,10 +36,6 @@ protected:
 	// TODO Set this up properly
 	UFUNCTION()
 	void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
-	UPROPERTY()
-	int32 TailAddition;
-	
 
 public:	
 
