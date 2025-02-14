@@ -6,36 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
-class ASLGridTile;
+class ASLObstacleBase;
 class ASLSnake;
-
-UENUM(BlueprintType)
-enum class ECellState : uint8
-{
-	Empty = 0 UMETA(DisplayName = "Empty"),
-	Snake = 1 UMETA(DisplayName = "Snake"),
-	Blocked = 2 UMETA(DisplayName = "Blocked"),
-};
-
-USTRUCT(BlueprintType)
-struct FCellInfo
-	{
-		GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Location;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ECellState CellState;
-
-	// Default Constructor
-	FCellInfo()
-		: Location(FVector::ZeroVector), CellState(ECellState::Empty)
-	{}
-
-	FCellInfo(FVector InLocation, ECellState InGridState)
-		: Location(InLocation), CellState(InGridState)
-	{}
-	};
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateTimeDelegate);
 
@@ -56,10 +28,10 @@ public:
 protected:
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 WidthOffset;
+	int32 WidthSpacing;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
-	int32 LengthOffset;
+	int32 LengthSpacing;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
 	TSubclassOf<AActor> SpawnActorClassTile;
@@ -69,15 +41,18 @@ protected:
 	
 	FVector SpawnPosition = FVector::ZeroVector;
 
+
+	// The speed of the game
 	UPROPERTY(BlueprintReadOnly)
 	float TimerSpeed;
-
-	UPROPERTY()
-	FCellInfo CurrentCellInfo;
 	
 	FString Hello = "Hello From Grid Manager";
 
-	TArray<TArray<FCellInfo>> GridArray;
+	// This is for the grid manager to keep a count of where everything is
+	TArray<TArray<ASLObstacleBase*>> GridArray;
+	
+	// Just passing the locations of the grid array
+	TArray<TArray<FVector>> GridLocation;
 	
 	FString TileName;
 
@@ -100,7 +75,7 @@ public:
 	
 	FString GetHello();
 
-	TArray<TArray<FCellInfo>> GetGrid();
+	TArray<TArray<FVector>> GetGrid();
 
 protected:
 

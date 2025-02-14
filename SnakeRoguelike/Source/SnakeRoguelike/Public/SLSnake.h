@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SLGridManager.h"
+#include "SLCell.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
@@ -16,7 +16,7 @@ class ASLGridManager;
 
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLSnake : public AActor
+class SNAKEROGUELIKE_API ASLSnake : public ASLCell
 {
 	GENERATED_BODY()
 	
@@ -38,18 +38,12 @@ protected:
 	UBoxComponent* BoxComp;
 
 	UPROPERTY()
-	ASLGridManager* GridManager;
-
-	UPROPERTY()
-	ASLFruitBase* FruitActor;
-
-	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
 	FInt32Point DirectionUpdate;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Components")
-	TSubclassOf<AActor> TailActor;
+	TSubclassOf<ASLCell> TailActor;
 	
 	FVector TailSpawnLocation;
 
@@ -60,11 +54,7 @@ protected:
 	UFUNCTION()
 	void SnakeMove();
 
-	// When the snake eats a fruit
-	UFUNCTION()
-	void NomNom();
-
-	TArray<TArray<FCellInfo>> SnakeGrid;
+	//TArray<TArray<>> SnakeGrid;
 
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	float MinPos;
