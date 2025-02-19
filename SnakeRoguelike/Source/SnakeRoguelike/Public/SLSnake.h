@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SLCell.h"
+#include "SLObstacle.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
@@ -16,7 +16,7 @@ class ASLGridManager;
 
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLSnake : public ASLCell
+class SNAKEROGUELIKE_API ASLSnake : public ASLObstacle
 {
 	GENERATED_BODY()
 	

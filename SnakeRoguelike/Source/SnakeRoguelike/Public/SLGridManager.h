@@ -6,8 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
-class ASLObstacleBase;
+class ASLObstacle;
 class ASLSnake;
+class ASLCell;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateTimeDelegate);
 
@@ -34,7 +35,7 @@ protected:
 	int32 LengthSpacing;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
-	TSubclassOf<AActor> SpawnActorClassTile;
+	TSubclassOf<ASLCell> SpawnCellClassTile;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 GlobalOffset;
@@ -49,10 +50,7 @@ protected:
 	FString Hello = "Hello From Grid Manager";
 
 	// This is for the grid manager to keep a count of where everything is
-	TArray<TArray<ASLObstacleBase*>> GridArray;
-	
-	// Just passing the locations of the grid array
-	TArray<TArray<FVector>> GridLocation;
+	TArray<TArray<ASLCell*>> GridArray;
 	
 	FString TileName;
 
@@ -61,7 +59,7 @@ protected:
 	FTimerHandle LoopingTimerHandle;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
-	TSubclassOf<AActor> SnakeActor;
+	TSubclassOf<ASLObstacle*> SnakeActor;
 
 	UFUNCTION()
 	void SpawnSnake();
@@ -75,8 +73,6 @@ public:
 	
 	FString GetHello();
 
-	TArray<TArray<FVector>> GetGrid();
-
 protected:
 
 	// Creates the grid before begin play and sets all cell states to "Empty"
@@ -88,4 +84,19 @@ protected:
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+public:
+	
+	
+	// Adds objects from a cell
+	UFUNCTION()
+	void RegisterCell(FIntPoint Position, ASLObstacle* Object);
+
+	// Removes objects from a cell
+	UFUNCTION()
+	void UnRegisterCell(FIntPoint Position, ASLObstacle* Object);
+
+	// Can get information of objects a Grid Cell holds
+	UFUNCTION()
+	TArray<ASLObstacle*> GetObjectsAt(FIntPoint GridPosition);
 };

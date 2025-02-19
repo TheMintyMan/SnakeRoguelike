@@ -5,13 +5,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SLCell.h"
+#include "SLObstacle.h"
 #include "SLFruitBase.generated.h"
 
 // DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAddNomNom);
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLFruitBase : public ASLCell
+class SNAKEROGUELIKE_API ASLFruitBase : public ASLObstacle
 {
 	GENERATED_BODY()
 	

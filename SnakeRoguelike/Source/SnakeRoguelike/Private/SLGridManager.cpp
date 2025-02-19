@@ -2,8 +2,9 @@
 
 
 #include "SLGridManager.h"
-#include "../Public/SLCell.h"
+#include "../Public/SLObstacle.h"
 #include "SLSnake.h"
+#include "SLCell.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
@@ -32,12 +33,10 @@ void ASLGridManager::BuildGrid()
 	if(GridArray.Num() == 0)
 	{
 		GridArray.SetNum(RowNum);
-		GridLocation.SetNum(RowNum);
-
+		
 		for(int32 i = 0; i < RowNum; i++)
 		{
 			GridArray[i].SetNum(ColNum);
-			GridLocation[i].SetNum(ColNum);
 		}
 		
 		GlobalOffset = RowNum/2*100;
@@ -56,16 +55,14 @@ void ASLGridManager::BuildGrid()
 				TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
 				TileSpawnParams.Name = FName(*TileName);
 				
-				ASLCell* NewTile = GetWorld()->SpawnActor<ASLCell>(SpawnActorClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
-
+				ASLCell* NewCell = GetWorld()->SpawnActor<ASLCell>(SpawnCellClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
+				
 				UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
 				
-				if(NewTile)
+				if(NewCell)
 				{
-					NewTile->SetActorLabel(*TileName);
-					NewTile->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
-
-					GridLocation[x][y] = NewTile->GetActorLocation();
+					NewCell->SetActorLabel(*TileName);
+					NewCell->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 				}
 			}
 		}
@@ -81,10 +78,43 @@ void ASLGridManager::BeginPlay()
 	GetWorldTimerManager().SetTimer(LoopingTimerHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
 }
 
+void ASLGridManager::RegisterCell(FIntPoint Position, ASLObstacle* Object)
+{
+	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
+	{
+		ASLCell* SetCells = GridArray[Position.X][Position.Y];
+		SetCells->ActorsInCell.Add(Object);
+	}
+}
+
+void ASLGridManager::UnRegisterCell(FIntPoint Position, ASLObstacle* Object)
+{
+	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
+	{
+		ASLCell* SetCells = GridArray[Position.X][Position.Y];
+		SetCells->ActorsInCell.Remove(Object);
+	}
+} 
+
+TArray<ASLObstacle*> ASLGridManager::GetObjectsAt(FIntPoint Position)
+{
+	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
+	{
+		ASLCell* SetCells = GridArray[Position.X][Position.Y];
+		if (SetCells)
+		{
+			return SetCells->ActorsInCell;
+		}
+	}
+	
+	return TArray<ASLObstacle*>();
+
+}
+
 void ASLGridManager::SpawnSnake()
 {
 	// TODO Set spawn location const FVector SpawnLocation =
-	const FVector SpawnLocation = GridLocation[ColNum/2][0];
+	const FVector SpawnLocation = GridArray[ColNum/2][0]->GetActorLocation();
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, SpawnLocation, FRotator::ZeroRotator);
 	// UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
 }
@@ -98,9 +128,4 @@ void ASLGridManager::UpdateTime() const
 FString ASLGridManager::GetHello()
 {
 	return Hello;
-}
-
-TArray<TArray<FVector>> ASLGridManager::GetGrid()
-{
-	return GridLocation;
 }

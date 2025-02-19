@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "SLCell.generated.h"
 
-class ASLGridManager;
+class ASLObstacle;
+class UStaticMeshComponent;
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLCell : public AActor
@@ -19,17 +19,22 @@ public:
 	ASLCell();
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Blueprintable, Category="Components")
-	bool CanPassThrough;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Tile")
+	UStaticMeshComponent* CellMesh;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components")
-	UStaticMeshComponent* ObstacleMesh;
+public:
+	UPROPERTY(VisibleInstanceOnly)
+	FIntPoint TileIndex;
 
-	UPROPERTY(EditDefaultsOnly, Category="Components")
-	ASLGridManager* GridManager;
+	UPROPERTY()
+	TArray<ASLObstacle*> ActorsInCell;
+
+	UPROPERTY()
+	FIntPoint Position;	
 	
-	TArray<TArray<FVector>> GridLocation;
-	
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	// Checks whether the Cell is empty or not
+	bool IsOccupied() const;
+
+	// Checks whether the Cell is Passable of not
+	bool IsPassable();
 };
