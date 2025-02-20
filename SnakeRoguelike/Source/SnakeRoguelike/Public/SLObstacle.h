@@ -35,5 +35,5 @@ public:
 	bool CanPassThrough = false;
 
 	UFUNCTION()
-	virtual void GetHit(FIntPoint Position);
+	virtual void GetHit();
 };

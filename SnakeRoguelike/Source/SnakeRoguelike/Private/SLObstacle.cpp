@@ -21,7 +21,7 @@ void ASLObstacle::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ASLObstacle::GetHit(FIntPoint Position)
+void ASLObstacle::GetHit()
 {
 	
 }

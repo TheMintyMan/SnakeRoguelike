@@ -2,6 +2,7 @@
 
 
 #include "SLSnake.h"
+#include "SLCell.h"
 #include "SLFruitBase.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
@@ -34,6 +35,8 @@ void ASLSnake::BeginPlay()
 		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::SnakeMove);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
 	}
+
+	
 
 	AActor* SnakeHead = UGameplayStatics::GetActorOfClass(GetWorld(),ASLPlayerPawn::StaticClass());
 	PlayerPawn = Cast<ASLPlayerPawn>(SnakeHead);
@@ -74,8 +77,30 @@ void ASLSnake::SnakeMove()
 
 	PosX = FMath::Clamp(PosX,MinPos,MaxPos);
 	PosY = FMath::Clamp(PosY,MinPos,MaxPos);
+
+	NextPos = FIntPoint(PosX, PosY);
 	
-	SetActorLocation(GridLocation[PosX][PosY]);
+	if (GridManager->GetCellAt(FIntPoint(PosX,PosY))->IsPassable())
+	{
+		SetActorLocation(GridManager->GetGridArrayLocation(FIntPoint(PosX, PosY)));
+		if (GridManager->GetCellAt(FIntPoint(PosX,PosY))->IsOccupied())
+		{
+			for(int i = 0;  i < GridManager->GetObjectsAt(NextPos).Num(); i++)
+			{
+				GridManager->GetObjectsAt(NextPos)[i]->GetHit();
+				i++;
+			}
+		}
+	}
+	else
+	{
+		KillSnake();
+	}
+	
+	
 }
 
-
+void ASLSnake::KillSnake()
+{
+	// Kill the snake
+}

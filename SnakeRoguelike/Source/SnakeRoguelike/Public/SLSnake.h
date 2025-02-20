@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+class ASLCell;
 class ASLSnakeTail;
 class UBoxComponent;
 class ASLFruitBase;
@@ -47,6 +48,11 @@ protected:
 	
 	FVector TailSpawnLocation;
 
+	FIntPoint NextPos;
+
+	UPROPERTY()
+	TArray<ASLObstacle*> CellObjects;
+
 	// Sets the Direction based on the player input in (X,Y) format
 	UFUNCTION()
 	void SetDirection(FIntPoint Direction);
@@ -66,6 +72,9 @@ protected:
 
 	UPROPERTY()
 	TArray<int32> SnakeLength;
+
+	UFUNCTION()
+	void KillSnake();
 
 public:	
 

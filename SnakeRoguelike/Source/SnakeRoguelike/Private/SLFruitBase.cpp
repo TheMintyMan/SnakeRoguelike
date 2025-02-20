@@ -21,5 +21,12 @@ void ASLFruitBase::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ASLFruitBase::GetHit()
+{
+	Super::GetHit();
+
+	
+}
+
 
 

@@ -59,6 +59,7 @@ void ASLGridManager::BuildGrid()
 				
 				UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
 				
+				GridArray[x][y] = NewCell;
 				if(NewCell)
 				{
 					NewCell->SetActorLabel(*TileName);
@@ -74,8 +75,25 @@ void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASLGridManager::UpdateTime, 0.25f, true, 6.0f);
-	GetWorldTimerManager().SetTimer(LoopingTimerHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
+	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, 0.25f, true, 6.0f);
+	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
+}
+
+void ASLGridManager::SpawnSnake()
+{
+	FVector SpawnLocation = GridArray[ColNum/2][0]->GetActorLocation();
+	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, SpawnLocation, FRotator::ZeroRotator);
+	// UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
+}
+
+FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
+{
+	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
+	{
+		return GridArray[Position.X][Position.Y]->GetActorLocation();
+	}
+	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen!"));
+	return FVector::ZeroVector;
 }
 
 void ASLGridManager::RegisterCell(FIntPoint Position, ASLObstacle* Object)
@@ -108,15 +126,12 @@ TArray<ASLObstacle*> ASLGridManager::GetObjectsAt(FIntPoint Position)
 	}
 	
 	return TArray<ASLObstacle*>();
-
 }
 
-void ASLGridManager::SpawnSnake()
+ASLCell* ASLGridManager::GetCellAt(FIntPoint Position)
 {
-	// TODO Set spawn location const FVector SpawnLocation =
-	const FVector SpawnLocation = GridArray[ColNum/2][0]->GetActorLocation();
-	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, SpawnLocation, FRotator::ZeroRotator);
-	// UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
+	ASLCell* SetCells = GridArray[Position.X][Position.Y];
+	return SetCells;
 }
 
 void ASLGridManager::UpdateTime() const
@@ -124,6 +139,8 @@ void ASLGridManager::UpdateTime() const
 	// UE_LOG(LogTemp, Warning, TEXT("Tick"));
 	UpdateTimeDelegate.Broadcast();
 }
+
+
 
 FString ASLGridManager::GetHello()
 {

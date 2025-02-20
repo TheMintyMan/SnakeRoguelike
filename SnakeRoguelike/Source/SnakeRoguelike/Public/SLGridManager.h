@@ -54,12 +54,12 @@ protected:
 	
 	FString TileName;
 
-	FTimerHandle TimerHandle;
+	FTimerHandle SnakeSpawnHandle;
 
-	FTimerHandle LoopingTimerHandle;
+	FTimerHandle TickingHandle;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
-	TSubclassOf<ASLObstacle*> SnakeActor;
+	TSubclassOf<ASLObstacle> SnakeActor;
 
 	UFUNCTION()
 	void SpawnSnake();
@@ -85,8 +85,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	TMap<FIntPoint, FVector> GridPos;
+
 public:
-	
+	UFUNCTION()
+	FVector GetGridArrayLocation(FIntPoint Position);
 	
 	// Adds objects from a cell
 	UFUNCTION()
@@ -98,5 +101,8 @@ public:
 
 	// Can get information of objects a Grid Cell holds
 	UFUNCTION()
-	TArray<ASLObstacle*> GetObjectsAt(FIntPoint GridPosition);
+	TArray<ASLObstacle*> GetObjectsAt(FIntPoint Position);
+
+	UFUNCTION()
+	ASLCell* GetCellAt(FIntPoint Position);
 };
