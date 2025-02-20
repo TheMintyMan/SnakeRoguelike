@@ -10,6 +10,7 @@
           {
             "id": "59caab7d2b44286e",
             "type": "tabs",
+            "dimension": 53.56498194945848,
             "children": [
               {
                 "id": "8a89fa28e3749f6a",
@@ -30,6 +31,7 @@
           {
             "id": "2b0403f41be284cc",
             "type": "split",
+            "dimension": 46.435018050541515,
             "children": [
               {
                 "id": "fe7c751c707826e4",
@@ -142,6 +144,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Pseudocodes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +154,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for Pseudocodes"
             }
           },
           {
@@ -160,11 +163,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Pseudocodes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from Pseudocodes"
             }
           },
           {
@@ -188,12 +192,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Pseudocodes.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Pseudocodes"
             }
           }
         ]
@@ -213,10 +218,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "bc5b0323d9b56fdd",
+  "active": "8a89fa28e3749f6a",
   "lastOpenFiles": [
-    "create a link.md",
     "Pseudocodes.md",
+    "create a link.md",
     "HUB.md"
   ]
 }

@@ -1,5 +1,6 @@
 
-Movement Check
+### Movement Check
+Snake.cpp
 ```cpp
 if (next snake position == IsPassable)  
 {  
@@ -17,4 +18,30 @@ else
     // Kills the snake if the position that the snake is moving to is not passable  
     Kill Snake;  
 }
+```
+
+### Eat
+Food.cpp
+```cpp
+void Hit
+{
+	if (Hit by Snake)
+	{
+		Call Event AddTail;
+		Destroy;
+	}
+}
+```
+
+Snake.cpp
+```cpp
+void AddTail
+{
+	Get event from Food.cpp grow();
+}
+```
+
+Game Mode
+```cpp
+Add score;
 ```
