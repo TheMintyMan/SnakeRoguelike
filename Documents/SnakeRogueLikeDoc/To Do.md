@@ -1,0 +1,4 @@
+- Eat
+- Ability SlowTime
+- Game Over
+- Ability WrapAround
