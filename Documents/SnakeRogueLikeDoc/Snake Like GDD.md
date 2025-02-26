@@ -18,7 +18,7 @@ Snake but with abilities and upgrades you can buy with a roguelike game loop.
 
 Rooms are time based. Each room will be ~1 minute long except for the boss room being longer. 
 
-The player's goal is to mainly survive but if they want to get far, the player will also need to go for the food to extend their length so that they can buy upgrades from the shop.
+The player's goal is to survive, collect food and buy upgrades from the shop.
 
 Throughout each room, the player will carry through the snake's size.
 
