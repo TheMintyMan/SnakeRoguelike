@@ -1,12 +1,22 @@
-Snake but with abilities and upgrades you can buy with a roguelike game loop
+## Snake
+*But it's a metaphor for late stage capitalism*
 
-Inspiration:
 
-Slay The Spire, Snake, Balatro
+![[Thumbnail_01.png]]
 
-# Gameplay
+## Overview
 
-Rooms are purely time based. Each room will roughly be 1 minute long except for the boss room being 1 minute and 30 seconds. 
+| Genre         | Roguelike, Real-Time, Action, Maze |
+| ------------- | ---------------------------------- |
+| Platform      | PC, Mac, Android                   |
+| Point of View | Top Down, Grid                     |
+| Theme / Mood  | Arcade, Modern                     |
+
+Snake but with abilities and upgrades you can buy with a roguelike game loop.
+
+## Gameplay
+
+Rooms are time based. Each room will be ~1 minute long except for the boss room being longer. 
 
 The player's goal is to mainly survive but if they want to get far, the player will also need to go for the food to extend their length so that they can buy upgrades from the shop.
 
@@ -14,21 +24,23 @@ Throughout each room, the player will carry through the snake's size.
 
 The snake will always spawn from the bottom centre tile moving upwards.
 
-Grid of around 23x23
+The game uses grid based movement just like the original Snake.
 
-# Game Mechanics
+Game Inspiration:
+Slay The Spire, Snake, Balatro
 
-## Rooms
+## Game Mechanics
+
+### Rooms
 
 Players will be put on a timer for each room they have to survive in. There are only 2 types of rooms. The boss rooms and the normal rooms. There will be variations of normal rooms and boss rooms.
 
 Room Types:
-
 - Shop
 - 3 different room types (speed multiplied room, room with more walls, etc)
 - Boss
 
-## Bosses
+### Bosses
 
 Bosses will show up after 3~5 rooms consistently. They will have a unique mechanic unlike any normal room and will give the player more of a challenge.
 
@@ -39,15 +51,15 @@ Bosses will show up after 3~5 rooms consistently. They will have a unique mechan
 - Robo Dile: Shoots lasers around the map
 - Other ideas: Enemy that creates AI that will chase you
 
-## Economy
+### Economy
 
 The player's economy will be based on the snake's size at the end of each round.
 
-## Scoring
+### Scoring
 
 Total score will be immediately added after collecting Food
 
-## Shops
+### Shop
 
 Shops will be where the player will be able to buy power-ups that are temporary and permanent upgrades. After defeating a boss, the player will get an option to get a permanent run item.
 
@@ -57,13 +69,13 @@ Shops will contain:
 - Abilities
 - Perks: Effect that will be applied throughout the run until death
 
-## Abilities
+### Abilities
 
-Abilities are something a player can use once per room. abilities are kept forever unless the player decides to sell it. 
+Abilities are something a player can usually use only once per room. Abilities are kept forever unless the player decides to sell it. 
 
-Players will start with 2 ability slots. 
+Players will start with 1 ability slot. There's up to 4 ability slot a player can have. 
 
-Abilities are purchasable at the shop.
+Abilities are purchased at the [[#Shop]].
 
 Ideas for some abilities:
 - A* path finding to the nearest food block when there is food. If there's no food, it will not be activatable.
@@ -71,7 +83,7 @@ Ideas for some abilities:
 - Allow the player to wrap around the room temporarily
 - Disable all room obstacles temporarily
 
-## Food
+### Food
 
 Food will spawn around the map every X seconds.
 
@@ -84,27 +96,29 @@ Ideas for some food upgrades:
 - Extra Score. Food will provide an extra score
 - There can be up to 2 food on the map at any point
 
-# Non-Essential Mechanics
-
-## Unlockable Snake Types
-
-After getting X amount of score using the base snake, players will be able to unlock a new Snake type with a more interesting base mechanic.
-
-## Infinite Run
-
-Players will be able to play the game indefinitely with the same snake if they wish to do so. The game will continuously become harder due to the game becoming faster and faster per room.
-
-## Map Generation
-
-Some sort of map generation
-
-# UI Design
+## UI Design
 
 Clean, easy to read, minimalist. Only show what is needed.
 
+A bunch of it is diegetic
+
 Simple block UI
 
-# Audio Design
+## Non-Essential Mechanics
+
+### Unlockable Snake Types
+
+After getting X amount of score using the base snake, players will be able to unlock a new Snake type with a more interesting base mechanic.
+
+### Infinite Run
+
+Players will be able to play the game indefinitely with the same snake if they wish to do so. The game will continuously become harder due to the game becoming faster and faster per room.
+
+### Map Generation
+
+Some sort of map generation
+
+## Audio Design
 
 Arcady audio for the sounds?
 
@@ -114,7 +128,7 @@ Something that sounds fun for music. Synthwave?
 
 [https://youtu.be/lZdXZI3l--0](https://youtu.be/lZdXZI3l--0)
 
-# Fun Ideas:
+## Fun Ideas:
 
 Every time you complete a room, all the faces of the grid scales smaller and rotates creating that “dissolve” looking effect. And highlights the grid to be green. When you lose, the grid will dissolve but it’ll highlight in red.
 
