@@ -42,7 +42,6 @@ protected:
 	
 	FVector SpawnPosition = FVector::ZeroVector;
 
-
 	// The speed of the game
 	UPROPERTY(BlueprintReadOnly)
 	float TimerSpeed;
@@ -59,7 +58,7 @@ protected:
 	FTimerHandle TickingHandle;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
-	TSubclassOf<ASLObstacle> SnakeActor;
+	TSubclassOf<AActor> SnakeActor;
 
 	UFUNCTION()
 	void SpawnSnake();
@@ -88,8 +87,13 @@ protected:
 	TMap<FIntPoint, FVector> GridPos;
 
 public:
+	// Gets the location of the position
 	UFUNCTION()
 	FVector GetGridArrayLocation(FIntPoint Position);
+
+	// Gets the position based on location
+	UFUNCTION()
+	FIntPoint GetGridArrayPosition(const FVector& Location);
 	
 	// Adds objects from a cell
 	UFUNCTION()

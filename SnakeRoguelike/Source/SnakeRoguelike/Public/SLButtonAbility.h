@@ -35,16 +35,16 @@ protected:
 	UStaticMeshComponent* ButtonMeshComp;
 
 	UPROPERTY(EditAnywhere, Category="Input")
-	FIntPoint SetAction;
+	UInputAction* SetAction;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void PressKey(FIntPoint NewDirection);
+	void PressKey(UInputAction* TriggeredAction);
 	
 	UFUNCTION()
-	void ReleaseKey(FIntPoint NewDirection);
+	void ReleaseKey(UInputAction* ReleasedAction);
 
 	UFUNCTION(BlueprintNativeEvent)
 	void PressedAnim();

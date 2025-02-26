@@ -9,6 +9,8 @@
 // Event Dispatchers for InputAction
 // DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputTriggeredDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, FIntPoint, DirectionSend);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggeredActionVisualDelegate, UInputAction*, TriggeredAction);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleaseActionVisualDelegate, UInputAction*, ReleasedAction);
 
 class USLInteractionComponent;
 class UInputAction;
@@ -29,8 +31,9 @@ public:
 	ASLPlayerPawn();
 
 	FDirectionDelegate DirectionDelegate;
-	// FInputTriggeredDelegate InputTriggered;
-	FReleasedActionDelegate InputReleased;
+
+	FTriggeredActionVisualDelegate InputTriggeredDelegate;
+	FReleaseActionVisualDelegate InputReleasedDelegate;
 
 protected:	
 	UPROPERTY(VisibleAnywhere)
@@ -50,16 +53,43 @@ protected:
 
 	// All the input actions
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	UInputAction* MoveAction;
+	UInputAction* UpAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* DownAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* LeftAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	UInputAction* RightAction;
 	
 	UFUNCTION()
 	void Clicked();
 
 	UFUNCTION()
-	void Move(const FInputActionValue& Value);
+	void Up();
 
 	UFUNCTION()
-	void MoveReleased();
+	void Down();
+
+	UFUNCTION()
+	void Left();
+
+	UFUNCTION()
+	void Right();
+
+	UFUNCTION()
+	void UpReleased() const;
+
+	UFUNCTION()
+	void DownReleased() const;
+
+	UFUNCTION()
+	void LeftReleased() const;
+
+	UFUNCTION()
+	void RightReleased() const;
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;

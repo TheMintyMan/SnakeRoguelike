@@ -96,6 +96,22 @@ FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
 	return FVector::ZeroVector;
 }
 
+FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
+{
+	for (int32 y = 0; y < GridArray.Num()-1; y++)
+	{
+		for (int32 x = 0; x < GridArray.Num()-1; x++)
+		{
+			if (GridArray[x][y]->GetActorLocation() == Location)
+			{
+				return FIntPoint(x, y);
+			}
+		}
+	}
+	UE_LOG(LogTemp, Warning, TEXT("Nothing found"));
+	return FIntPoint::NoneValue;
+}
+
 void ASLGridManager::RegisterCell(FIntPoint Position, ASLObstacle* Object)
 {
 	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))

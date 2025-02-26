@@ -1,23 +1,31 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SLSnakeTail.h"
+#include "SLSnakeBody.h"
 
 // Sets default values
-ASLSnakeTail::ASLSnakeTail()
+ASLSnakeBody::ASLSnakeBody()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	RootComponent = CreateDefaultSubobject<USceneComponent>("RootComp");
-	 
-	SnakeTailMesh = CreateDefaultSubobject<UStaticMeshComponent>("SnakeBodyMesh");
-	SnakeTailMesh->SetupAttachment(RootComponent);
+	PreviousBody = nullptr;
+	NextBody = nullptr;
+
 }
 
 // Called when the game starts or when spawned
-void ASLSnakeTail::BeginPlay()
+void ASLSnakeBody::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
+void ASLSnakeBody::SetPrevious(ASLSnakeBody* SnakePtr)
+{
+	PreviousBody = SnakePtr;
+}
+
+void ASLSnakeBody::SetNext(ASLSnakeBody* SnakePtr)
+{
+	NextBody = SnakePtr;
+}

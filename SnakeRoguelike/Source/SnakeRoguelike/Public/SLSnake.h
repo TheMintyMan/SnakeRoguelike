@@ -8,16 +8,15 @@
 #include "SLSnake.generated.h"
 
 class ASLCell;
-class ASLSnakeTail;
+class ASLSnakeBody;
 class UBoxComponent;
-class ASLFruitBase;
-enum class ESnakeDirection;
+class ASLFoodBase;
 class ASLPlayerPawn;
 class ASLGridManager;
-
+class ASLSnakeBody;
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLSnake : public ASLObstacle
+class SNAKEROGUELIKE_API ASLSnake : public AActor
 {
 	GENERATED_BODY()
 	
@@ -32,50 +31,82 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UStaticMeshComponent* SnakeBodyMesh;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
-	UBoxComponent* BoxComp;
+	
+	
+	///// Start of Snake Body information /////
 
 	UPROPERTY()
-	ASLPlayerPawn* PlayerPawn;
+	int32 NumberOfBodies;
 	
-	FInt32Point DirectionUpdate;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Components")
-	TSubclassOf<ASLCell> TailActor;
+	FVector SpawnPosition;
 	
-	FVector TailSpawnLocation;
+	FActorSpawnParameters SpawnParams;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	TSubclassOf<ASLObstacle> SnakeBodySubclass;
 
-	FIntPoint NextPos;
+	UPROPERTY()
+	ASLSnakeBody* SnakeBody;
+	
+	UPROPERTY()
+	ASLSnakeBody* SnakeHead;
+
+	UPROPERTY()
+	ASLSnakeBody* SnakeTail;
+
+	UFUNCTION()
+	void SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake = nullptr);
+	
+	///// End of Snake Body information /////
+	
+	
+	
+	///// Start of Grid Information /////
 
 	UPROPERTY()
 	TArray<ASLObstacle*> CellObjects;
 
-	// Sets the Direction based on the player input in (X,Y) format
-	UFUNCTION()
-	void SetDirection(FIntPoint Direction);
+	UPROPERTY()
+	ASLGridManager* GridManager;
 	
-	UFUNCTION()
-	void SnakeMove();
+	///// End of Grid Information /////
+	
+	
+	
+	///// Start of Movement /////
 
-	//TArray<TArray<>> SnakeGrid;
+	UPROPERTY()
+	ASLPlayerPawn* PlayerPawn;
+	
+	FIntPoint NextPos;
 
+	FIntPoint DirectionUpdate;
+	
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	float MinPos;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	float MaxPos;
-	
-	FInt32Point NewLocation;
 
-	UPROPERTY()
-	TArray<int32> SnakeLength;
+	UFUNCTION()
+	void SetDirection(FIntPoint Direction);
+	
+	UFUNCTION()
+	void SnakeMove();
+	
+	///// End of Movement /////
+	
 
 	UFUNCTION()
 	void KillSnake();
 
+	UPROPERTY()
+	ASLFoodBase* FruitBase;
+	
+	UFUNCTION()
+	void Grow();
+
 public:	
 
 };
+

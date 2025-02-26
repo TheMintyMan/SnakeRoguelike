@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "../Public/SLCell.h"
 #include <Components/SceneComponent.h>
 #include <Components/StaticMeshComponent.h>
