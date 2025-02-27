@@ -11,3 +11,7 @@ When you're ready, delete this note and make the vault your own.
 [[Snake Like GDD]]
 
 [[Art]]
+
+Credits:
+Pseudo Programmers: Ronan Richardson, Benamin Anderson
+

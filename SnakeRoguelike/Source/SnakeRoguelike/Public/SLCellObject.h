@@ -5,18 +5,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SLObstacle.generated.h"
+#include "SLCellObject.generated.h"
 
 class ASLGridManager;
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLObstacle : public AActor
+class SNAKEROGUELIKE_API ASLCellObject : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASLObstacle();
+	ASLCellObject();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components")
@@ -29,11 +29,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-
 	// If it's true, things can pass through it
 	UPROPERTY(EditDefaultsOnly, Blueprintable, Category="Components")
 	bool CanPassThrough = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
+	FIntPoint GridPos;
+
 	UFUNCTION()
-	virtual void GetHit();
+	virtual void GetHit(ASLCellObject* HitObjectPtr);
 };

@@ -55,9 +55,19 @@ Bosses will show up after 3~5 rooms consistently. They will have a unique mechan
 
 The player's economy will be based on the snake's size at the end of each round.
 
+IDEAS:
+Shop Items that shrink yourself
+
 ### Scoring
 
 Total score will be immediately added after collecting Food
+
+Timer and Score to get through level
+
+IDEAS:
+Best strat rn is to stay as  small as possible.
+(Tie Victory to Score)
+I'll need score for current score and total score gotten
 
 ### Shop
 

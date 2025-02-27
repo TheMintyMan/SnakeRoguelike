@@ -5,13 +5,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SLObstacle.h"
+#include "SLCellObject.h"
 #include "SLFoodBase.generated.h"
 
+// Sends this to the UI and Snake.cpp
+// When the food gets hit, the snake will grow and score will be added
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAddNomNom);
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLFoodBase : public ASLObstacle
+class SNAKEROGUELIKE_API ASLFoodBase : public ASLCellObject
 {
 	GENERATED_BODY()
 	
@@ -21,13 +23,9 @@ public:
 
 	FAddNomNom NomNomDelegate;
 
-protected:
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
-	FIntPoint Position;
-	
+protected:	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	virtual void GetHit() override;
+	virtual void GetHit(ASLCellObject* HitObjectPtr) override;
 };

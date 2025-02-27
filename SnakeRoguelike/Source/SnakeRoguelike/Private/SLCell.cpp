@@ -4,7 +4,7 @@
 #include <Components/SceneComponent.h>
 #include <Components/StaticMeshComponent.h>
 
-#include "SLObstacle.h"
+#include "SLCellObject.h"
 
 // Sets default values
 ASLCell::ASLCell()
@@ -28,7 +28,7 @@ bool ASLCell::IsOccupied() const
 
 bool ASLCell::IsPassable()
 {
-	for(ASLObstacle* Obstacles : ActorsInCell)
+	for(ASLCellObject* Obstacles : ActorsInCell)
 	{
 		if(!Obstacles->CanPassThrough)
 		{

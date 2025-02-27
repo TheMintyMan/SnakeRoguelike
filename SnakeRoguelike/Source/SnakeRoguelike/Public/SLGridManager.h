@@ -6,10 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
-class ASLObstacle;
+class ASLCellObject;
 class ASLSnake;
 class ASLCell;
 
+
+// This is the "TICK" of the game. Everything will update based on when this event gets updated
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateTimeDelegate);
 
 UCLASS()
@@ -86,6 +88,9 @@ protected:
 
 	TMap<FIntPoint, FVector> GridPos;
 
+	// TODO Set up Hit Objects at Grid Position
+	// void HitObjectsAtGridPos(FInt32Point GridPos, ASLCellObject* HitObjectPtr);
+
 public:
 	// Gets the location of the position
 	UFUNCTION()
@@ -97,15 +102,15 @@ public:
 	
 	// Adds objects from a cell
 	UFUNCTION()
-	void RegisterCell(FIntPoint Position, ASLObstacle* Object);
+	void RegisterCell(FIntPoint Position, ASLCellObject* Object);
 
 	// Removes objects from a cell
 	UFUNCTION()
-	void UnRegisterCell(FIntPoint Position, ASLObstacle* Object);
+	void UnRegisterCell(FIntPoint Position, ASLCellObject* Object);
 
 	// Can get information of objects a Grid Cell holds
 	UFUNCTION()
-	TArray<ASLObstacle*> GetObjectsAt(FIntPoint Position);
+	TArray<ASLCellObject*> GetObjectsAt(FIntPoint Position);
 
 	UFUNCTION()
 	ASLCell* GetCellAt(FIntPoint Position);

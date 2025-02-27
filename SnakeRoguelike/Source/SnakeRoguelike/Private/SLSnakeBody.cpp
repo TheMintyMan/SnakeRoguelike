@@ -11,13 +11,24 @@ ASLSnakeBody::ASLSnakeBody()
 
 	PreviousBody = nullptr;
 	NextBody = nullptr;
-
 }
 
 // Called when the game starts or when spawned
 void ASLSnakeBody::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ASLSnakeBody::GetHit(ASLCellObject* HitObjectPtr)
+{
+	Super::GetHit(HitObjectPtr);
+
+	if (NextBody == nullptr && Cast<ASLSnakeBody>(HitObjectPtr))
+	{
+		return;
+	}
+	
+	SetLifeSpan(0);
 }
 
 void ASLSnakeBody::SetPrevious(ASLSnakeBody* SnakePtr)
@@ -29,3 +40,4 @@ void ASLSnakeBody::SetNext(ASLSnakeBody* SnakePtr)
 {
 	NextBody = SnakePtr;
 }
+

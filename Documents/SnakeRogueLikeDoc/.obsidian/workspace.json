@@ -10,7 +10,7 @@
           {
             "id": "59caab7d2b44286e",
             "type": "tabs",
-            "dimension": 54.957356076759055,
+            "dimension": 53.042959427207634,
             "children": [
               {
                 "id": "8a89fa28e3749f6a",
@@ -18,12 +18,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Snake Like GDD.md",
+                    "file": "Snake Pseudocodes.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Snake Like GDD"
+                  "title": "Snake Pseudocodes"
                 }
               }
             ]
@@ -31,7 +31,7 @@
           {
             "id": "2b0403f41be284cc",
             "type": "split",
-            "dimension": 45.04264392324094,
+            "dimension": 46.957040572792366,
             "children": [
               {
                 "id": "fe7c751c707826e4",
@@ -63,10 +63,14 @@
                     "id": "bc5b0323d9b56fdd",
                     "type": "leaf",
                     "state": {
-                      "type": "graph",
-                      "state": {},
-                      "icon": "lucide-git-fork",
-                      "title": "Graph view"
+                      "type": "markdown",
+                      "state": {
+                        "file": "Creating Snake Like.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "Creating Snake Like"
                     }
                   }
                 ]
@@ -222,16 +226,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "bc5b0323d9b56fdd",
+  "active": "8a89fa28e3749f6a",
   "lastOpenFiles": [
     "Snake Like GDD.md",
-    "Snake Pseudocodes.md",
-    "Thumbnail_01.png",
-    "2025-02-26.md",
+    "Images",
+    "Images/Thumbnail_01.png",
     "Creating Snake Like.md",
+    "HUB.md",
+    "Snake Pseudocodes.md",
     "Art.md",
     "To Do.md",
-    "HUB.md",
+    "2025-02-26.md",
     "create a link.md"
   ]
 }

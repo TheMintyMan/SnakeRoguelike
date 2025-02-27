@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SLObstacle.h"
+#include "SLCellObject.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
@@ -24,89 +24,116 @@ public:
 	// Sets default values for this actor's properties
 	ASLSnake();
 
-	int32 PosX;
-	int32 PosY;
+	
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	int32 PosX;
+	int32 PosY;
 	
-	
-	///// Start of Snake Body information /////
-
+	///// - Snake Body information /////
 	UPROPERTY()
 	int32 NumberOfBodies;
-	
-	FVector SpawnPosition;
 	
 	FActorSpawnParameters SpawnParams;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	TSubclassOf<ASLObstacle> SnakeBodySubclass;
+	TSubclassOf<ASLCellObject> SnakeBodySubclass;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	ASLSnakeBody* SnakeBody;
 	
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	ASLSnakeBody* SnakeHead;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	ASLSnakeBody* SnakeTail;
+	
+
+	// UPROPERTY()
+	// ASLSnakeBody* NewSnakeTail;
 
 	UFUNCTION()
 	void SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake = nullptr);
 	
-	///// End of Snake Body information /////
+	///// Snake Body information - /////
 	
+
 	
-	
-	///// Start of Grid Information /////
+	///// - Grid Information /////
 
 	UPROPERTY()
-	TArray<ASLObstacle*> CellObjects;
+	TArray<ASLCellObject*> CellObjects;
 
 	UPROPERTY()
 	ASLGridManager* GridManager;
+
+	FVector SpawnWorldPos;
+
+	FInt32Point SpawnGridPos;
+
+	FInt32Point NextGridPos;
 	
-	///// End of Grid Information /////
+	UPROPERTY()
+	int32 MinPos;
+	
+	UPROPERTY()
+	int32 MaxPos;
+	
+	///// Grid Information - /////
 	
 	
 	
-	///// Start of Movement /////
+	///// - Movement /////
 
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
-	
-	FIntPoint NextPos;
 
-	FIntPoint DirectionUpdate;
+	FInt32Point DirectionUpdate;
 	
-	UPROPERTY(EditDefaultsOnly, Category="Components")
-	float MinPos;
-	
-	UPROPERTY(EditDefaultsOnly, Category="Components")
-	float MaxPos;
+	UPROPERTY()
+	ASLFoodBase* FruitBase;
+
+	UPROPERTY()
+	int32 GrowthAmount;
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+	int32 GrowthQueue;
+
+	UFUNCTION()
+	FInt32Point GetNextGridPos();
+
+	UFUNCTION()
+	void SnakeMove();
+
+	UFUNCTION()
+	void IncreaseGrowthQueue(int32 GrowthAmountInput);
+
+	// This will do all MOVE and GROWTH
+	UFUNCTION()
+	void OnUpdateTick();
 
 	UFUNCTION()
 	void SetDirection(FIntPoint Direction);
 	
 	UFUNCTION()
-	void SnakeMove();
-	
-	///// End of Movement /////
-	
-
-	UFUNCTION()
 	void KillSnake();
 
-	UPROPERTY()
-	ASLFoodBase* FruitBase;
-	
 	UFUNCTION()
 	void Grow();
+	
+	///// Movement - /////
+
+	
+
+
+	
+
+	
+
 
 public:	
-
 };
 

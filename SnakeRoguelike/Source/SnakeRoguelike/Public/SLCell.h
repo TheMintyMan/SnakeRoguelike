@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "SLCell.generated.h"
 
-class ASLObstacle;
+class ASLCellObject;
 class UStaticMeshComponent;
 
 UCLASS()
@@ -27,7 +27,7 @@ public:
 	FIntPoint TileIndex;
 
 	UPROPERTY()
-	TArray<ASLObstacle*> ActorsInCell;
+	TArray<ASLCellObject*> ActorsInCell;
 
 	UPROPERTY()
 	FIntPoint Position;	

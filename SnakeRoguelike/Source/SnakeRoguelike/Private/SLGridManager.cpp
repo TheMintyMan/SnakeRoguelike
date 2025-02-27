@@ -2,7 +2,7 @@
 
 
 #include "SLGridManager.h"
-#include "../Public/SLObstacle.h"
+#include "../Public/SLCellObject.h"
 #include "SLSnake.h"
 #include "SLCell.h"
 
@@ -49,7 +49,7 @@ void ASLGridManager::BuildGrid()
 			{
 				SpawnPosition.Y = x * LengthSpacing-GlobalOffset;
 				
-				//GridArray[x][y]->SetActorLocation(SpawnPosition);
+				// GridArray[x][y]->SetActorLocation(SpawnGridPos);
 				
 				TileSpawnParams.bNoFail = true;
 				TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
@@ -57,7 +57,7 @@ void ASLGridManager::BuildGrid()
 				
 				ASLCell* NewCell = GetWorld()->SpawnActor<ASLCell>(SpawnCellClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
 				
-				UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
+				// UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
 				
 				GridArray[x][y] = NewCell;
 				if(NewCell)
@@ -74,21 +74,28 @@ void ASLGridManager::BuildGrid()
 void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, 0.25f, true, 6.0f);
 	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
 }
 
 void ASLGridManager::SpawnSnake()
 {
-	FVector SpawnLocation = GridArray[ColNum/2][0]->GetActorLocation();
-	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, SpawnLocation, FRotator::ZeroRotator);
-	// UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnLocation.ToString())
+	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, FVector::ZeroVector, FRotator::ZeroRotator);
 }
+
+// TODO Set up Hit Objects at Grid Position
+/*void ASLGridManager::HitObjectsAtGridPos(FInt32Point GridPos, ASLCellObject* HitObjectPtr)
+{
+	for(int i = 0;  i < GetObjectsAt(NextGridPos).Num(); i++)
+	{
+		GetObjectsAt(NextGridPos)[i]->GetHit(HitObjectPtr);
+	}
+}*/
 
 FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
 {
-	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
+	if (GridArray.IsValidIndex(Position.X) && GridArray[Position.X].IsValidIndex(Position.Y))
 	{
 		return GridArray[Position.X][Position.Y]->GetActorLocation();
 	}
@@ -112,7 +119,7 @@ FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
 	return FIntPoint::NoneValue;
 }
 
-void ASLGridManager::RegisterCell(FIntPoint Position, ASLObstacle* Object)
+void ASLGridManager::RegisterCell(FIntPoint Position, ASLCellObject* Object)
 {
 	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
 	{
@@ -121,7 +128,7 @@ void ASLGridManager::RegisterCell(FIntPoint Position, ASLObstacle* Object)
 	}
 }
 
-void ASLGridManager::UnRegisterCell(FIntPoint Position, ASLObstacle* Object)
+void ASLGridManager::UnRegisterCell(FIntPoint Position, ASLCellObject* Object)
 {
 	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
 	{
@@ -130,7 +137,7 @@ void ASLGridManager::UnRegisterCell(FIntPoint Position, ASLObstacle* Object)
 	}
 } 
 
-TArray<ASLObstacle*> ASLGridManager::GetObjectsAt(FIntPoint Position)
+TArray<ASLCellObject*> ASLGridManager::GetObjectsAt(FIntPoint Position)
 {
 	if (GridArray.IsValidIndex(Position.X) && GridArray.IsValidIndex(Position.Y))
 	{
@@ -141,7 +148,7 @@ TArray<ASLObstacle*> ASLGridManager::GetObjectsAt(FIntPoint Position)
 		}
 	}
 	
-	return TArray<ASLObstacle*>();
+	return TArray<ASLCellObject*>();
 }
 
 ASLCell* ASLGridManager::GetCellAt(FIntPoint Position)

@@ -16,7 +16,6 @@ class USLInteractionComponent;
 class UInputAction;
 class UInputMappingContext;
 class UCameraComponent;
-class UStaticMeshComponent;
 class USceneComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint, DirectionSend);

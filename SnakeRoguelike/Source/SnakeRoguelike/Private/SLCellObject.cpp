@@ -1,27 +1,36 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "../Public/SLObstacle.h"
+#include "../Public/SLCellObject.h"
 #include "SLGridManager.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
-ASLObstacle::ASLObstacle()
+ASLCellObject::ASLCellObject()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
+	
 	RootComponent = CreateDefaultSubobject<USceneComponent>("RootComp");
 	ObstacleMesh = CreateDefaultSubobject<UStaticMeshComponent>("ObstacleMesh");
+	ObstacleMesh->SetupAttachment(RootComponent);
+	
+	GridPos = FIntPoint(0,0);
 }
 
 // Called when the game starts or when spawned
-void ASLObstacle::BeginPlay()
+void ASLCellObject::BeginPlay()
 {
+	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
+	GridManager = Cast<ASLGridManager>(Grid);
+
+	GridPos = GridManager->GetGridArrayPosition(GetActorLocation());
+	GridManager->RegisterCell(GridPos, this);
+	
 	Super::BeginPlay();
 }
 
-void ASLObstacle::GetHit()
+void ASLCellObject::GetHit(ASLCellObject* HitObjectPtr)
 {
 	
 }
