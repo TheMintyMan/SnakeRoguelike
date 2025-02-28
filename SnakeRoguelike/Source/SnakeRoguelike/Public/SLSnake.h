@@ -29,9 +29,6 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	int32 PosX;
-	int32 PosY;
 	
 	///// - Snake Body information /////
 	UPROPERTY()
@@ -41,9 +38,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TSubclassOf<ASLCellObject> SnakeBodySubclass;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	ASLSnakeBody* SnakeBody;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	ASLSnakeBody* SnakeHead;
@@ -55,8 +49,8 @@ protected:
 	// UPROPERTY()
 	// ASLSnakeBody* NewSnakeTail;
 
-	UFUNCTION()
-	void SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake = nullptr);
+	// UFUNCTION()
+	// void SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake = nullptr);
 	
 	///// Snake Body information - /////
 	
@@ -72,9 +66,13 @@ protected:
 
 	FVector SpawnWorldPos;
 
-	FInt32Point SpawnGridPos;
+	// UPROPERTY(EditAnywhere, Category = "Components")
+	// FInt32Point SpawnGridPos;
 
 	FInt32Point NextGridPos;
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+	FInt32Point PrevTailGridPos;
 	
 	UPROPERTY()
 	int32 MinPos;
@@ -91,7 +89,12 @@ protected:
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 
-	FInt32Point DirectionUpdate;
+
+	UPROPERTY()
+	FInt32Point CurrentDirection;
+
+	UPROPERTY()
+	FInt32Point InputDirection;
 	
 	UPROPERTY()
 	ASLFoodBase* FruitBase;
@@ -103,26 +106,33 @@ protected:
 	int32 GrowthQueue;
 
 	UFUNCTION()
-	FInt32Point GetNextGridPos();
+	void SetDirection(FInt32Point NewDirection);
 
-	UFUNCTION()
-	void SnakeMove();
-
+public:
+	
 	UFUNCTION()
 	void IncreaseGrowthQueue(int32 GrowthAmountInput);
 
+protected:
 	// This will do all MOVE and GROWTH
 	UFUNCTION()
 	void OnUpdateTick();
 
 	UFUNCTION()
-	void SetDirection(FIntPoint Direction);
-	
+	FInt32Point GetNextGridPos();
+
 	UFUNCTION()
-	void KillSnake();
+	void SnakeMove();
+
+	// Kills Next body part, Kills, Next body part
+	// Animation Event Timeline done in Blueprints on the Timeline node
+	UFUNCTION(Blueprintable)
+	void KillSnake(ASLSnakeBody* InSnakeBody);
 
 	UFUNCTION()
 	void Grow();
+	
+	
 	
 	///// Movement - /////
 

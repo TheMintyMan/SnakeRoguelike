@@ -2,6 +2,8 @@
 
 
 #include "SLFoodBase.h"
+
+#include "SLGridManager.h"
 #include "SLSnake.h"
 
 // Sets default values
@@ -16,7 +18,7 @@ ASLFoodBase::ASLFoodBase()
 // Called when the game starts or when spawned
 void ASLFoodBase::BeginPlay()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Added Fruit at %i, %i"), Position.X, Position.Y);
+	UE_LOG(LogTemp, Warning, TEXT("Added Fruit at %i, %i"), GridPos.X, GridPos.Y);
 	
 	Super::BeginPlay();
 }
@@ -26,11 +28,17 @@ void ASLFoodBase::GetHit(ASLCellObject* HitObjectPtr)
 	Super::GetHit(HitObjectPtr);
 	
 	
-	ASLSnake* Snake = Cast<ASLSnake>(HitObjectPtr);
-	
+	ASLSnake* Snake = Cast<ASLSnake>(HitObjectPtr->GetOwner());
+	if (Snake)
+	{
+		Snake->IncreaseGrowthQueue(GrowthAmount);
+		GridManager->UnRegisterCell(GridPos, this);
+	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("Fruit has been hit"));
-	NomNomDelegate.Broadcast();
-	
+
 	Destroy();
+	//SetLifeSpan(0.1);
 }
+
+/// TODO Gridmanger->SpawnCell(SLFoodBase)

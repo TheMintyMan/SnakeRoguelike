@@ -3,14 +3,13 @@
 
 #include "SLSnakeBody.h"
 
-// Sets default values
-ASLSnakeBody::ASLSnakeBody()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+#include "SLGridManager.h"
 
-	PreviousBody = nullptr;
-	NextBody = nullptr;
+// Sets default values
+ASLSnakeBody::ASLSnakeBody(): PreviousBody(), PrevBodyGridPos(), NextBody(), NextBodyGridPos(), CurrentGridPos()
+{
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +25,10 @@ void ASLSnakeBody::GetHit(ASLCellObject* HitObjectPtr)
 	if (NextBody == nullptr && Cast<ASLSnakeBody>(HitObjectPtr))
 	{
 		return;
+	}
+	else
+	{
+		GridManager->GridEnd();
 	}
 	
 	SetLifeSpan(0);

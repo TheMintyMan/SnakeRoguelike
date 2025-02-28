@@ -1,6 +1,7 @@
 - Eat (WIP, need to add tail)
+- KYS, Apple Spawn, Score, Win/Loss
+- 
 - Ability SlowTime
-- Game Over
 - Ability WrapAround
 
 - Win/Loss Condition

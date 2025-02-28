@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -10,7 +9,6 @@
 
 // Sends this to the UI and Snake.cpp
 // When the food gets hit, the snake will grow and score will be added
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAddNomNom);
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLFoodBase : public ASLCellObject
@@ -21,11 +19,12 @@ public:
 	// Sets default values for this actor's properties
 	ASLFoodBase();
 
-	FAddNomNom NomNomDelegate;
-
 protected:	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	int32 GrowthAmount = 1;
 
 	virtual void GetHit(ASLCellObject* HitObjectPtr) override;
 };

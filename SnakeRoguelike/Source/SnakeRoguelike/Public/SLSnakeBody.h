@@ -28,6 +28,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	FInt32Point NextBodyGridPos;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	FInt32Point CurrentGridPos;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

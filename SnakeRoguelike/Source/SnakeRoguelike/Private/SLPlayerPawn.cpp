@@ -51,6 +51,7 @@ void ASLPlayerPawn::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
 	}
+	
 }
 
 void ASLPlayerPawn::Clicked()
@@ -63,49 +64,57 @@ void ASLPlayerPawn::Clicked()
 
 void ASLPlayerPawn::Up()
 {
+
 	Direction = FInt32Point(0,1);
 	DirectionDelegate.Broadcast(Direction);
+	
 	InputTriggeredDelegate.Broadcast(UpAction);
 }
 
 void ASLPlayerPawn::Down()
 {
+
 	Direction = FInt32Point(0,-1);
 	DirectionDelegate.Broadcast(Direction);
+
+	
 	InputTriggeredDelegate.Broadcast(DownAction);
 }
 
 void ASLPlayerPawn::Left()
 {
-	Direction = FInt32Point(1,0);
+
+	Direction = FInt32Point(-1,0);
 	DirectionDelegate.Broadcast(Direction);
+
 	InputTriggeredDelegate.Broadcast(LeftAction);
 }
 
 void ASLPlayerPawn::Right()
 {
-	
-	Direction = FInt32Point(-1,0);
+
+	Direction = FInt32Point(1,0);
 	DirectionDelegate.Broadcast(Direction);
+
 	InputTriggeredDelegate.Broadcast(RightAction);
 }
 
-void ASLPlayerPawn::UpReleased() const
+void ASLPlayerPawn::UpReleased()
 {
 	InputReleasedDelegate.Broadcast(UpAction);
 }
 
-void ASLPlayerPawn::DownReleased() const
+void ASLPlayerPawn::DownReleased()
 {
 	InputReleasedDelegate.Broadcast(DownAction);
 }
 
-void ASLPlayerPawn::LeftReleased() const
+void ASLPlayerPawn::LeftReleased()
 {
 	InputReleasedDelegate.Broadcast(LeftAction);
 }
 
-void ASLPlayerPawn::RightReleased() const
+void ASLPlayerPawn::RightReleased()
 {
 	InputReleasedDelegate.Broadcast(RightAction);
 }
@@ -120,16 +129,16 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Clicked);
 		
 		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Up);
-		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::Up);
+		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
 
 		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Down);
-		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::Down);
+		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::DownReleased);
 
 		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Left);
-		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::Left);
+		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::LeftReleased);
 
 		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Right);
-		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::Right);
+		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
 	}
 
 }

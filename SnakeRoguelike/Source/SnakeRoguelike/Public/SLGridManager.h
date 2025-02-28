@@ -64,13 +64,22 @@ protected:
 
 	UFUNCTION()
 	void SpawnSnake();
+
 	
-public:	
+	
+public:
+
+	UFUNCTION()
+	void SpawnCell(ASLCellObject* InObject);
+	
 	// Sets default values for this actor's properties
 	ASLGridManager();
 	
 	UFUNCTION()
 	void UpdateTime() const;
+
+	UFUNCTION(BlueprintCallable)
+	void GridEnd();
 	
 	FString GetHello();
 
@@ -87,9 +96,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	TMap<FIntPoint, FVector> GridPos;
-
-	// TODO Set up Hit Objects at Grid Position
-	// void HitObjectsAtGridPos(FInt32Point GridPos, ASLCellObject* HitObjectPtr);
+	
+	
 
 public:
 	// Gets the location of the position
@@ -114,4 +122,7 @@ public:
 
 	UFUNCTION()
 	ASLCell* GetCellAt(FIntPoint Position);
+
+	UFUNCTION()
+	void HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr);
 };

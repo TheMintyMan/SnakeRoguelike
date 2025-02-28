@@ -5,6 +5,8 @@
 #include "../Public/SLCellObject.h"
 #include "SLSnake.h"
 #include "SLCell.h"
+#include "SLGameStateBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
@@ -84,14 +86,21 @@ void ASLGridManager::SpawnSnake()
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
-// TODO Set up Hit Objects at Grid Position
-/*void ASLGridManager::HitObjectsAtGridPos(FInt32Point GridPos, ASLCellObject* HitObjectPtr)
+/// TODO Spawn Cell
+void ASLGridManager::SpawnCell(ASLCellObject* InObject)
 {
-	for(int i = 0;  i < GetObjectsAt(NextGridPos).Num(); i++)
+	
+	
+}
+
+// Hit Objects at Grid Position
+void ASLGridManager::HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr)
+{
+	for(int i = 0;  i < GetObjectsAt(InGridPos).Num(); i++)
 	{
-		GetObjectsAt(NextGridPos)[i]->GetHit(HitObjectPtr);
+		GetObjectsAt(InGridPos)[i]->GetHit(HitObjectPtr);
 	}
-}*/
+}
 
 FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
 {
@@ -115,7 +124,7 @@ FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
 			}
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Nothing found"));
+	UE_LOG(LogTemp, Warning, TEXT("Nothing in grid position found"));
 	return FIntPoint::NoneValue;
 }
 
@@ -163,7 +172,18 @@ void ASLGridManager::UpdateTime() const
 	UpdateTimeDelegate.Broadcast();
 }
 
-
+void ASLGridManager::GridEnd()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Game Ended"));
+	GetWorldTimerManager().ClearTimer(TickingHandle);
+	
+	AGameStateBase* GameState = GetWorld()->GetGameState();
+	ASLGameStateBase* SLGameState = Cast<ASLGameStateBase>(GameState);
+	if (SLGameState)
+	{
+		SLGameState->GameEnd();
+	}
+}
 
 FString ASLGridManager::GetHello()
 {

@@ -79,16 +79,16 @@ protected:
 	void Right();
 
 	UFUNCTION()
-	void UpReleased() const;
+	void UpReleased();
 
 	UFUNCTION()
-	void DownReleased() const;
+	void DownReleased();
 
 	UFUNCTION()
-	void LeftReleased() const;
+	void LeftReleased();
 
 	UFUNCTION()
-	void RightReleased() const;
+	void RightReleased();
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;

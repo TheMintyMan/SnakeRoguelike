@@ -1,62 +1,44 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SLSnake.h"
-#include "SLCell.h"
 #include "SLFoodBase.h"
+#include "SLGameStateBase.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
 #include "SLSnakeBody.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
-ASLSnake::ASLSnake()
+ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
+                      GridManager(), SpawnWorldPos(), NextGridPos(), PrevTailGridPos(),
+                      MinPos(), MaxPos(),
+                      PlayerPawn(),
+                      InputDirection(),
+                      FruitBase(),
+                      GrowthAmount(),
+                      GrowthQueue()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
 
-	// Just setting everything up
-	MaxPos = int32();
-	MinPos = int32();
-	NumberOfBodies = 3;
-	PosX = int32();
-	PosY = int32();
-	SpawnWorldPos = FVector();
-	SpawnGridPos = FInt32Point();
-	SnakeBody = nullptr;
-	SnakeHead = nullptr;
-	SnakeTail = nullptr;
-	PlayerPawn = nullptr;
-	NextGridPos = FInt32Point();
-	DirectionUpdate = FInt32Point();
-	FruitBase = nullptr;
-	GridManager = nullptr;
-	GrowthAmount = int32();
-	GrowthQueue = int32();
+	InputDirection = FInt32Point(0, 1);
+	GrowthQueue = 3;
 }
 
 // Called when the game starts or when spawned
 void ASLSnake::BeginPlay()
 {
 	Super::BeginPlay();
-	AActor* Body = UGameplayStatics::GetActorOfClass(GetWorld(), ASLSnakeBody::StaticClass());
-	SnakeBody = Cast<ASLSnakeBody>(Body);
+	/*AActor* Body = UGameplayStatics::GetActorOfClass(GetWorld(), ASLSnakeBody::StaticClass());
+	SnakeBod = Cast<ASLSnakeBody>(Body);*/
 	
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
 	if(GridManager)
 	{
 		MaxPos = GridManager->RowNum - 1;
-		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::SnakeMove);
+		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::OnUpdateTick);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
-	}
-	
-	MaxPos = GridManager->RowNum - 1;
-	
-	AActor* Fruit = UGameplayStatics::GetActorOfClass(GetWorld(),ASLFoodBase::StaticClass());
-	FruitBase = Cast<ASLFoodBase>(Fruit);
-	if (FruitBase)
-	{
-		FruitBase->NomNomDelegate.AddDynamic(this, &ASLSnake::ASLSnake::Grow);
 	}
 	
 	AActor* SnakeDirection = UGameplayStatics::GetActorOfClass(GetWorld(),ASLPlayerPawn::StaticClass());
@@ -67,43 +49,47 @@ void ASLSnake::BeginPlay()
 	}
 	
 	// Spawns the Snake!
-	SpawnSnake(NumberOfBodies, SnakeBody);
+	//SpawnSnake(NumberOfBodies, SnakeBody);
+	
+	PrevTailGridPos = FInt32Point(GridManager->ColNum/2, 0);
 }
- 
-void ASLSnake::SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake)
-{
-	SpawnGridPos = FInt32Point(GridManager->ColNum/2, 0);
-	SpawnWorldPos = GridManager->GetGridArrayLocation(SpawnGridPos);
-	
-	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass, SpawnWorldPos, FRotator::ZeroRotator, SpawnParams);
 
-	GridManager->RegisterCell(SpawnGridPos, NewBody);
-	
-	if(PreviousSnake == nullptr)
+
+void ASLSnake::SetDirection(FInt32Point NewDirection)
+{
+	if (CurrentDirection + NewDirection == FInt32Point(0, 0))
 	{
-		SnakeHead = NewBody;
-	}
-	else
-	{
-		PreviousSnake->SetNext(NewBody);
-		NewBody->SetPrevious(PreviousSnake);
-		
-	}
-	if (Bodies <= 0)
-	{
-		SnakeTail = PreviousSnake;
 		return;
 	}
 	
-	// Call recursively with 1 less part
-	SpawnSnake(Bodies - 1, NewBody);
+	InputDirection = NewDirection;
+}
+
+void ASLSnake::IncreaseGrowthQueue(int32 GrowthAmountInput)
+{
+	GrowthQueue += GrowthAmountInput;
 }
 
 void ASLSnake::OnUpdateTick()
 {
-	// Update Last Tail Position
+	// Updates Last Tail Position
+	if (SnakeTail != nullptr)
+	{
+		PrevTailGridPos = SnakeTail->CurrentGridPos;
+	}
 	
-	SnakeMove();
+	if (SnakeHead)
+	{
+		//HIT
+		GridManager->HitObjectsAtGridPos(GetNextGridPos(), SnakeHead);
+		
+		// 
+		
+		
+		
+		//MOVE
+		SnakeMove();
+	}
 
 	if (GrowthQueue >= 1)
 	{
@@ -112,11 +98,10 @@ void ASLSnake::OnUpdateTick()
 	}
 }
 
-
 FInt32Point ASLSnake::GetNextGridPos()
 {
-	PosX = PosX + DirectionUpdate.X;
-	PosY = PosY + DirectionUpdate.Y;
+	int32 PosX = SnakeHead->CurrentGridPos.X + InputDirection.X;
+	int32 PosY = SnakeHead->CurrentGridPos.Y + InputDirection.Y;
 
 	PosX = FMath::Clamp(PosX,MinPos,MaxPos);
 	PosY = FMath::Clamp(PosY,MinPos,MaxPos);
@@ -126,44 +111,69 @@ FInt32Point ASLSnake::GetNextGridPos()
 	return NextGridPos;
 }
 
-
 void ASLSnake::SnakeMove()
 {
 	// Moves TAIL to HEAD
-
+	
 	NextGridPos = GetNextGridPos();
 
 	SnakeTail->SetActorLocation(GridManager->GetGridArrayLocation(NextGridPos));
 	
-	SnakeHead->PreviousBody = SnakeTail;
-	SnakeHead = SnakeBody;
-	SnakeTail = SnakeHead;
+	GridManager->UnRegisterCell(SnakeTail->CurrentGridPos, SnakeTail);
 
+	SnakeTail->CurrentGridPos = NextGridPos;
+	
+	GridManager->RegisterCell(NextGridPos, SnakeTail);
+	
+	SnakeHead->SetPrevious(SnakeTail);
+	
+	SnakeHead = SnakeTail;
+
+	SnakeTail = SnakeTail->PreviousBody;
+
+	CurrentDirection = InputDirection;
 }
 
-void ASLSnake::IncreaseGrowthQueue(int32 GrowthAmount)
+void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody)
 {
-	GrowthQueue += GrowthAmount;
-}
+	if (InSnakeBody->PreviousBody)
+	{
+		SnakeTail = InSnakeBody->PreviousBody;
+	}
 
-void ASLSnake::SetDirection(FInt32Point NewDirection)
-{
-	DirectionUpdate = NewDirection;
-}
+	if (InSnakeBody->NextBody)
+	{
+		GridManager->UnRegisterCell(InSnakeBody->CurrentGridPos, InSnakeBody);
+		KillSnake(InSnakeBody->NextBody);
+	}
 
-void ASLSnake::KillSnake()
-{
-	// Kill the snake
+	// I need to get instigator
+	
+	InSnakeBody->SetLifeSpan(0);
 }
 
 void ASLSnake::Grow()
 {
 	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass,SpawnWorldPos, FRotator::ZeroRotator, SpawnParams);
+
+	NewBody->SetOwner(this);
+	
 	NewBody->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 
-	GridManager->RegisterCell(SpawnGridPos, NewBody);
+	GridManager->RegisterCell(PrevTailGridPos, NewBody);
 
-	NewBody->SetActorLocation(SnakeTail->GetActorLocation());
+	NewBody->CurrentGridPos = PrevTailGridPos;
+	
+	NewBody->SetActorLocation(GridManager->GetGridArrayLocation(PrevTailGridPos));
+
+	if (!SnakeHead)
+	{
+		SnakeHead = NewBody;
+		SnakeTail = NewBody;
+		NewBody->SetPrevious(NewBody);
+
+		return;
+	}
 	
 	SnakeTail->SetNext(NewBody);
 	NewBody->SetPrevious(SnakeTail);

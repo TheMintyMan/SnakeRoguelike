@@ -383,12 +383,12 @@ void HitObjectsAtGridPos(FIntPoint GridPos, ASLOjects Instigater)
 
 Make a New Class called Obstacle
 
-
 SOONER:
 Be able to place the starting location
 
 LATER:
 Make a GameState is stored only in Level.
+
 GameInstance persists throughout - Saves the game from it. 
 SaveGame .
 
