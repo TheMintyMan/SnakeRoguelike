@@ -1,6 +1,6 @@
 - Eat (WIP, need to add tail)
 - KYS, Apple Spawn, Score, Win/Loss
-- 
+- Obstacle
 - Ability SlowTime
 - Ability WrapAround
 

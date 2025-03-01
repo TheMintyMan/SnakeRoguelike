@@ -148,8 +148,8 @@ void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody)
 	}
 
 	// I need to get instigator
-	
-	InSnakeBody->SetLifeSpan(0);
+
+	InSnakeBody->SetLifeSpan(0.1f);
 }
 
 void ASLSnake::Grow()

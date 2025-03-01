@@ -36,7 +36,7 @@
               {
                 "id": "fe7c751c707826e4",
                 "type": "tabs",
-                "dimension": 51.82692307692307,
+                "dimension": 36.78571428571429,
                 "children": [
                   {
                     "id": "ef392b27e62e9177",
@@ -57,16 +57,20 @@
               {
                 "id": "a3c4935a9cc66736",
                 "type": "tabs",
-                "dimension": 48.17307692307693,
+                "dimension": 63.21428571428571,
                 "children": [
                   {
                     "id": "bc5b0323d9b56fdd",
                     "type": "leaf",
                     "state": {
-                      "type": "graph",
-                      "state": {},
-                      "icon": "lucide-git-fork",
-                      "title": "Graph view"
+                      "type": "markdown",
+                      "state": {
+                        "file": "Snake Like GDD.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "Snake Like GDD"
                     }
                   }
                 ]
@@ -222,7 +226,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "8a89fa28e3749f6a",
+  "active": "bc5b0323d9b56fdd",
   "lastOpenFiles": [
     "To Do.md",
     "Snake Pseudocodes.md",
