@@ -381,6 +381,77 @@ void HitObjectsAtGridPos(FIntPoint GridPos, ASLOjects Instigater)
 }
 ```
 
+### Scoring
+
+Food.cpp
+```cpp
+int FoodScore;
+
+When the snake touches Food, ScoreAdd()
+
+void GetHit()
+{
+	GameState->ScoreAdd(FoodScore);
+}
+```
+
+GameState.cpp
+```cpp
+//Not sure what to put in here
+
+// Total Score for the whole run
+int TotalScore;
+
+// Score for the current round
+int RoundScore;
+
+// To get the total score
+ScoreAdd(TotalScore;
+
+void ScoreAdd(int InScore)
+{
+	RoundScore + InScore;
+}
+```
+
+Score UserWidget
+```cpp
+Get TotalScore from GameState.cpp
+
+//
+Get RoundScore from GameState.cpp
+Display on Screen
+```
+
+
+### Win Condition
+
+GameState.cpp
+```cpp
+// Create a Timer for how long a player has to survive for
+
+// However many score 
+int WinScore;
+int SnakeScore
+FTimerHandle Timer;
+
+Display Timer on HUD
+
+if ( Timer is 0)
+{
+	EndGame();
+	if (SnakeScore is WinScore)
+		Win();
+	else
+		Lose();
+}
+
+
+```
+
+
+## Questions for myself:
+
 Make a New Class called Obstacle
 
 SOONER:
@@ -394,8 +465,6 @@ SaveGame .
 
 LATER:
 Using Perlin noise to generate maps
-
-## Questions for myself:
 
 ### Growth Question
 Should I leave my logic of the snake on .cpp and keep all the tail and stuff in another .cpp class?

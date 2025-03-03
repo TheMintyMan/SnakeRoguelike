@@ -1,4 +1,4 @@
-## Snake
+## Snake++
 *But it's a metaphor for late stage capitalism*
 
 

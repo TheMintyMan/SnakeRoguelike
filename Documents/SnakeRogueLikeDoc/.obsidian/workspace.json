@@ -4,82 +4,67 @@
     "type": "split",
     "children": [
       {
-        "id": "b70c5f5522e22b8a",
+        "id": "39c71e5bb56dee32",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "22a380cff97d53fa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Snake Pseudocodes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Snake Pseudocodes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "21e762be572f5d51",
         "type": "split",
         "children": [
           {
-            "id": "59caab7d2b44286e",
+            "id": "620f8bc94c9e93e3",
             "type": "tabs",
-            "dimension": 53.042959427207634,
             "children": [
               {
-                "id": "8a89fa28e3749f6a",
+                "id": "bb53bf61c5de0a13",
                 "type": "leaf",
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Snake Pseudocodes.md",
+                    "file": "To Do.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Snake Pseudocodes"
+                  "title": "To Do"
                 }
               }
             ]
           },
           {
-            "id": "2b0403f41be284cc",
-            "type": "split",
-            "dimension": 46.957040572792366,
+            "id": "24e213d3fbfd7075",
+            "type": "tabs",
             "children": [
               {
-                "id": "fe7c751c707826e4",
-                "type": "tabs",
-                "dimension": 36.78571428571429,
-                "children": [
-                  {
-                    "id": "ef392b27e62e9177",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "To Do.md",
-                        "mode": "source",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "To Do"
-                    }
-                  }
-                ]
-              },
-              {
-                "id": "a3c4935a9cc66736",
-                "type": "tabs",
-                "dimension": 63.21428571428571,
-                "children": [
-                  {
-                    "id": "bc5b0323d9b56fdd",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "Snake Like GDD.md",
-                        "mode": "source",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "Snake Like GDD"
-                    }
-                  }
-                ]
+                "id": "9aa5f548d8b8547b",
+                "type": "leaf",
+                "state": {
+                  "type": "graph",
+                  "state": {},
+                  "icon": "lucide-git-fork",
+                  "title": "Graph view"
+                }
               }
-            ],
-            "direction": "horizontal"
+            ]
           }
         ],
-        "direction": "vertical"
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -226,16 +211,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "bc5b0323d9b56fdd",
+  "active": "9aa5f548d8b8547b",
   "lastOpenFiles": [
-    "To Do.md",
     "Snake Pseudocodes.md",
-    "Creating Snake Like.md",
+    "Art.md",
+    "To Do.md",
     "Snake Like GDD.md",
+    "Creating Snake Like.md",
     "Images",
     "Images/Thumbnail_01.png",
     "HUB.md",
-    "Art.md",
     "2025-02-26.md",
     "create a link.md"
   ]

@@ -1,16 +1,14 @@
-- Eat (WIP, need to add tail)
-- KYS, Apple Spawn, Score, Win/Loss
-- Obstacle
-- Ability SlowTime
-- Ability WrapAround
+- [x] Eat (WIP, need to add tail)
+- [x] KYS
+- [x] Loss Condition
+- [ ] Score
+- [ ] Win Condition
+- [ ] Food Spawn
+- [ ] Obstacle
+- [ ] Ability SlowTime
+- [ ] Ability WrapAround
+- [ ] Shop
 
-- Win/Loss Condition
-- Basic Game loops, 3 levels
-- Permanent death restart
-- Shop
-- Boss
-- Simple permanent perks
-- Art
 
 
 
