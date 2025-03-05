@@ -25,7 +25,7 @@ int TotalScore;
 int RoundScore;
 
 // To get the total score
-ScoreAdd(TotalScore;
+ScoreAdd(TotalScore);
 
 void ScoreAdd(int InScore)
 {
@@ -102,5 +102,3 @@ if (RoundTimer =< 0)
 		Lose();
 }
 ```
-
-

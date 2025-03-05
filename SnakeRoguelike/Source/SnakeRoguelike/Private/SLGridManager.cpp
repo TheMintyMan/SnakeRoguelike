@@ -1,12 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "SLGridManager.h"
 #include "../Public/SLCellObject.h"
 #include "SLSnake.h"
 #include "SLCell.h"
 #include "SLGameStateBase.h"
-#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
@@ -76,6 +74,8 @@ void ASLGridManager::BuildGrid()
 void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	
 	
 	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, 0.25f, true, 6.0f);
 	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
@@ -89,7 +89,6 @@ void ASLGridManager::SpawnSnake()
 /// TODO Spawn Cell
 void ASLGridManager::SpawnCell(ASLCellObject* InObject)
 {
-	
 	
 }
 

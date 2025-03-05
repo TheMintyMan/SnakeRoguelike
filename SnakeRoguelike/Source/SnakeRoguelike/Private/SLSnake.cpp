@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SLSnake.h"
-#include "SLFoodBase.h"
-#include "SLGameStateBase.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
 #include "SLSnakeBody.h"
@@ -48,9 +46,6 @@ void ASLSnake::BeginPlay()
 		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::SetDirection);
 	}
 	
-	// Spawns the Snake!
-	//SpawnSnake(NumberOfBodies, SnakeBody);
-	
 	PrevTailGridPos = FInt32Point(GridManager->ColNum/2, 0);
 }
 
@@ -80,12 +75,14 @@ void ASLSnake::OnUpdateTick()
 	
 	if (SnakeHead)
 	{
-		//HIT
 		GridManager->HitObjectsAtGridPos(GetNextGridPos(), SnakeHead);
-		
-		// 
-		
-		
+
+		// If the next grid position is the same as the current grid position, the game should end because that's the edge
+		if (SnakeHead->CurrentGridPos == NextGridPos)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("The snake has hit the edge of the world"));
+			GridManager->GridEnd();
+		}
 		
 		//MOVE
 		SnakeMove();
@@ -154,7 +151,7 @@ void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody)
 
 void ASLSnake::Grow()
 {
-	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass,SpawnWorldPos, FRotator::ZeroRotator, SpawnParams);
+	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass, GridManager->GetGridArrayLocation(PrevTailGridPos), FRotator::ZeroRotator, SpawnParams);
 
 	NewBody->SetOwner(this);
 	

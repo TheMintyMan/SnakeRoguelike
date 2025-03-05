@@ -49,9 +49,6 @@ protected:
 	float TimerSpeed;
 	
 	FString Hello = "Hello From Grid Manager";
-
-	// This is for the grid manager to keep a count of where everything is
-	TArray<TArray<ASLCell*>> GridArray;
 	
 	FString TileName;
 
@@ -64,11 +61,12 @@ protected:
 
 	UFUNCTION()
 	void SpawnSnake();
-
 	
+	// This is for the grid manager to keep a count of where everything is
+	TArray<TArray<ASLCell*>> GridArray;
 	
 public:
-
+	
 	UFUNCTION()
 	void SpawnCell(ASLCellObject* InObject);
 	
@@ -96,8 +94,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	TMap<FIntPoint, FVector> GridPos;
-	
-	
 
 public:
 	// Gets the location of the position

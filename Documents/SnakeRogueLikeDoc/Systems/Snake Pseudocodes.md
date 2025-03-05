@@ -4,6 +4,8 @@
 
 [[Abilities]]
 
+[[Issues List]]
+
 ### Movement/Growth/Death
 SnakeManager.cpp
 ```cpp
@@ -135,8 +137,6 @@ void HitObjectsAtGridPos(FIntPoint GridPos, ASLOjects Instigater)
 	}
 }
 ```
-
-
 
 ## Questions for myself:
 

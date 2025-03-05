@@ -2,8 +2,8 @@
 ### Ability SlowTime
 
 There will be a base Ability Component cpp file. Each ability will inherit the base Ability Component.
-AbilityAttributes.cpp (Component that attaches to Button)
 
+AbilityAttributes.cpp (Component that attaches to Button)
 ```cpp
 SlowTime : BaseAbility
 // This will run the slow ability
@@ -95,7 +95,7 @@ Write AStar algorithm here
 Once food has been eaten after activating Ability AStar, The ability will stop
 ```
 
-### Ability TimeTravel
+### Ability Rewind
 
 The Snake can go back 5 ticks or so in time. A bit like the Tracer ability in Overwatch. 
 **Question:** Should everything go back in time 5 ticks? Orrr, only the snake goes back in time 5 ticks or so? IMO, it could be cool if it was just the Snake and the timer went back in time.

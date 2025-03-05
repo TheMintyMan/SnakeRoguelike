@@ -1,0 +1,12 @@
+{
+	"nodes":[
+		{"id":"282805c1fe51cea6","x":-440,"y":-380,"width":630,"height":560,"color":"1","type":"group","label":"YES"},
+		{"id":"43b9acf7f0cbb95d","x":-325,"y":-360,"width":250,"height":60,"type":"text","text":"GridManager"},
+		{"id":"8a03b8d5f72b5bfd","x":-400,"y":-240,"width":400,"height":160,"type":"text","text":"```cpp\nstd::cout<<\"Hello World\"<<endl;\n```"},
+		{"id":"f17bc5814d838559","x":-325,"y":40,"width":250,"height":60,"type":"text","text":""}
+	],
+	"edges":[
+		{"id":"46fa736fdcf52c84","fromNode":"43b9acf7f0cbb95d","fromSide":"bottom","toNode":"8a03b8d5f72b5bfd","toSide":"top"},
+		{"id":"71ec21707caeb2d1","fromNode":"8a03b8d5f72b5bfd","fromSide":"bottom","toNode":"f17bc5814d838559","toSide":"top"}
+	]
+}

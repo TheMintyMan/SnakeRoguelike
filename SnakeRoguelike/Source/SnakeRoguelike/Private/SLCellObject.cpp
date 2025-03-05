@@ -26,6 +26,8 @@ void ASLCellObject::BeginPlay()
 
 	GridPos = GridManager->GetGridArrayPosition(GetActorLocation());
 	GridManager->RegisterCell(GridPos, this);
+
+	// UE_LOG(LogTemp, Warning, TEXT("Added Object at %i, %i"), GridPos.X, GridPos.Y);
 	
 	Super::BeginPlay();
 }

@@ -22,23 +22,18 @@ class SNAKEROGUELIKE_API ASLGameStateBase : public AGameStateBase
 	
 	UFUNCTION(BlueprintCallable)
 	void GameReset();
-	
-
-	
-	
-	///// - Scoring /////
-
-	UPROPERTY()
-	int32 ScoreTotal;
-
-	// Adds to the current score
-	UFUNCTION(BlueprintCallable)
-	int32 AddScore(int32 InScore);
-
-	///// Scoring - /////
 
 public:
 	// Ends the game. Clears the GameTimer stopping everything that's running in the game.
 	UFUNCTION(BlueprintNativeEvent)
 	void GameEnd();
+	
+	UFUNCTION()
+	int32 ScoreRoundAdd(int32 InScore);
+
+	UPROPERTY(VisibleAnywhere)
+	int32 ScoreTotal;
+
+	UPROPERTY(VisibleAnywhere)
+	int32 ScoreRound;
 };

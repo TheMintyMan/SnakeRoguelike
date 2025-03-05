@@ -1,9 +1,9 @@
 - [x] Eat (WIP, need to add tail)
 - [x] KYS
 - [x] Loss Condition
-- [ ] Wall Death
-- [ ] Score
-- [ ] Win Condition
+- [x] Wall Death
+- [ ] Score, UI
+- [ ] Win Condition, UI
 - [ ] Food Spawn
 - [ ] Obstacle
 - [ ] Ability SlowTime

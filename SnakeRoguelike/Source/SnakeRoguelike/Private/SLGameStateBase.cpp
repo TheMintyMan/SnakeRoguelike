@@ -2,7 +2,6 @@
 
 
 #include "SLGameStateBase.h"
-#include "SLGridManager.h"
 #include "Kismet/GameplayStatics.h"
 
 void ASLGameStateBase::BeginPlay()
@@ -18,14 +17,15 @@ void ASLGameStateBase::GameReset()
 	//UGameplayStatics::GetGameMode(GetWorld())->ResetLevel();
 
 	UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetMapName());
+
+	ScoreRound = 0;
 }
 
-int32 ASLGameStateBase::AddScore(int32 InScore)
+int32 ASLGameStateBase::ScoreRoundAdd(const int32 InScore)
 {
-	// TODO Update Score UI
-	
-	ScoreTotal += InScore;
-	return ScoreTotal;
+	ScoreRound += InScore;
+	UE_LOG(LogTemp, Warning, TEXT("Current Round Score: %i"), ScoreRound);
+	return ScoreRound;
 }
 
 void ASLGameStateBase::GameEnd_Implementation()

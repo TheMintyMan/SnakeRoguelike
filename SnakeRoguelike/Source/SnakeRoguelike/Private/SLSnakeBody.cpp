@@ -26,12 +26,7 @@ void ASLSnakeBody::GetHit(ASLCellObject* HitObjectPtr)
 	{
 		return;
 	}
-	else
-	{
-		GridManager->GridEnd();
-	}
-	
-	SetLifeSpan(0);
+	GridManager->GridEnd();
 }
 
 void ASLSnakeBody::SetPrevious(ASLSnakeBody* SnakePtr)
