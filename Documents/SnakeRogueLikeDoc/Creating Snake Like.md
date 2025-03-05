@@ -11,7 +11,7 @@ I completely forgot the shortcuts to Rider
 
 Shortcuts I need to remember:
 
-- How to auto do #include 
+- How to auto do #include  - alt insert
 
 
 Creating meshes using C++ in Unreal Engine

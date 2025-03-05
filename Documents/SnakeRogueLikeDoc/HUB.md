@@ -1,7 +1,3 @@
-This is your new *vault*.
-
-When you're ready, delete this note and make the vault your own.
-
 [[Snake Pseudocodes]]
 
 [[To Do]]
@@ -13,5 +9,11 @@ When you're ready, delete this note and make the vault your own.
 [[Art]]
 
 Credits:
-Pseudo Programmers: Ronan Richardson, Benamin Anderson
+
+Pseudo Programmers: 
+
+Ronan Richardson
+Dear RSAA, Have you heard of Ronan? He's an pro Astrologist, Class Rep at ANU, Pseudo Programmer, My Tutor, he's a sagittarius, season 15 platinum 4 support in Overwatch
+
+Benamin Anderson
 
