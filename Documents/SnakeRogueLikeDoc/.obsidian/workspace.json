@@ -1,43 +1,43 @@
 {
   "main": {
-    "id": "8aa113f6c5485fd9",
+    "id": "95b75fd1f6b9b6ef",
     "type": "split",
     "children": [
       {
-        "id": "39c71e5bb56dee32",
+        "id": "ac0d252954dc4844",
         "type": "tabs",
         "children": [
           {
-            "id": "22a380cff97d53fa",
+            "id": "461bce6e35ecd55e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Snake Pseudocodes.md",
+                "file": "Systems/ScoringWinningLosing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Snake Pseudocodes"
+              "title": "ScoringWinningLosing"
             }
           }
         ]
       },
       {
-        "id": "21e762be572f5d51",
+        "id": "545330fc2d3c652f",
         "type": "split",
         "children": [
           {
-            "id": "620f8bc94c9e93e3",
+            "id": "97c02f6dde79ddce",
             "type": "tabs",
             "children": [
               {
-                "id": "bb53bf61c5de0a13",
+                "id": "fd87c552ec2990ef",
                 "type": "leaf",
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "To Do.md",
+                    "file": "SnakeRogueLikeDoc/To Do.md",
                     "mode": "source",
                     "source": false
                   },
@@ -48,17 +48,21 @@
             ]
           },
           {
-            "id": "24e213d3fbfd7075",
+            "id": "23573af30e44d64a",
             "type": "tabs",
             "children": [
               {
-                "id": "9aa5f548d8b8547b",
+                "id": "6be5485f4e015ed0",
                 "type": "leaf",
                 "state": {
-                  "type": "graph",
-                  "state": {},
-                  "icon": "lucide-git-fork",
-                  "title": "Graph view"
+                  "type": "markdown",
+                  "state": {
+                    "file": "Systems/Abilities.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Abilities"
                 }
               }
             ]
@@ -70,15 +74,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "0627f3c02869ed18",
+    "id": "6985a16d6b935455",
     "type": "split",
     "children": [
       {
-        "id": "d416189661350e6f",
+        "id": "afa2f82fbe349721",
         "type": "tabs",
         "children": [
           {
-            "id": "223a58559b4b35e2",
+            "id": "c78dc26fc8c9d14c",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -91,7 +95,7 @@
             }
           },
           {
-            "id": "529e909860112754",
+            "id": "c0d99e58d1bc9906",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -108,7 +112,7 @@
             }
           },
           {
-            "id": "f8bb2182a5afc317",
+            "id": "961ef5da8f3892a1",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -121,23 +125,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300
   },
   "right": {
-    "id": "533b7789b61b7957",
+    "id": "4e9b4dab11de53e3",
     "type": "split",
     "children": [
       {
-        "id": "532e2b645f064fd3",
+        "id": "05a85e50d0356537",
         "type": "tabs",
         "children": [
           {
-            "id": "637729b045c1970f",
+            "id": "6b7e9d5a36097628",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Pseudocodes.md",
+                "file": "Systems/ScoringWinningLosing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,25 +151,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Pseudocodes"
+              "title": "Backlinks for ScoringWinningLosing"
             }
           },
           {
-            "id": "7c778ad64ae8ca7b",
+            "id": "21d0b564aebcd193",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Pseudocodes.md",
+                "file": "Systems/ScoringWinningLosing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Pseudocodes"
+              "title": "Outgoing links from ScoringWinningLosing"
             }
           },
           {
-            "id": "3497faa63b88e6b9",
+            "id": "d7d5eef52192b2d2",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -180,18 +184,18 @@
             }
           },
           {
-            "id": "9836632b56d41335",
+            "id": "44a10d3d57042b28",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Pseudocodes.md",
+                "file": "Systems/ScoringWinningLosing.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Pseudocodes"
+              "title": "Outline of ScoringWinningLosing"
             }
           }
         ]
@@ -211,17 +215,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9aa5f548d8b8547b",
+  "active": "461bce6e35ecd55e",
   "lastOpenFiles": [
-    "Snake Pseudocodes.md",
-    "Art.md",
-    "To Do.md",
-    "Snake Like GDD.md",
-    "Creating Snake Like.md",
-    "Images",
-    "Images/Thumbnail_01.png",
-    "HUB.md",
-    "2025-02-26.md",
-    "create a link.md"
+    "Systems/Snake Pseudocodes.md",
+    "Systems/OLD Pseudocodes.md",
+    "Systems/Abilities.md",
+    "Systems/ScoringWinningLosing.md",
+    "Systems",
+    "SnakeRogueLikeDoc/To Do.md",
+    "SnakeRogueLikeDoc/HUB.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "SnakeRogueLikeDoc/Creating Snake Like.md",
+    "Untitled.canvas"
   ]
 }
