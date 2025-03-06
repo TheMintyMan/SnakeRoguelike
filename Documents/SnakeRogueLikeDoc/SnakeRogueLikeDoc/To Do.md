@@ -2,12 +2,13 @@
 - [x] KYS
 - [x] Loss Condition
 - [x] Wall Death
-- [ ] Score, UI
-- [ ] Win Condition, UI
-- [ ] Food Spawn
+- [x] Score, UI
+- [x] Win Condition
 - [ ] Obstacle
+- [ ] Food Spawn
+- [ ] UI
 - [ ] Ability SlowTime
-- [ ] Ability WrapAround
+- [x] Ability WrapAround
 - [ ] Shop
 
 

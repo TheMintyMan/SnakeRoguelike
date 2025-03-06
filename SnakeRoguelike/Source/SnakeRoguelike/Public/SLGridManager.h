@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
+class ASLGameStateBase;
 class ASLCellObject;
 class ASLSnake;
 class ASLCell;
@@ -65,7 +66,13 @@ protected:
 	// This is for the grid manager to keep a count of where everything is
 	TArray<TArray<ASLCell*>> GridArray;
 	
+	UPROPERTY()
+	ASLGameStateBase* SLGameState;
+	
 public:
+
+	UPROPERTY(EditAnywhere)
+	float TickSpeed = 0.15f;
 	
 	UFUNCTION()
 	void SpawnCell(ASLCellObject* InObject);
@@ -78,6 +85,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void GridEnd();
+
+	UFUNCTION(BlueprintCallable)
+	void GridClear();
 	
 	FString GetHello();
 

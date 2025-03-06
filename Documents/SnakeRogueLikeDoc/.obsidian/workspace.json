@@ -6,6 +6,7 @@
       {
         "id": "ac0d252954dc4844",
         "type": "tabs",
+        "dimension": 52.5766016713092,
         "children": [
           {
             "id": "461bce6e35ecd55e",
@@ -26,6 +27,7 @@
       {
         "id": "545330fc2d3c652f",
         "type": "split",
+        "dimension": 47.42339832869081,
         "children": [
           {
             "id": "97c02f6dde79ddce",
@@ -213,18 +215,18 @@
   },
   "active": "461bce6e35ecd55e",
   "lastOpenFiles": [
-    "Systems/Issues List.md",
-    "Systems/Abilities.md",
     "Systems/Untitled.canvas",
-    "Pasted image 20250305191551.png",
     "Systems/Snake Pseudocodes.md",
     "Systems/ScoringWinningLosing.md",
     "Systems/OLD Pseudocodes.md",
+    "Systems/Issues List.md",
+    "Systems/Abilities.md",
     "SnakeRogueLikeDoc/To Do.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Pasted image 20250305191551.png",
     "SnakeRogueLikeDoc/HUB.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
     "SnakeRogueLikeDoc/Art.md",
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
     "SnakeRogueLikeDoc",
     "Systems",
     "Untitled.canvas"

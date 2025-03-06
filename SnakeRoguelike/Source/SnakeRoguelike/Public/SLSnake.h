@@ -118,6 +118,9 @@ protected:
 	UFUNCTION()
 	void OnUpdateTick();
 
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	bool bGridWrap;
+
 	UFUNCTION()
 	FInt32Point GetNextGridPos();
 

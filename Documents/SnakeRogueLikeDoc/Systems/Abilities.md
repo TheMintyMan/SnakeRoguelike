@@ -1,4 +1,5 @@
-
+Initialise
+De-Initialise
 ### Ability SlowTime
 
 There will be a base Ability Component cpp file. Each ability will inherit the base Ability Component.

@@ -128,16 +128,17 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	{
 		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Clicked);
 		
-		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Up);
+		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
 		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
 
-		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Down);
+		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Down);
 		EnhancedInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::DownReleased);
 
-		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Left);
+		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Left);
 		EnhancedInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::LeftReleased);
 
-		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Right);
+		
+		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
 		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
 	}
 

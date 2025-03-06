@@ -10,11 +10,11 @@
 ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
                       GridManager(), SpawnWorldPos(), NextGridPos(), PrevTailGridPos(),
                       MinPos(), MaxPos(),
-                      PlayerPawn(),
+                      PlayerPawn(), CurrentDirection(),
                       InputDirection(),
                       FruitBase(),
                       GrowthAmount(),
-                      GrowthQueue()
+                      GrowthQueue(), bGridWrap(true)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
@@ -99,10 +99,19 @@ FInt32Point ASLSnake::GetNextGridPos()
 {
 	int32 PosX = SnakeHead->CurrentGridPos.X + InputDirection.X;
 	int32 PosY = SnakeHead->CurrentGridPos.Y + InputDirection.Y;
-
-	PosX = FMath::Clamp(PosX,MinPos,MaxPos);
-	PosY = FMath::Clamp(PosY,MinPos,MaxPos);
-
+	
+	
+	if (bGridWrap)
+	{
+		PosX = (PosX + MaxPos + 1) % (MaxPos + 1);
+		PosY = (PosY + MaxPos + 1) % (MaxPos + 1);
+	}
+	else
+	{
+		PosX = FMath::Clamp(PosX,MinPos,MaxPos);
+		PosY = FMath::Clamp(PosY,MinPos,MaxPos);
+	}
+	
 	NextGridPos = FInt32Point(PosX, PosY);
 	
 	return NextGridPos;

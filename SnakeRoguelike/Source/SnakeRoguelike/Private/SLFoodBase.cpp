@@ -39,13 +39,10 @@ void ASLFoodBase::GetHit(ASLCellObject* HitObjectPtr)
 		GridManager->UnRegisterCell(GridPos, this);
 
 		SLGameState->ScoreRoundAdd(FoodScore);
-
-		// Destroy();
+		
 	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("Fruit has been hit"));
 
 	Destroy();
 }
-
-// TODO Gridmanger->SpawnCell(SLFoodBase)

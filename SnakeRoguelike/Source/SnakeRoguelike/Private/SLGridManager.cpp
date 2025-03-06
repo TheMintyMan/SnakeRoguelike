@@ -75,10 +75,11 @@ void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
 
+	AGameStateBase* GameState = GetWorld()->GetGameState();
+	SLGameState = Cast<ASLGameStateBase>(GameState);
 	
-	
-	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, 0.25f, true, 6.0f);
-	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 3.0f, false, 3.0f);
+	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, TickSpeed, true, SLGameState->FirstInDelay);
+	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 1.0f, false);
 }
 
 void ASLGridManager::SpawnSnake()
@@ -90,8 +91,7 @@ void ASLGridManager::SpawnSnake()
 void ASLGridManager::SpawnCell(ASLCellObject* InObject)
 {
 	
-}
-
+} 
 // Hit Objects at Grid Position
 void ASLGridManager::HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr)
 {
@@ -107,7 +107,11 @@ FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
 	{
 		return GridArray[Position.X][Position.Y]->GetActorLocation();
 	}
-	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen!"));
+
+	int32 a = -1 % 24;
+	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen! at %s, annnddd %i"), *Position.ToString(), a);
+
+	
 	return FVector::ZeroVector;
 }
 
@@ -173,15 +177,17 @@ void ASLGridManager::UpdateTime() const
 
 void ASLGridManager::GridEnd()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Game Ended"));
 	GetWorldTimerManager().ClearTimer(TickingHandle);
 	
-	AGameStateBase* GameState = GetWorld()->GetGameState();
-	ASLGameStateBase* SLGameState = Cast<ASLGameStateBase>(GameState);
 	if (SLGameState)
 	{
-		SLGameState->GameEnd();
+		SLGameState->GameLose();
 	}
+}
+
+void ASLGridManager::GridClear()
+{
+	GetWorldTimerManager().ClearTimer(TickingHandle);
 }
 
 FString ASLGridManager::GetHello()
