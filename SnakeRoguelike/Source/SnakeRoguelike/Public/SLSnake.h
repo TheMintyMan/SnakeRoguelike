@@ -94,7 +94,7 @@ protected:
 	FInt32Point CurrentDirection;
 
 	UPROPERTY()
-	FInt32Point InputDirection;
+	FInt32Point LastQueuedDir;
 	
 	UPROPERTY()
 	ASLFoodBase* FruitBase;
@@ -105,13 +105,29 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Components")
 	int32 GrowthQueue;
 
+	// UFUNCTION()
+	// void SetDirection(FInt32Point NewDirection);
+	
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	int QLen;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	int QLenMax;
+	
+	TMpscQueue<FInt32Point> Queue;
+
 	UFUNCTION()
-	void SetDirection(FInt32Point NewDirection);
+	void QueueInput(FInt32Point Direction);
+
+	UFUNCTION()
+	FInt32Point DeQueueInput();	
 
 public:
 	
 	UFUNCTION()
 	void IncreaseGrowthQueue(int32 GrowthAmountInput);
+
 
 protected:
 	// This will do all MOVE and GROWTH
@@ -122,10 +138,10 @@ protected:
 	bool bGridWrap;
 
 	UFUNCTION()
-	FInt32Point GetNextGridPos();
+	FInt32Point GetNextGridPos(FInt32Point Direction);
 
 	UFUNCTION()
-	void SnakeMove();
+	void SnakeMove(FInt32Point Direction);
 
 	// Kills Next body part, Kills, Next body part
 	// Animation Event Timeline done in Blueprints on the Timeline node
@@ -135,18 +151,5 @@ protected:
 	UFUNCTION()
 	void Grow();
 	
-	
-	
-	///// Movement - /////
-
-	
-
-
-	
-
-	
-
-
-public:	
 };
 

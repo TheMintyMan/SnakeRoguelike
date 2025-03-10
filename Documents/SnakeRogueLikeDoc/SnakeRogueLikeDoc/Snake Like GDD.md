@@ -8,7 +8,7 @@
 
 | Genre         | Roguelike, Real-Time, Action, Maze |
 | ------------- | ---------------------------------- |
-| Platform      | PC, Mac, Android                   |
+| Platform      | PC, Mac, Android, Linux            |
 | Point of View | Top Down, Grid                     |
 | Theme / Mood  | Arcade, Modern                     |
 

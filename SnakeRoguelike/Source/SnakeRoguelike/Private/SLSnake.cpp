@@ -11,16 +11,17 @@ ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
                       GridManager(), SpawnWorldPos(), NextGridPos(), PrevTailGridPos(),
                       MinPos(), MaxPos(),
                       PlayerPawn(), CurrentDirection(),
-                      InputDirection(),
                       FruitBase(),
                       GrowthAmount(),
-                      GrowthQueue(), bGridWrap(true)
+                      GrowthQueue(), bGridWrap(false)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
 
-	InputDirection = FInt32Point(0, 1);
+	LastQueuedDir = FInt32Point(0, 1);
 	GrowthQueue = 3;
+	QLen = 0;
+	QLenMax = 3;
 }
 
 // Called when the game starts or when spawned
@@ -43,21 +44,45 @@ void ASLSnake::BeginPlay()
 	PlayerPawn = Cast<ASLPlayerPawn>(SnakeDirection);
 	if(PlayerPawn)
 	{
-		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::SetDirection);
+		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::QueueInput);
 	}
 	
 	PrevTailGridPos = FInt32Point(GridManager->ColNum/2, 0);
 }
 
 
-void ASLSnake::SetDirection(FInt32Point NewDirection)
+/*void ASLSnake::SetDirection(FInt32Point NewDirection)
 {
 	if (CurrentDirection + NewDirection == FInt32Point(0, 0))
 	{
 		return;
 	}
-	
-	InputDirection = NewDirection;
+	LastQueuedDir = NewDirection;
+}*/
+
+void ASLSnake::QueueInput(FInt32Point Direction)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Direction.ToString());
+	if (QLen < QLenMax)
+	{
+		QLen++;
+		Queue.Enqueue(Direction);
+	}
+}
+
+FInt32Point ASLSnake::DeQueueInput()
+{
+	UE_LOG(LogTemp, Warning, TEXT("%i"), QLen);
+	if (QLen > 0)
+	{
+		auto x = Queue.Dequeue();
+		if (x.IsSet())
+		{
+			QLen--;
+			return x.GetValue();
+		}		
+	}
+	return FInt32Point(0,0);
 }
 
 void ASLSnake::IncreaseGrowthQueue(int32 GrowthAmountInput)
@@ -73,9 +98,15 @@ void ASLSnake::OnUpdateTick()
 		PrevTailGridPos = SnakeTail->CurrentGridPos;
 	}
 	
+	FInt32Point Direction = DeQueueInput(); // dequeue
+	if (Direction != FInt32Point(0,0))
+	{
+		LastQueuedDir = Direction;
+	}
+	
 	if (SnakeHead)
 	{
-		GridManager->HitObjectsAtGridPos(GetNextGridPos(), SnakeHead);
+		GridManager->HitObjectsAtGridPos(GetNextGridPos(LastQueuedDir), SnakeHead);
 
 		// If the next grid position is the same as the current grid position, the game should end because that's the edge
 		if (SnakeHead->CurrentGridPos == NextGridPos)
@@ -85,7 +116,7 @@ void ASLSnake::OnUpdateTick()
 		}
 		
 		//MOVE
-		SnakeMove();
+		SnakeMove(LastQueuedDir);
 	}
 
 	if (GrowthQueue >= 1)
@@ -95,10 +126,13 @@ void ASLSnake::OnUpdateTick()
 	}
 }
 
-FInt32Point ASLSnake::GetNextGridPos()
+FInt32Point ASLSnake::GetNextGridPos(FInt32Point Direction)
 {
-	int32 PosX = SnakeHead->CurrentGridPos.X + InputDirection.X;
-	int32 PosY = SnakeHead->CurrentGridPos.Y + InputDirection.Y;
+	// int32 PosX = SnakeHead->CurrentGridPos.X + LastQueuedDir.X;
+	// int32 PosY = SnakeHead->CurrentGridPos.Y + LastQueuedDir.Y;
+	
+	int32 PosX = SnakeHead->CurrentGridPos.X + Direction.X;
+	int32 PosY = SnakeHead->CurrentGridPos.Y + Direction.Y;
 	
 	
 	if (bGridWrap)
@@ -117,11 +151,11 @@ FInt32Point ASLSnake::GetNextGridPos()
 	return NextGridPos;
 }
 
-void ASLSnake::SnakeMove()
+void ASLSnake::SnakeMove(FInt32Point Direction)
 {
 	// Moves TAIL to HEAD
 	
-	NextGridPos = GetNextGridPos();
+	NextGridPos = GetNextGridPos(Direction);
 
 	SnakeTail->SetActorLocation(GridManager->GetGridArrayLocation(NextGridPos));
 	
@@ -137,7 +171,7 @@ void ASLSnake::SnakeMove()
 
 	SnakeTail = SnakeTail->PreviousBody;
 
-	CurrentDirection = InputDirection;
+	// CurrentDirection = Direction;
 }
 
 void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody)

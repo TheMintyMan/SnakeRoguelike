@@ -24,7 +24,6 @@ ASLPlayerPawn::ASLPlayerPawn()
 	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
 
 	Direction = FInt32Point(0,1);
-	
 }
 
 // Called when the game starts or when spawned

@@ -138,6 +138,28 @@ void HitObjectsAtGridPos(FIntPoint GridPos, ASLOjects Instigater)
 }
 ```
 
+Queue
+
+```cpp
+
+
+
+Queue q = Queue.new();
+
+void press()
+{
+	if (q.len() == 3) return;
+	q.append(Vec2(-1, 0))
+}
+
+void game_tick()
+{
+	Vec2 dir = q.pop();
+	snake.move(dir);	
+}
+
+```
+
 ## Questions for myself:
 
 Make a New Class called Obstacle

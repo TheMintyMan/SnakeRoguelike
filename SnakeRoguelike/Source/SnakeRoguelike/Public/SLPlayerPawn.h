@@ -90,6 +90,8 @@ protected:
 	UFUNCTION()
 	void RightReleased();
 
+	
+
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;
 	

@@ -4,7 +4,8 @@
 - [x] Wall Death
 - [x] Score, UI
 - [x] Win Condition
-- [ ] Obstacle
+- [x] Added Input Queue based movement
+- [ ] Obstacle (Generation?)
 - [ ] Food Spawn
 - [ ] UI
 - [ ] Ability SlowTime
