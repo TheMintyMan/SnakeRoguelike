@@ -5,6 +5,7 @@
 
 | Subject                                      | Description                                                                                      | Date                          |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------- |
+| CHILL                                        | CHILL                                                                                            | ChILL                         |
 | Base Snake Game **(PROGRAMMING)**            | Snake game from start to finish as an executable that you can play.                              | 23rd March - 5th April        |
 | 2 Ability + 2 Perks **(PROGRAMMING)**        | Abilities that can be activated and used.                                                        | 6th April - 26th April        |
 | First Art Pass of Playable Area **(ART)**    | All art in the playable area                                                                     | 27th April - 23rd May         |

@@ -10,7 +10,7 @@
 ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
                       GridManager(), SpawnWorldPos(), NextGridPos(), PrevTailGridPos(),
                       MinPos(), MaxPos(),
-                      PlayerPawn(), CurrentDirection(),
+                      PlayerPawn(), CurrentDirection(), LastQueuedDirection(),
                       FruitBase(),
                       GrowthAmount(),
                       GrowthQueue(), Queue(6), bGridWrap(false)
@@ -18,7 +18,7 @@ ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
 
-	LastQueuedDir = FInt32Point(0, 1);
+	CurrentDirection = FInt32Point(0, 1);
 	GrowthQueue = 3;
 	QLenMax = 3;
 }
@@ -49,21 +49,25 @@ void ASLSnake::BeginPlay()
 
 void ASLSnake::QueueInput(FInt32Point& Direction)
 {
-	if (LastQueuedDir + Direction == FInt32Point(0,0))
-	{
-		return;
-	}
+	
 	if (Queue.Count() < QLenMax)
 	{
 		if (Queue.Count() > 0)
 		{
-			if (Direction + *Queue.Peek() == FInt32Point(0,0))
+			if (Direction + LastQueuedDirection == FInt32Point(0,0))
 			{
 				return;
 			}
 		}
+		else if (CurrentDirection + Direction == FInt32Point(0,0))
+		{
+		return;
+		}
+		LastQueuedDirection = Direction;
+		UE_LOG(LogTemp, Warning, TEXT("last direction: %s"), *Direction.ToString());
 		Queue.Enqueue(Direction);
 	}
+	
 }
 
 FInt32Point ASLSnake::DeQueueInput()
@@ -88,12 +92,12 @@ void ASLSnake::OnUpdateTick()
 	FInt32Point Direction = DeQueueInput(); // dequeue
 	if (Direction != FInt32Point(0,0))
 	{
-		LastQueuedDir = Direction;
+		CurrentDirection = Direction;
 	}
 	
 	if (SnakeHead)
 	{
-		GridManager->HitObjectsAtGridPos(GetNextGridPos(LastQueuedDir), SnakeHead);
+		GridManager->HitObjectsAtGridPos(GetNextGridPos(CurrentDirection), SnakeHead);
 
 		// If the next grid position is the same as the current grid position, the game should end because that's the edge
 		if (SnakeHead->CurrentGridPos == NextGridPos)
@@ -103,7 +107,7 @@ void ASLSnake::OnUpdateTick()
 			return;
 		}
 		// MOVE Snake
-		SnakeMove(LastQueuedDir);
+		SnakeMove(CurrentDirection);
 	}
 
 	// Grow Snake
@@ -162,6 +166,12 @@ void ASLSnake::SnakeMove(FInt32Point Direction)
 
 void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody, bool MoveTail)
 {
+	if (InSnakeBody == SnakeHead)
+	{
+		UE_LOG(LogTemp, Display, TEXT("SnakeHead Killed from itself"));
+		GridManager->GridEnd();
+	}
+	
 	if (MoveTail)
 	{
 		if (InSnakeBody->PreviousBody)

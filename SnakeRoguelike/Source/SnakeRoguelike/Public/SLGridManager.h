@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
+class ASLFoodBase;
 class ASLGameStateBase;
 class ASLCellObject;
 class ASLSnake;
@@ -57,11 +58,24 @@ protected:
 
 	FTimerHandle TickingHandle;
 
+	FTimerHandle FoodSpawnHandle;
+
+	FInt32Point FoodSpawnGridPosition;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ASLFoodBase> FoodCellClass;
+
+	UPROPERTY(EditDefaultsOnly)
+	float FoodSpawnTimer;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Grid Layout")
 	TSubclassOf<AActor> SnakeActor;
 
 	UFUNCTION()
 	void SpawnSnake();
+
+	UFUNCTION()
+	void SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FInt32Point InGridPosition);
 	
 	// This is for the grid manager to keep a count of where everything is
 	TArray<TArray<ASLCell*>> GridArray;
@@ -71,17 +85,16 @@ protected:
 	
 public:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float TickSpeed = 0.15f;
 	
-	UFUNCTION()
-	void SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FVector InLocation);
+	
 	
 	// Sets default values for this actor's properties
 	ASLGridManager();
 	
 	UFUNCTION()
-	void UpdateTime() const;
+	void UpdateTime();
 
 	UFUNCTION(BlueprintCallable)
 	void GridEnd();

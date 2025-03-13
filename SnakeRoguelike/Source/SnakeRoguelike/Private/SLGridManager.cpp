@@ -4,8 +4,9 @@
 #include "../Public/SLCellObject.h"
 #include "SLSnake.h"
 #include "SLCell.h"
+#include "SLFoodBase.h"
 #include "SLGameStateBase.h"
-#include "SLSnakeBody.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
@@ -19,6 +20,8 @@ ASLGridManager::ASLGridManager()
 	LengthSpacing = 100;
 	RowNum = 23;
 	ColNum = 23;
+
+	FoodSpawnTimer = 2;
 }
 
 void ASLGridManager::PostInitializeComponents()
@@ -88,9 +91,10 @@ void ASLGridManager::SpawnSnake()
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
-void ASLGridManager::SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FVector InLocation)
+void ASLGridManager::SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FInt32Point InGridPosition)
 {
-	GetWorld()->SpawnActor<ASLCellObject>(InCellClass, InLocation, FRotator(0,0,0));
+
+	GetWorld()->SpawnActor<ASLCellObject>(InCellClass, GetGridArrayLocation(InGridPosition), FRotator(0,0,0));
 }
 
 // Hit Objects at Grid Position
@@ -111,16 +115,15 @@ FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
 
 	int32 a = -1 % 24;
 	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen! at %s, annnddd %i"), *Position.ToString(), a);
-
 	
 	return FVector::ZeroVector;
 }
 
 FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
 {
-	for (int32 y = 0; y < GridArray.Num()-1; y++)
+	for (int32 y = 0; y < GridArray.Num(); y++)
 	{
-		for (int32 x = 0; x < GridArray.Num()-1; x++)
+		for (int32 x = 0; x < GridArray.Num(); x++)
 		{
 			if (GridArray[x][y]->GetActorLocation() == Location)
 			{
@@ -128,8 +131,8 @@ FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
 			}
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Nothing in grid position found"));
-	return FIntPoint::NoneValue;
+	UE_LOG(LogTemp, Warning, TEXT("Nothing in grid position found, looking at %s"), *Location.ToString());
+	return FIntPoint(0,0);
 }
 
 void ASLGridManager::RegisterCell(FIntPoint Position, ASLCellObject* Object)
@@ -170,9 +173,33 @@ ASLCell* ASLGridManager::GetCellAt(FIntPoint Position)
 	return SetCells;
 }
 
-void ASLGridManager::UpdateTime() const
+void ASLGridManager::UpdateTime()
 {
-	// 
+	TArray<AActor*> FoundFoodActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASLFoodBase::StaticClass(), FoundFoodActors);
+	
+	if (FoundFoodActors.Num() <= 0)
+	{
+		if (!GetWorldTimerManager().IsTimerActive(FoodSpawnHandle))
+		{
+			/*FRandomStream Random;
+			Random.Initialize(258912389);
+			Random.RandRange(0,-RowNum -1);*/
+			FoodSpawnGridPosition.X = FMath::RandRange(0, RowNum-1);
+			FoodSpawnGridPosition.Y = FMath::RandRange(0, RowNum-1);
+			
+			if (!GetCellAt(FoodSpawnGridPosition)->IsOccupied())
+			{
+				FTimerDelegate FoodTimerDelegate;
+				FoodTimerDelegate.BindUFunction(this, FName("SpawnCell"), FoodCellClass, FoodSpawnGridPosition);
+			
+				GetWorldTimerManager().SetTimer(FoodSpawnHandle, FoodTimerDelegate, FoodSpawnTimer, false);
+
+				UE_LOG(LogTemp, Warning, TEXT("Spawning Food"));
+			}
+		}
+	}
+	
 	UpdateTimeDelegate.Broadcast();
 }
 

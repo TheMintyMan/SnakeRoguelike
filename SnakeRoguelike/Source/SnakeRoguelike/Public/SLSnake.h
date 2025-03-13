@@ -81,7 +81,7 @@ protected:
 	FInt32Point CurrentDirection;
 
 	UPROPERTY()
-	FInt32Point LastQueuedDir;
+	FInt32Point LastQueuedDirection;
 	
 	UPROPERTY()
 	ASLFoodBase* FruitBase;
@@ -91,9 +91,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	int32 GrowthQueue;
-
-	// UFUNCTION()
-	// void SetDirection(FInt32Point NewDirection);
+	
 	
 	// The max length a queue can be
 	UPROPERTY(EditDefaultsOnly, Category = "Components")

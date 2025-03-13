@@ -2,7 +2,6 @@
 
 
 #include "SLSnakeBody.h"
-#include "SLGridManager.h"
 #include "SLSnake.h"
 
 // Sets default values
@@ -28,14 +27,12 @@ void ASLSnakeBody::GetHit(ASLCellObject* HitObjectPtr)
 	{
 		return;
 	}
-
-	/*
-	if(SnakeHead == instigator)
+	
+	if(SnakeManager->SnakeHead == HitObjectPtr)
 	{
 		SnakeManager->KillSnake(SnakeManager->SnakeHead, true);
 		return;
 	}
-	*/
 	
 	if (SnakeManager)
 	{
