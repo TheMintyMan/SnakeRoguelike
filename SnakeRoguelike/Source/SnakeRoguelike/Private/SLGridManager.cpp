@@ -5,6 +5,7 @@
 #include "SLSnake.h"
 #include "SLCell.h"
 #include "SLGameStateBase.h"
+#include "SLSnakeBody.h"
 
 // Sets default values
 ASLGridManager::ASLGridManager()
@@ -87,11 +88,11 @@ void ASLGridManager::SpawnSnake()
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
-/// TODO Spawn Cell
-void ASLGridManager::SpawnCell(ASLCellObject* InObject)
+void ASLGridManager::SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FVector InLocation)
 {
-	
-} 
+	GetWorld()->SpawnActor<ASLCellObject>(InCellClass, InLocation, FRotator(0,0,0));
+}
+
 // Hit Objects at Grid Position
 void ASLGridManager::HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr)
 {
@@ -171,7 +172,7 @@ ASLCell* ASLGridManager::GetCellAt(FIntPoint Position)
 
 void ASLGridManager::UpdateTime() const
 {
-	// UE_LOG(LogTemp, Warning, TEXT("Tick"));
+	// 
 	UpdateTimeDelegate.Broadcast();
 }
 

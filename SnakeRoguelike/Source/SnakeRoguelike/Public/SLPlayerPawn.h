@@ -18,7 +18,7 @@ class UInputMappingContext;
 class UCameraComponent;
 class USceneComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint, DirectionSend);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint&, DirectionSend);
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn

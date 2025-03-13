@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SLCellObject.h"
+#include "Containers/CircularQueue.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
@@ -39,18 +40,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TSubclassOf<ASLCellObject> SnakeBodySubclass;
 	
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	ASLSnakeBody* SnakeHead;
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	ASLSnakeBody* SnakeTail;
 	
-
-	// UPROPERTY()
-	// ASLSnakeBody* NewSnakeTail;
-
-	// UFUNCTION()
-	// void SpawnSnake(int32 Bodies, ASLSnakeBody* PreviousSnake = nullptr);
 	
 	///// Snake Body information - /////
 	
@@ -65,9 +55,6 @@ protected:
 	ASLGridManager* GridManager;
 
 	FVector SpawnWorldPos;
-
-	// UPROPERTY(EditAnywhere, Category = "Components")
-	// FInt32Point SpawnGridPos;
 
 	FInt32Point NextGridPos;
 
@@ -108,26 +95,19 @@ protected:
 	// UFUNCTION()
 	// void SetDirection(FInt32Point NewDirection);
 	
-private:
+	// The max length a queue can be
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	int QLen;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	int QLenMax;
+	uint8 QLenMax;
 	
-	TMpscQueue<FInt32Point> Queue;
+	TCircularQueue<FInt32Point> Queue{6};
 
+	// Input a FIntPoint direction from the key pressed, then adds that value to the queue
 	UFUNCTION()
-	void QueueInput(FInt32Point Direction);
+	void QueueInput(FInt32Point& Direction);
 
+	// Returns the last FIntPoint queue value then removes it from the queue
 	UFUNCTION()
 	FInt32Point DeQueueInput();	
-
-public:
-	
-	UFUNCTION()
-	void IncreaseGrowthQueue(int32 GrowthAmountInput);
-
 
 protected:
 	// This will do all MOVE and GROWTH
@@ -143,13 +123,24 @@ protected:
 	UFUNCTION()
 	void SnakeMove(FInt32Point Direction);
 
+	UFUNCTION()
+	void Grow();
+
+public:
+	// GrowthQueue is for the snake to grow. It's used for spawning and eating food
+	UFUNCTION()
+	void IncreaseGrowthQueue(int32 GrowthAmountInput);
+
 	// Kills Next body part, Kills, Next body part
 	// Animation Event Timeline done in Blueprints on the Timeline node
 	UFUNCTION(Blueprintable)
-	void KillSnake(ASLSnakeBody* InSnakeBody);
+	void KillSnake(ASLSnakeBody* InSnakeBody, bool MoveTail);
 
-	UFUNCTION()
-	void Grow();
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	ASLSnakeBody* SnakeHead;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	ASLSnakeBody* SnakeTail;
 	
 };
 

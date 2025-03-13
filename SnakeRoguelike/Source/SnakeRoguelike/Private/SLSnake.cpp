@@ -13,14 +13,13 @@ ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
                       PlayerPawn(), CurrentDirection(),
                       FruitBase(),
                       GrowthAmount(),
-                      GrowthQueue(), bGridWrap(false)
+                      GrowthQueue(), Queue(6), bGridWrap(false)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
 
 	LastQueuedDir = FInt32Point(0, 1);
 	GrowthQueue = 3;
-	QLen = 0;
 	QLenMax = 3;
 }
 
@@ -28,8 +27,6 @@ ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
 void ASLSnake::BeginPlay()
 {
 	Super::BeginPlay();
-	/*AActor* Body = UGameplayStatics::GetActorOfClass(GetWorld(), ASLSnakeBody::StaticClass());
-	SnakeBod = Cast<ASLSnakeBody>(Body);*/
 	
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
@@ -50,44 +47,34 @@ void ASLSnake::BeginPlay()
 	PrevTailGridPos = FInt32Point(GridManager->ColNum/2, 0);
 }
 
-
-/*void ASLSnake::SetDirection(FInt32Point NewDirection)
+void ASLSnake::QueueInput(FInt32Point& Direction)
 {
-	if (CurrentDirection + NewDirection == FInt32Point(0, 0))
+	if (LastQueuedDir + Direction == FInt32Point(0,0))
 	{
 		return;
 	}
-	LastQueuedDir = NewDirection;
-}*/
-
-void ASLSnake::QueueInput(FInt32Point Direction)
-{
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *Direction.ToString());
-	if (QLen < QLenMax)
+	if (Queue.Count() < QLenMax)
 	{
-		QLen++;
+		if (Queue.Count() > 0)
+		{
+			if (Direction + *Queue.Peek() == FInt32Point(0,0))
+			{
+				return;
+			}
+		}
 		Queue.Enqueue(Direction);
 	}
 }
 
 FInt32Point ASLSnake::DeQueueInput()
 {
-	UE_LOG(LogTemp, Warning, TEXT("%i"), QLen);
-	if (QLen > 0)
+	if (Queue.Count() > 0)
 	{
-		auto x = Queue.Dequeue();
-		if (x.IsSet())
-		{
-			QLen--;
-			return x.GetValue();
-		}		
+		FInt32Point yaya;
+		Queue.Dequeue(yaya);
+		return yaya;
 	}
 	return FInt32Point(0,0);
-}
-
-void ASLSnake::IncreaseGrowthQueue(int32 GrowthAmountInput)
-{
-	GrowthQueue += GrowthAmountInput;
 }
 
 void ASLSnake::OnUpdateTick()
@@ -113,12 +100,13 @@ void ASLSnake::OnUpdateTick()
 		{
 			UE_LOG(LogTemp, Warning, TEXT("The snake has hit the edge of the world"));
 			GridManager->GridEnd();
+			return;
 		}
-		
-		//MOVE
+		// MOVE Snake
 		SnakeMove(LastQueuedDir);
 	}
 
+	// Grow Snake
 	if (GrowthQueue >= 1)
 	{
 		Grow();
@@ -128,12 +116,8 @@ void ASLSnake::OnUpdateTick()
 
 FInt32Point ASLSnake::GetNextGridPos(FInt32Point Direction)
 {
-	// int32 PosX = SnakeHead->CurrentGridPos.X + LastQueuedDir.X;
-	// int32 PosY = SnakeHead->CurrentGridPos.Y + LastQueuedDir.Y;
-	
 	int32 PosX = SnakeHead->CurrentGridPos.X + Direction.X;
 	int32 PosY = SnakeHead->CurrentGridPos.Y + Direction.Y;
-	
 	
 	if (bGridWrap)
 	{
@@ -166,30 +150,34 @@ void ASLSnake::SnakeMove(FInt32Point Direction)
 	GridManager->RegisterCell(NextGridPos, SnakeTail);
 	
 	SnakeHead->SetPrevious(SnakeTail);
+
+	SnakeTail->SetNext(SnakeHead);
 	
 	SnakeHead = SnakeTail;
 
 	SnakeTail = SnakeTail->PreviousBody;
-
-	// CurrentDirection = Direction;
+	
+	SnakeTail->NextBody = nullptr;
 }
 
-void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody)
+void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody, bool MoveTail)
 {
-	if (InSnakeBody->PreviousBody)
+	if (MoveTail)
 	{
-		SnakeTail = InSnakeBody->PreviousBody;
+		if (InSnakeBody->PreviousBody)
+		{
+			SnakeTail = InSnakeBody->PreviousBody;
+		}	
 	}
 
 	if (InSnakeBody->NextBody)
 	{
 		GridManager->UnRegisterCell(InSnakeBody->CurrentGridPos, InSnakeBody);
-		KillSnake(InSnakeBody->NextBody);
+		KillSnake(InSnakeBody->NextBody, false);
 	}
 
 	// I need to get instigator
-
-	InSnakeBody->SetLifeSpan(0.1f);
+	InSnakeBody->Destroy();
 }
 
 void ASLSnake::Grow()
@@ -218,4 +206,9 @@ void ASLSnake::Grow()
 	SnakeTail->SetNext(NewBody);
 	NewBody->SetPrevious(SnakeTail);
 	SnakeTail = NewBody;
+}
+
+void ASLSnake::IncreaseGrowthQueue(int32 GrowthAmountInput)
+{
+	GrowthQueue += GrowthAmountInput;
 }

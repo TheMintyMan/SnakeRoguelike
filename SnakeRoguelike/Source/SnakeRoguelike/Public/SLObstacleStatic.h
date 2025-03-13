@@ -13,5 +13,9 @@ UCLASS()
 class SNAKEROGUELIKE_API ASLObstacleStatic : public ASLCellObject
 {
 	GENERATED_BODY()
+
+protected:
+	
+	virtual void GetHit(ASLCellObject* HitObjectPtr) override;
 	
 };

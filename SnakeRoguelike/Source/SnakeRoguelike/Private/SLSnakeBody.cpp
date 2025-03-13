@@ -2,8 +2,8 @@
 
 
 #include "SLSnakeBody.h"
-
 #include "SLGridManager.h"
+#include "SLSnake.h"
 
 // Sets default values
 ASLSnakeBody::ASLSnakeBody(): PreviousBody(), PrevBodyGridPos(), NextBody(), NextBodyGridPos(), CurrentGridPos()
@@ -22,11 +22,26 @@ void ASLSnakeBody::GetHit(ASLCellObject* HitObjectPtr)
 {
 	Super::GetHit(HitObjectPtr);
 
+	ASLSnake* SnakeManager = Cast<ASLSnake>(GetOwner());
+	
 	if (NextBody == nullptr && Cast<ASLSnakeBody>(HitObjectPtr))
 	{
 		return;
 	}
-	GridManager->GridEnd();
+
+	/*
+	if(SnakeHead == instigator)
+	{
+		SnakeManager->KillSnake(SnakeManager->SnakeHead, true);
+		return;
+	}
+	*/
+	
+	if (SnakeManager)
+	{
+		SnakeManager->KillSnake(this, true);
+	}
+	
 }
 
 void ASLSnakeBody::SetPrevious(ASLSnakeBody* SnakePtr)

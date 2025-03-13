@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Systems/ScoringWinningLosing.md",
+                "file": "Systems/Spawn Food.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ScoringWinningLosing"
+              "title": "Spawn Food"
             }
           }
         ]
@@ -39,12 +39,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "Systems/ScoringWinningLosing.md",
+                    "file": "ToDo/To Do.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "ScoringWinningLosing"
+                  "title": "To Do"
                 }
               }
             ]
@@ -213,19 +213,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "461bce6e35ecd55e",
+  "active": "6be5485f4e015ed0",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Systems/Spawn Food.md",
+    "ToDo/To Do.md",
+    "ToDo/Schedule.md",
+    "Systems/Pseudocodes.md",
     "Systems/ScoringWinningLosing.md",
     "Systems/OLD Pseudocodes.md",
-    "SnakeRogueLikeDoc/To Do.md",
-    "SnakeRogueLikeDoc/Art.md",
     "Systems/Abilities.md",
-    "Systems/Snake Pseudocodes.md",
-    "SnakeRogueLikeDoc/HUB.md",
-    "SnakeRogueLikeDoc/Creating Snake Like.md",
-    "Systems/Issues List.md",
     "Systems/Untitled.canvas",
+    "ToDo/Issues List.md",
+    "SnakeRogueLikeDoc/HUB.md",
+    "ToDo",
+    "SnakeRogueLikeDoc/Art.md",
+    "SnakeRogueLikeDoc/Creating Snake Like.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
     "Pasted image 20250305191551.png",
     "SnakeRogueLikeDoc",
     "Systems",

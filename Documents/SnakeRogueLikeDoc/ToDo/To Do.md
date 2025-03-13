@@ -1,3 +1,12 @@
+
+- [ ] Food Spawn
+- [ ] Timer on UI
+- [ ] UI (Win Screen)
+- [ ] Ability SlowTime
+- [ ] Map picker
+- [ ] Prototype Visuals of Shop
+
+### DONE:
 - [x] Eat (WIP, need to add tail)
 - [x] KYS
 - [x] Loss Condition
@@ -5,13 +14,8 @@
 - [x] Score, UI
 - [x] Win Condition
 - [x] Added Input Queue based movement
-- [ ] Obstacle (Generation?)
-- [ ] Food Spawn
-- [ ] UI
-- [ ] Ability SlowTime
 - [x] Ability WrapAround
-- [ ] Shop
-
+- [x] Obstacle (3 lines of code worked!)
 
 
 

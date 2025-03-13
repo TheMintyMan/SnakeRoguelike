@@ -1,12 +1,9 @@
-[[Snake Pseudocodes]]
-
-[[To Do]]
-
 [[Creating Snake Like]]
 
 [[Snake Like GDD]]
 
 [[Art]]
+
 
 Credits:
 

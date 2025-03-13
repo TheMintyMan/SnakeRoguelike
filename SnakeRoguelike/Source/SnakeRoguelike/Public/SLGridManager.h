@@ -75,7 +75,7 @@ public:
 	float TickSpeed = 0.15f;
 	
 	UFUNCTION()
-	void SpawnCell(ASLCellObject* InObject);
+	void SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FVector InLocation);
 	
 	// Sets default values for this actor's properties
 	ASLGridManager();

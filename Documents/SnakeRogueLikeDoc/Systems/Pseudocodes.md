@@ -4,7 +4,7 @@
 
 [[Abilities]]
 
-[[Issues List]]
+[[Untitled.canvas|Untitled]]
 
 ### Movement/Growth/Death
 SnakeManager.cpp
