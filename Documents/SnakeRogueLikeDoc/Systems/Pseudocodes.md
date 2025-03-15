@@ -160,6 +160,10 @@ void game_tick()
 
 ```
 
+```
+
+```
+
 ## Questions for myself:
 
 Make a New Class called Obstacle

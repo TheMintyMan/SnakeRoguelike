@@ -7,6 +7,7 @@
 #include "SLGameStateBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnScoreChanged, int32, InScoreRound);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTimerChanged, float, GetTimerChanged);
 
 class ASLGridManager;
 /**
@@ -34,42 +35,46 @@ class SNAKEROGUELIKE_API ASLGameStateBase : public AGameStateBase
 	UPROPERTY()
 	FTimerHandle RoundTimerHandle;
 
+	UFUNCTION(BlueprintCallable)
+	void Countdown();
+
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	bool bWinLoss = false;
+	
+	UPROPERTY(EditDefaultsOnly)
+	int32 TargetScore = 60;
+
+	UPROPERTY(EditDefaultsOnly)
+	float RoundSeconds = 60.0f;
 public:
-
-	UPROPERTY(BlueprintAssignable)
-	FOnScoreChanged OnScoreChanged;
-
-	UPROPERTY(EditDefaultsOnly)
-	int32 TargetScore = 20;
-
-	UPROPERTY(EditDefaultsOnly)
-	float Seconds = 20.0f;
-
-	UPROPERTY(EditDefaultsOnly)
-	float Minutes = 0.0f;
 
 	UPROPERTY()
 	float FirstInDelay = 3.0f;
 
-	UFUNCTION(BlueprintCallable)
-	void Countdown();
+	UFUNCTION()
+	int32 ScoreRoundAdd(int32 InScore);
+	
+	UPROPERTY(BlueprintAssignable)
+	FOnScoreChanged OnScoreChanged;
+	
+	UPROPERTY(BlueprintAssignable)
+	FOnTimerChanged OnTimerChanged;
 	
 	UFUNCTION(BlueprintCallable)
-	int32 ScoreRoundAdd(int32 InScore);
+	int32 GetTargetScoreRound();
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetScoreRound();
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetScoreTotal();
-
-	UFUNCTION(BlueprintNativeEvent)
-	void GameEnd();
 	
+	UFUNCTION(BlueprintCallable)
+	int32 GetRoundTimeLength();
+
 	// Ends the game. Clears the GameTimer stopping everything that's running in the game.
 	UFUNCTION(BlueprintNativeEvent)
-	void GameLose();
-
-	UFUNCTION(BlueprintNativeEvent)
-	void GameWin();
+	void GameEnd();
 };
+

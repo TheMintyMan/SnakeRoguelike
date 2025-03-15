@@ -12,61 +12,47 @@ void ASLGameStateBase::BeginPlay()
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
 
+	OnTimerChanged.Broadcast(RoundSeconds);
+
 	GetWorldTimerManager().SetTimer(RoundTimerHandle, this, &ASLGameStateBase::Countdown, 1.0f, true, FirstInDelay);
 }
 
 void ASLGameStateBase::GameReset()
 {
-	//UGameplayStatics::GetGameMode(GetWorld())->ResetLevel();
+	// UGameplayStatics::GetGameMode(GetWorld())->ResetLevel();
 
 	UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetMapName());
 }
 
 void ASLGameStateBase::Countdown()
-{
-	Seconds = FMath::Clamp(Seconds, 0.0f, 60.0f);
-	Minutes = FMath::Clamp(Minutes, 0.0f, 5.0f);
-	
-	if (Seconds > 0)
+{	
+	if (RoundSeconds > 0)
 	{
-		--Seconds;
-		//UE_LOG(LogTemp, Warning, TEXT("Minutes: %f Seconds: %f"), Minutes, Seconds);
+		--RoundSeconds;
+		OnTimerChanged.Broadcast(RoundSeconds);
 	}
-	else
+	if (RoundSeconds <= 0)
 	{
-		--Minutes;
-		Seconds = 60.0f;
-		//UE_LOG(LogTemp, Warning, TEXT("Minutes: %f Seconds: %f"), Minutes, Seconds);
-
-		if (Minutes <= 0)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Timer Cleared, game ended"));
-			GetWorldTimerManager().ClearTimer(RoundTimerHandle);
-			Seconds = 0.0f;
-			
-			if (PlayerScoreRound >= TargetScore)
-			{
-				GridManager->GridClear();
-				GameWin();
-			}
-			else
-			{
-				GridManager->GridClear();
-				GameLose();
-			}
-		}
+		UE_LOG(LogTemp, Warning, TEXT("Calling Game End"));
+		OnTimerChanged.Broadcast(RoundSeconds);
+		GameEnd();
 	}
 }
 
 int32 ASLGameStateBase::ScoreRoundAdd(const int32 InScore)
 {
-	// multiply a bit with snake length
+	// TODO multiply a bit with snake length
 	
 	PlayerScoreRound += InScore;
 	
-	UE_LOG(LogTemp, Warning, TEXT("Current Round Score: %i"), PlayerScoreRound);
+	// UE_LOG(LogTemp, Warning, TEXT("Current Round Score: %i"), PlayerScoreRound);
 	OnScoreChanged.Broadcast(PlayerScoreRound);
 	return PlayerScoreRound;
+}
+
+int32 ASLGameStateBase::GetTargetScoreRound()
+{
+	return TargetScore;
 }
 
 int32 ASLGameStateBase::GetScoreRound()
@@ -79,16 +65,15 @@ int32 ASLGameStateBase::GetScoreTotal()
 	return PlayerScoreTotal;
 }
 
+int32 ASLGameStateBase::GetRoundTimeLength()
+{
+	return RoundSeconds;
+}
+
 void ASLGameStateBase::GameEnd_Implementation()
 {
-}
-
-void ASLGameStateBase::GameLose_Implementation()
-{
-	UE_LOG(LogTemp, Warning, TEXT("You Lose!"));
-}
-
-void ASLGameStateBase::GameWin_Implementation()
-{
-	UE_LOG(LogTemp, Warning, TEXT("You Won!"));
+	UE_LOG(LogTemp, Warning, TEXT("Game state Timer has Stopped"));
+	bWinLoss = PlayerScoreRound >= TargetScore;
+	GetWorldTimerManager().ClearTimer(RoundTimerHandle);
+	GridManager->GridClear();
 }

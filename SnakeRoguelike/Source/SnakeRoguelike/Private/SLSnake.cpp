@@ -64,7 +64,6 @@ void ASLSnake::QueueInput(FInt32Point& Direction)
 		return;
 		}
 		LastQueuedDirection = Direction;
-		UE_LOG(LogTemp, Warning, TEXT("last direction: %s"), *Direction.ToString());
 		Queue.Enqueue(Direction);
 	}
 	
@@ -103,7 +102,7 @@ void ASLSnake::OnUpdateTick()
 		if (SnakeHead->CurrentGridPos == NextGridPos)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("The snake has hit the edge of the world"));
-			GridManager->GridEnd();
+			GridManager->GameEnded();
 			return;
 		}
 		// MOVE Snake
@@ -169,7 +168,7 @@ void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody, bool MoveTail)
 	if (InSnakeBody == SnakeHead)
 	{
 		UE_LOG(LogTemp, Display, TEXT("SnakeHead Killed from itself"));
-		GridManager->GridEnd();
+		GridManager->GameEnded();
 	}
 	
 	if (MoveTail)
@@ -198,7 +197,7 @@ void ASLSnake::Grow()
 	
 	NewBody->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 
-	GridManager->RegisterCell(PrevTailGridPos, NewBody);
+	//GridManager->RegisterCell(PrevTailGridPos, NewBody);
 
 	NewBody->CurrentGridPos = PrevTailGridPos;
 	

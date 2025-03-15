@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Systems/ScoringWinningLosing.md",
+                "file": "Systems/Pseudocodes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ScoringWinningLosing"
+              "title": "Pseudocodes"
             }
           }
         ]
@@ -219,22 +219,25 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fd87c552ec2990ef",
+  "active": "461bce6e35ecd55e",
   "lastOpenFiles": [
-    "ToDo/Issues List.md",
-    "ToDo/To Do.md",
-    "ToDo/Schedule.md",
-    "Systems/ScoringWinningLosing.md",
-    "Systems/Spawn Food.md",
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
-    "Systems/Pseudocodes.md",
-    "Systems/OLD Pseudocodes.md",
     "Systems/Abilities.md",
-    "Systems/Untitled.canvas",
-    "SnakeRogueLikeDoc/HUB.md",
-    "ToDo",
+    "ToDo/To Do.md",
+    "ToDo/Issues List.md",
+    "Systems/Seeded Runs.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Systems/Untitled 1.md",
+    "2025-03-13.md",
     "SnakeRogueLikeDoc/Art.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
+    "Systems/Untitled.canvas",
+    "Systems/Spawn Food.md",
+    "Systems/ScoringWinningLosing.md",
+    "Systems/Pseudocodes.md",
+    "Systems/OLD Pseudocodes.md",
+    "ToDo/Schedule.md",
+    "SnakeRogueLikeDoc/HUB.md",
+    "ToDo",
     "Pasted image 20250305191551.png",
     "SnakeRogueLikeDoc",
     "Systems",

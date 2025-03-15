@@ -41,8 +41,5 @@ void ASLFoodBase::GetHit(ASLCellObject* HitObjectPtr)
 		SLGameState->ScoreRoundAdd(FoodScore);
 		
 	}
-	
-	UE_LOG(LogTemp, Warning, TEXT("Fruit has been hit"));
-
 	Destroy();
 }

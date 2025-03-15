@@ -88,8 +88,6 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float TickSpeed = 0.15f;
 	
-	
-	
 	// Sets default values for this actor's properties
 	ASLGridManager();
 	
@@ -97,15 +95,17 @@ public:
 	void UpdateTime();
 
 	UFUNCTION(BlueprintCallable)
-	void GridEnd();
-
-	UFUNCTION(BlueprintCallable)
 	void GridClear();
 	
 	FString GetHello();
 
+	UFUNCTION()
+	void GameEnded();
+
 protected:
 
+	bool bHasGameEnded = false;
+	
 	// Creates the grid before begin play and sets all cell states to "Empty"
 	UFUNCTION(BlueprintCallable)
 	virtual void PostInitializeComponents() override;

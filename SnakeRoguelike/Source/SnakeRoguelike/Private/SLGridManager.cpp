@@ -66,7 +66,7 @@ void ASLGridManager::BuildGrid()
 				GridArray[x][y] = NewCell;
 				if(NewCell)
 				{
-					NewCell->SetActorLabel(*TileName);
+					// NewCell->SetActorLabel(*TileName);
 					NewCell->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 				}
 			}
@@ -182,43 +182,42 @@ void ASLGridManager::UpdateTime()
 	{
 		if (!GetWorldTimerManager().IsTimerActive(FoodSpawnHandle))
 		{
-			/*FRandomStream Random;
-			Random.Initialize(258912389);
-			Random.RandRange(0,-RowNum -1);*/
-			FoodSpawnGridPosition.X = FMath::RandRange(0, RowNum-1);
-			FoodSpawnGridPosition.Y = FMath::RandRange(0, RowNum-1);
-			
-			if (!GetCellAt(FoodSpawnGridPosition)->IsOccupied())
+			bool spawnedFood = false;
+			do 
 			{
-				FTimerDelegate FoodTimerDelegate;
-				FoodTimerDelegate.BindUFunction(this, FName("SpawnCell"), FoodCellClass, FoodSpawnGridPosition);
+				FoodSpawnGridPosition.X = FMath::RandRange(0, RowNum-1);
+				FoodSpawnGridPosition.Y = FMath::RandRange(0, RowNum-1);
+				
+				if (!GetCellAt(FoodSpawnGridPosition)->IsOccupied())
+				{
+					FTimerDelegate FoodTimerDelegate;
+					FoodTimerDelegate.BindUFunction(this, FName("SpawnCell"), FoodCellClass, FoodSpawnGridPosition);
 			
-				GetWorldTimerManager().SetTimer(FoodSpawnHandle, FoodTimerDelegate, FoodSpawnTimer, false);
-
-				UE_LOG(LogTemp, Warning, TEXT("Spawning Food"));
-			}
+					GetWorldTimerManager().SetTimer(FoodSpawnHandle, FoodTimerDelegate, FoodSpawnTimer, false);
+					spawnedFood = true;
+				}
+			} while (!spawnedFood);
 		}
 	}
 	
 	UpdateTimeDelegate.Broadcast();
 }
 
-void ASLGridManager::GridEnd()
-{
-	GetWorldTimerManager().ClearTimer(TickingHandle);
-	
-	if (SLGameState)
-	{
-		SLGameState->GameLose();
-	}
-}
-
 void ASLGridManager::GridClear()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Grid Stopped"));
 	GetWorldTimerManager().ClearTimer(TickingHandle);
 }
 
 FString ASLGridManager::GetHello()
 {
 	return Hello;
+}
+
+void ASLGridManager::GameEnded()
+{
+	if (SLGameState)
+	{
+		SLGameState->GameEnd();
+	}
 }
