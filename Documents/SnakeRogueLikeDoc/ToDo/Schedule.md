@@ -16,5 +16,3 @@
 | Vertical Slice <br>**(ART + BUG FIX + SFX)** | Completed portion of the game with all features in and polished art. Anything left to do. POLISH | 20th September - 13th October |
 Notable Dates:
 13th October - Next Fest (Don't Apply)
-
-

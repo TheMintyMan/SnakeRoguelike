@@ -26,6 +26,8 @@ The snake will always spawn from the bottom centre tile moving upwards.
 
 The game uses grid based movement just like the original Snake.
 
+Monopoly - Growing exponentially big.
+
 Game Inspiration:
 Slay The Spire, Snake, Balatro
 
@@ -54,6 +56,11 @@ Bosses will show up after 3~5 rooms consistently. They will have a unique mechan
 ### Economy
 
 The player's economy will be based on the snake's size at the end of each round.
+
+Renaming your score to company Value. Company Value = Total Score
+
+Stocks - Going up and down. It could be RNG. Stocks could change.
+Supply/Demands - Shop stuff. Things that don't get bought often enough will become cheaper.
 
 IDEAS:
 Shop Items that shrink yourself
