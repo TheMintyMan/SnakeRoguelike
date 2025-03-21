@@ -19,8 +19,8 @@ public:
 	ASLCell();
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Tile")
-	UStaticMeshComponent* CellMesh;
+	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Tile")
+	// UStaticMeshComponent* CellMesh;
 
 public:
 	UPROPERTY(VisibleInstanceOnly)

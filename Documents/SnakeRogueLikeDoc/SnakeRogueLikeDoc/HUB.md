@@ -16,3 +16,5 @@ Dear RSAA, Have you heard of Ronan? He's an pro Astrologist, Class Rep at ANU, P
 Benamin Anderson
 
 Jonathan Davey - Intern Programmer
+
+Anthony Sae Jang - Intern UI Artist

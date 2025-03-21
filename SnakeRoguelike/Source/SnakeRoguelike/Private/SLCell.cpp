@@ -13,8 +13,8 @@ ASLCell::ASLCell()
 	PrimaryActorTick.bCanEverTick = false;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	CellMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	CellMesh->SetupAttachment(RootComponent);
+	// CellMesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
+	// CellMesh->SetupAttachment(RootComponent);
 }
 
 bool ASLCell::IsOccupied() const

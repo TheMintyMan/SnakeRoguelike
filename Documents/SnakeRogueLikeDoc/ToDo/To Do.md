@@ -1,10 +1,6 @@
-- [ ] Capsule Art v01
-- [ ] Environment Checker/Grid texture
+- [ ] Game Console
+- [ ] Art of the game
 - [ ] Blockout of boss in Blender
-- [ ] Win con Update
-- [ ] Saving Highscore
-- [ ] Start on ability system
-
 
 ### DONE:
 - [x] Eat (WIP, need to add tail)
@@ -18,6 +14,7 @@
 - [x] Obstacle (3 lines of code worked!)
 - [x] Food Spawn
 - [x] UI (Win Screen, Main Menu, Timer)
+- [x] Capsule Art v01
 
 LATER:
 - [ ] Map picker
@@ -25,6 +22,9 @@ LATER:
 - [ ] Ability SlowTime
 - [ ] Display Size on Map as a UI 
 - [ ] Setting up game Seed (later later)
+- [ ] Win con Update
+- [ ] Saving Highscore
+- [ ] Start on ability system
 
 JUICE
 Screen shake
@@ -40,6 +40,48 @@ Renaming your score to company Value. Company Value = Total Score
 
 Stocks - Going up and down. It could be RNG. Stocks could change.
 Supply/Demands - Shop stuff. Things that don't get bought often enough will become cheaper.
+
+
+
+Tagline, father son, game boy aesthetic
+
+
+New narrative:
+Inception
+
+You're a character in the real world at a desk job.
+You decide to play Snake++ instead of doing work.
+
+Starts off with a first person animated sequence of you sitting down at the desk turning the computer on.
+
+The character in the game is a nobody trying to become a CEO.
+
+Little E-mails and messages pop up in game.
+
+Escapism
+
+1 mechanic is that boss in real life starts talking to you and have to flip the device over so that your IRL boss doesn't see you playing the game. Eye icon shows up and shows "Flip Device". When bar gets full, the game punishes you by shooting extra lasers or something.
+
+Pop-ups show up in game.
+
+At the end of the day, you win the game but you get made redundant IRL.
+
+Thank you for your years of service. Unfortunately.
+
+Straight to black, TV turns off. Credits roll.
+
+
+Add a screen effect to the capsule art.
+
+It's a game boy that has pop out elements such as buttons and enemy bosses.
+
+Gameplay Effects are good for passive effects/buffs, etc.
+
+Watch videos on GAS before. 
+
+
+
+
 
 
 

@@ -14,5 +14,6 @@
 | Shop <br>**(PROGRAMMING + ART)**             | A shop that allows players to buy/sell abilities and perks                                       | 12th July - 15th August       |
 | UI<br>**(ART + HOOKING UP)**                 | First pass UI of all UI elements in the game                                                     | 16th August - 19th September  |
 | Vertical Slice <br>**(ART + BUG FIX + SFX)** | Completed portion of the game with all features in and polished art. Anything left to do. POLISH | 20th September - 13th October |
+|                                              |                                                                                                  |                               |
 Notable Dates:
 13th October - Next Fest (Don't Apply)
