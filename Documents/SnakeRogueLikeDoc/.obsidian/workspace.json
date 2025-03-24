@@ -6,7 +6,7 @@
       {
         "id": "ac0d252954dc4844",
         "type": "tabs",
-        "dimension": 52.5766016713092,
+        "dimension": 51.45939086294417,
         "children": [
           {
             "id": "461bce6e35ecd55e",
@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SnakeRogueLikeDoc/HUB.md",
+                "file": "Systems/Abilities.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "HUB"
+              "title": "Abilities"
             }
           }
         ]
@@ -27,7 +27,7 @@
       {
         "id": "545330fc2d3c652f",
         "type": "split",
-        "dimension": 47.42339832869081,
+        "dimension": 48.54060913705584,
         "children": [
           {
             "id": "97c02f6dde79ddce",
@@ -217,21 +217,21 @@
   },
   "active": "461bce6e35ecd55e",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Systems/Spawn Food.md",
+    "Systems/Seeded Runs.md",
+    "Systems/ScoringWinningLosing.md",
+    "Systems/Pseudocodes.md",
+    "Systems/OLD Pseudocodes.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
-    "SnakeRogueLikeDoc/Art.md",
     "ToDo/To Do.md",
+    "SnakeRogueLikeDoc/HUB.md",
+    "SnakeRogueLikeDoc/VFX References.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Systems/Abilities.md",
+    "Systems/Untitled.canvas",
+    "SnakeRogueLikeDoc/Art.md",
     "ToDo/Schedule.md",
     "ToDo/Issues List.md",
-    "Systems/Untitled.canvas",
-    "SnakeRogueLikeDoc/VFX References.md",
-    "SnakeRogueLikeDoc/HUB.md",
-    "Systems/Abilities.md",
-    "Systems/OLD Pseudocodes.md",
-    "Systems/Pseudocodes.md",
-    "Systems/ScoringWinningLosing.md",
-    "Systems/Seeded Runs.md",
-    "Systems/Spawn Food.md",
     "Images/LaserBeam_JetPackJoyride.mp4",
     "Systems/Untitled 1.md",
     "2025-03-13.md",

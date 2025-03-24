@@ -70,7 +70,6 @@ Thank you for your years of service. Unfortunately.
 
 Straight to black, TV turns off. Credits roll.
 
-
 Add a screen effect to the capsule art.
 
 It's a game boy that has pop out elements such as buttons and enemy bosses.

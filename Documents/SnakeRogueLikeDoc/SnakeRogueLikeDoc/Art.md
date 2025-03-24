@@ -1,7 +1,7 @@
-#hello
+
 # Art Style
 
-Simple, arcady. 3D top down orthographic looking view.
+Simple, Arcady. 3D top down orthographic looking view.
 
 That pixel looks. (Rough Idea)
 
@@ -11,8 +11,11 @@ A touch of synthwave look reminiscent of games like geometry dash
 
 I’ll probably create an asset list somewhere else that’s a bit more appropriate for creating asset lists.
 
-# Basic Story
+- [ ] game console
+- [ ] 
 
+
+# Narrative
 You’re a hungry snake. You just want to eat and get big. And also, you’re a snake that wants to survive. 
 
 Maybe something like, you’ve been disowned by your own royal snake family. It was decided by the king snake. You get tossed off a modern skyscraper by two of the royal snake guards and you must now climb your way up from the ground to prove that you’re worthy of the royal snake family. Something wacky like that. 
