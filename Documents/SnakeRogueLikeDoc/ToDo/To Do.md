@@ -38,54 +38,57 @@ When you get them, maybe you unlock an ability slot + ability maybe. When you bu
 
 Renaming your score to company Value. Company Value = Total Score
 
-Stocks - Going up and down. It could be RNG. Stocks could change.
-Supply/Demands - Shop stuff. Things that don't get bought often enough will become cheaper.
+Stocks - Going up and down. It could be RNG. Stocks could change
+Supply/Demands - Shop stuff. Things that don't get bought often enough will become cheaper
 
 
 
 Tagline, father son, game boy aesthetic
 
-
 New narrative:
 Inception
 
-You're a character in the real world at a desk job.
-You decide to play Snake++ instead of doing work.
+You're a character in the real world at a desk job
+You decide to play Snake++ instead of doing work
 
-Starts off with a first person animated sequence of you sitting down at the desk turning the computer on.
+Starts off with a first person animated sequence of you sitting down at the desk turning the computer on
 
-The character in the game is a nobody trying to become a CEO.
+The character in the game is a nobody trying to become a CEO
 
-Little E-mails and messages pop up in game.
+Little E-mails and messages pop up in game
 
 Escapism
 
-1 mechanic is that boss in real life starts talking to you and have to flip the device over so that your IRL boss doesn't see you playing the game. Eye icon shows up and shows "Flip Device". When bar gets full, the game punishes you by shooting extra lasers or something.
+1 mechanic is that boss in real life starts talking to you and have to flip the device over so that your IRL boss doesn't see you playing the game. Eye icon shows up and shows "Flip Device". When bar gets full, the game punishes you by shooting extra lasers or something
 
-Pop-ups show up in game.
+Pop-ups show up in game
 
-At the end of the day, you win the game but you get made redundant IRL.
+At the end of the day, you win the game but you get made redundant IRL
 
-Thank you for your years of service. Unfortunately.
+Thank you for your years of service. Unfortunately
 
-Straight to black, TV turns off. Credits roll.
+Straight to black, TV turns off. Credits roll
 
-Add a screen effect to the capsule art.
+Add a screen effect to the capsule art
 
-It's a game boy that has pop out elements such as buttons and enemy bosses.
+It's a game boy that has pop out elements such as buttons and enemy bosses
 
-Gameplay Effects are good for passive effects/buffs, etc.
+Gameplay Effects are good for passive effects/buffs, etc
 
-Watch videos on GAS before. 
-
-
+Watch videos on GAS before.
 
 
 
+Questions to myself:
+
+How much of the meta am I incorporating into the game?
+
+Rewarding in terms of area
+
+Designing ways the narrative can be told
+
+In-between rounds, you could go through your email. During the peace period
 
 
 
-
-
-
-
+The game is more real to you than the world you are in.

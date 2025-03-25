@@ -1,7 +1,6 @@
 ## Snake++
 *But it's a metaphor for late stage capitalism*
 
-
 ![[Thumbnail_01.png]]
 
 ## Overview
@@ -13,6 +12,8 @@
 | Theme / Mood  | Arcade, Modern                     |
 
 Snake but with abilities and upgrades you can buy with a roguelike game loop.
+
+Meta
 
 ## Gameplay
 

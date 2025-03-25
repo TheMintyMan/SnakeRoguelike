@@ -118,3 +118,13 @@ Removes all the body parts of the snake in an instant. You become a single pixel
 
 Guaranteed to spawn a Mega Fruit on the next fruit that will be spawned.
 Mega Fruit will add a lot to the score and it will also decrease the size of the snake.
+
+### Ability HeadSwap
+
+### Ability Bury
+
+Allows players head to go underground for a duration of time
+
+### Ability Reroll
+
+Allows the player to reroll the map when the player hits the edge of the map.

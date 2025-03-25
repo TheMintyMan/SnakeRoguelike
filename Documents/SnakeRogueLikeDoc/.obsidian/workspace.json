@@ -6,7 +6,7 @@
       {
         "id": "ac0d252954dc4844",
         "type": "tabs",
-        "dimension": 51.45939086294417,
+        "dimension": 46.44670050761421,
         "children": [
           {
             "id": "461bce6e35ecd55e",
@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Systems/Abilities.md",
+                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Abilities"
+              "title": "Snake Like GDD"
             }
           }
         ]
@@ -27,12 +27,12 @@
       {
         "id": "545330fc2d3c652f",
         "type": "split",
-        "dimension": 48.54060913705584,
+        "dimension": 53.55329949238579,
         "children": [
           {
             "id": "97c02f6dde79ddce",
             "type": "tabs",
-            "dimension": 62.142857142857146,
+            "dimension": 61.82692307692308,
             "children": [
               {
                 "id": "fd87c552ec2990ef",
@@ -53,7 +53,7 @@
           {
             "id": "23573af30e44d64a",
             "type": "tabs",
-            "dimension": 37.857142857142854,
+            "dimension": 38.17307692307692,
             "children": [
               {
                 "id": "6be5485f4e015ed0",
@@ -215,19 +215,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "461bce6e35ecd55e",
+  "active": "fd87c552ec2990ef",
   "lastOpenFiles": [
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "ToDo/To Do.md",
+    "Systems/Abilities.md",
     "Systems/Spawn Food.md",
     "Systems/Seeded Runs.md",
     "Systems/ScoringWinningLosing.md",
     "Systems/Pseudocodes.md",
     "Systems/OLD Pseudocodes.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
-    "ToDo/To Do.md",
     "SnakeRogueLikeDoc/HUB.md",
     "SnakeRogueLikeDoc/VFX References.md",
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
-    "Systems/Abilities.md",
     "Systems/Untitled.canvas",
     "SnakeRogueLikeDoc/Art.md",
     "ToDo/Schedule.md",
