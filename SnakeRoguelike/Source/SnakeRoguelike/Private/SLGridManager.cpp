@@ -15,9 +15,39 @@ ASLGridManager::ASLGridManager()
 	PrimaryActorTick.bCanEverTick = false;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>("RootComp");
+
+	ConsoleMesh = CreateDefaultSubobject<UStaticMeshComponent>("ConsoleMesh");
+	ConsoleMesh->SetupAttachment(RootComponent);
+
+	UpDirectionActorComponent = CreateDefaultSubobject<UChildActorComponent>("UpDirectionActorComponent");
+	UpDirectionActorComponent->SetupAttachment(ConsoleMesh);
+
+	DownDirectionActorComponent = CreateDefaultSubobject<UChildActorComponent>("DownDirectionActorComponent");
+	DownDirectionActorComponent->SetupAttachment(ConsoleMesh);
+
+	LeftDirectionActorComponent = CreateDefaultSubobject<UChildActorComponent>("LeftDirectionActorComponent");
+	LeftDirectionActorComponent->SetupAttachment(ConsoleMesh);
+
+	RightDirectionActorComponent = CreateDefaultSubobject<UChildActorComponent>("RightDirectionActorComponent");
+	RightDirectionActorComponent->SetupAttachment(ConsoleMesh);
+
+	ScoreWidgetActorComponent = CreateDefaultSubobject<UChildActorComponent>("ScoreWidgetActorComponent");
+	ScoreWidgetActorComponent->SetupAttachment(ConsoleMesh);
+
+	Ability01 = CreateDefaultSubobject<USceneComponent>("Ability01");
+	Ability01->SetupAttachment(ConsoleMesh);
+
+	Ability02 = CreateDefaultSubobject<USceneComponent>("Ability02");
+	Ability02->SetupAttachment(ConsoleMesh);
+
+	Ability03 = CreateDefaultSubobject<USceneComponent>("Ability03");
+	Ability03->SetupAttachment(ConsoleMesh);
+
+	Ability04 = CreateDefaultSubobject<USceneComponent>("Ability04");
+	Ability04->SetupAttachment(ConsoleMesh);
 	
-	WidthSpacing = 100;
-	LengthSpacing = 100;
+	WidthSpacing = 1;
+	LengthSpacing = 1;
 	RowNum = 23;
 	ColNum = 23;
 
@@ -33,6 +63,9 @@ void ASLGridManager::PostInitializeComponents()
 
 void ASLGridManager::BuildGrid()
 {
+
+	FVector SpawnWorldPos = FVector(0, 0, 0);
+	
 	// Do not execute if tiles array already contains tiles
 	if(GridArray.Num() == 0)
 	{
@@ -43,31 +76,26 @@ void ASLGridManager::BuildGrid()
 			GridArray[i].SetNum(ColNum);
 		}
 		
-		GlobalOffset = RowNum/2*100;
+		GlobalOffset = RowNum/2;
 		
-		FActorSpawnParameters TileSpawnParams;
 		for (int32 y = 0; y < RowNum; y++)
 		{
-			SpawnPosition.X = y * WidthSpacing-GlobalOffset;
+			SpawnWorldPos.X = y * WidthSpacing-GlobalOffset;
 			for (int32 x = 0; x < ColNum; x++)
 			{
-				SpawnPosition.Y = x * LengthSpacing-GlobalOffset;
+				SpawnWorldPos.Y = x * LengthSpacing-GlobalOffset;
 				
-				// GridArray[x][y]->SetActorLocation(SpawnGridPos);
+				FString TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
 				
-				TileSpawnParams.bNoFail = true;
-				TileName = FString::Printf(TEXT("Tile_%d_%d"), x, y);
-				TileSpawnParams.Name = FName(*TileName);
-				
-				ASLCell* NewCell = GetWorld()->SpawnActor<ASLCell>(SpawnCellClassTile,SpawnPosition, FRotator::ZeroRotator, TileSpawnParams);
-				
-				// UE_LOG(LogTemp, Warning, TEXT("%s"), *TileName);
+				ASLCell* NewCell = GetWorld()->SpawnActor<ASLCell>(SpawnCellClassTile, SpawnWorldPos, FRotator::ZeroRotator);
 				
 				GridArray[x][y] = NewCell;
+				
 				if(NewCell)
 				{
-					// NewCell->SetActorLabel(*TileName);
-					NewCell->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+					NewCell->SetActorLabel(*TileName);
+					NewCell->SetOwner(this);
+					NewCell->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);					
 				}
 			}
 		}
@@ -89,12 +117,13 @@ void ASLGridManager::BeginPlay()
 void ASLGridManager::SpawnSnake()
 {
 	GetWorld()->SpawnActor<ASLSnake>(SnakeActor, FVector::ZeroVector, FRotator::ZeroRotator);
+	
 }
 
 void ASLGridManager::SpawnCell(TSubclassOf<ASLCellObject> InCellClass, FInt32Point InGridPosition)
 {
 
-	GetWorld()->SpawnActor<ASLCellObject>(InCellClass, GetGridArrayLocation(InGridPosition), FRotator(0,0,0));
+	GetWorld()->SpawnActor<ASLCellObject>(InCellClass, GetGridArrayWorldPos(InGridPosition), FRotator(0,0,0));
 }
 
 // Hit Objects at Grid Position
@@ -106,32 +135,32 @@ void ASLGridManager::HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* H
 	}
 }
 
-FVector ASLGridManager::GetGridArrayLocation(const FIntPoint Position)
+FVector ASLGridManager::GetGridArrayWorldPos(const FIntPoint InGridPos)
 {
-	if (GridArray.IsValidIndex(Position.X) && GridArray[Position.X].IsValidIndex(Position.Y))
+	if (GridArray.IsValidIndex(InGridPos.X) && GridArray[InGridPos.X].IsValidIndex(InGridPos.Y))
 	{
-		return GridArray[Position.X][Position.Y]->GetActorLocation();
+		return GridArray[InGridPos.X][InGridPos.Y]->GetActorLocation();
 	}
 
 	int32 a = -1 % 24;
-	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen! at %s, annnddd %i"), *Position.ToString(), a);
+	UE_LOG(LogTemp, Warning, TEXT("We're out of bounds of the grid. This should not happen! at %s, and %i"), *InGridPos.ToString(), a);
 	
 	return FVector::ZeroVector;
 }
 
-FIntPoint ASLGridManager::GetGridArrayPosition(const FVector& Location)
+FIntPoint ASLGridManager::GetGridArrayGridPos(const FVector& InWorldPos)
 {
 	for (int32 y = 0; y < GridArray.Num(); y++)
 	{
 		for (int32 x = 0; x < GridArray.Num(); x++)
 		{
-			if (GridArray[x][y]->GetActorLocation() == Location)
+			if (GridArray[x][y]->GetActorLocation() == InWorldPos)
 			{
 				return FIntPoint(x, y);
 			}
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Nothing in grid position found, looking at %s"), *Location.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("Nothing in grid world position found, looking at %s"), *InWorldPos.ToString());
 	return FIntPoint(0,0);
 }
 

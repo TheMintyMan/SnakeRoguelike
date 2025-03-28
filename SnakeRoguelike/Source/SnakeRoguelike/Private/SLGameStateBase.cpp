@@ -19,9 +19,9 @@ void ASLGameStateBase::BeginPlay()
 
 void ASLGameStateBase::GameReset()
 {
-	// UGameplayStatics::GetGameMode(GetWorld())->ResetLevel();
+	UGameplayStatics::GetGameMode(GetWorld())->ResetLevel();
 
-	UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetMapName());
+	//UGameplayStatics::OpenLevel(GetWorld(), *GetWorld()->GetMapName());
 }
 
 void ASLGameStateBase::Countdown()

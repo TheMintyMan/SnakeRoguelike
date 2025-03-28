@@ -24,8 +24,11 @@ void ASLCellObject::BeginPlay()
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
 
-	GridPos = GridManager->GetGridArrayPosition(GetActorLocation());
+	GridPos = GridManager->GetGridArrayGridPos(GetActorLocation());
 	GridManager->RegisterCell(GridPos, this);
+
+	AttachToActor(GridManager, FAttachmentTransformRules::KeepWorldTransform);
+	SetActorScale3D(GridManager->GetActorScale3D());
 	
 	Super::BeginPlay();
 }

@@ -1,7 +1,7 @@
 ## Snake++
 *But it's a metaphor for late stage capitalism*
 
-![[Thumbnail_01.png]]
+![[Thumbnail_01.jpg]]
 
 ## Overview
 
@@ -9,11 +9,15 @@
 | ------------- | ---------------------------------- |
 | Platform      | PC, Mac, Android, Linux            |
 | Point of View | Top Down, Grid                     |
-| Theme / Mood  | Arcade, Modern                     |
+| Theme / Mood  | Arcade, Retro Futurism             |
 
 Snake but with abilities and upgrades you can buy with a roguelike game loop.
 
-Meta
+"You play as an office worker in a retro futuristic world, stuck at a mundane desk job. Instead of working, you immerse yourself in Snake++, a game on your portable console where you grow by consuming competitors and rising to the top of the corporate food chain."
+
+Internal meanings of the game: 
+Boredom of an mundane office job. Stuck in the world of Capitalism. 
+Escapism. 
 
 ## Gameplay
 
@@ -43,10 +47,20 @@ Room Types:
 - 3 different room types (speed multiplied room, room with more walls, etc)
 - Boss
 
+### Non-Boss Mechanics
+
+There will be mechanics throughout each level that is not in the average snake game.
+
+- Lasers: Lasers will disintegrate any snake part in a whole row/column
+- Moving Obstacle: Moving obstacles will destroy any snake part it hits
+
 ### Bosses
 
 Bosses will show up after 3~5 rooms consistently. They will have a unique mechanic unlike any normal room and will give the player more of a challenge.
 
+When a player defeats a boss, there will be a button that pops out that says "**Buyout**" to add more elements of capitalism. 
+
+Current Ideas:
 - Dark Owl: Less vision in the map
 - Hawk: Speeds up the game by 1.5 or so
 - King Cobra: Spits poisons around the map
@@ -71,6 +85,10 @@ Shop Items that shrink yourself
 Total score will be immediately added after collecting Food
 
 Timer and Score to get through level
+
+If the snake loses parts during the run, they will lose score
+
+Company Value = Total Score
 
 IDEAS:
 Best strat rn is to stay as  small as possible.
@@ -114,7 +132,7 @@ Ideas for some food upgrades:
 - Extra Score. Food will provide an extra score
 - There can be up to 2 food on the map at any point
 
-## UI Design
+## UI/UX Design
 
 Clean, easy to read, minimalist. Only show what is needed.
 
@@ -122,7 +140,7 @@ A bunch of it is diegetic
 
 Simple block UI
 
-## Non-Essential Mechanics
+## Non-Essential Mechanics (Extra)
 
 ### Unlockable Snake Types
 
@@ -131,6 +149,16 @@ After getting X amount of score using the base snake, players will be able to un
 ### Infinite Run
 
 Players will be able to play the game indefinitely with the same snake if they wish to do so. The game will continuously become harder due to the game becoming faster and faster per room.
+
+### Just Notes
+
+Demands
+Monopoly - Growing exponentially big. The growth of the snake, consuming competitors.
+You could buy out other Investors or other companies. You get all their upgrades when you have enough apples. The bosses are the people you're buying out. When defeat the boss, you buy them out. They're trying to stop you. 
+When you get them, maybe you unlock an ability slot + ability maybe. When you buy them out, you get some dividends? (MAYBE)
+
+Stocks - Going up and down. It could be RNG. Stocks could change
+Supply/Demands - Shop stuff. Things that don't get bought often enough will become cheaper
 
 ### Map Generation
 

@@ -8,6 +8,7 @@
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+class ASLButtonDirections;
 class ASLCell;
 class ASLSnakeBody;
 class UBoxComponent;
@@ -38,9 +39,7 @@ protected:
 	FActorSpawnParameters SpawnParams;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
-	TSubclassOf<ASLCellObject> SnakeBodySubclass;
-	
-	
+	TSubclassOf<ASLCellObject> SnakeBodySubclass;	
 	
 	///// Snake Body information - /////
 	
@@ -72,11 +71,12 @@ protected:
 	
 	
 	///// - Movement /////
-
+	UPROPERTY()
+	ASLButtonDirections* DirectionButtonDelegate;
+	
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
-
-
+	
 	UPROPERTY()
 	FInt32Point CurrentDirection;
 

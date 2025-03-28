@@ -1,19 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SLSnake.h"
+#include "SLButtonDirections.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
 #include "SLSnakeBody.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
-ASLSnake::ASLSnake(): NumberOfBodies(), SnakeHead(), SnakeTail(),
-                      GridManager(), SpawnWorldPos(), NextGridPos(), PrevTailGridPos(),
-                      MinPos(), MaxPos(),
-                      PlayerPawn(), CurrentDirection(), LastQueuedDirection(),
-                      FruitBase(),
-                      GrowthAmount(),
-                      GrowthQueue(), Queue(6), bGridWrap(false)
+ASLSnake::ASLSnake(): NumberOfBodies(), GridManager(), SpawnWorldPos(),
+                      NextGridPos(), PrevTailGridPos(), MinPos(), MaxPos(),
+                      PlayerPawn(), DirectionButtonDelegate(nullptr), CurrentDirection(),
+                      LastQueuedDirection(), FruitBase(), GrowthAmount(),
+                      GrowthQueue(),
+                      bGridWrap(false), SnakeHead(), SnakeTail()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it
 	PrimaryActorTick.bCanEverTick = false;
@@ -36,8 +36,15 @@ void ASLSnake::BeginPlay()
 		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::OnUpdateTick);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
 	}
+
+	AActor* SnakeButtonDirection = UGameplayStatics::GetActorOfClass(GetWorld(), ASLButtonDirections::StaticClass());
+	DirectionButtonDelegate = Cast<ASLButtonDirections>(SnakeButtonDirection);
+	if(DirectionButtonDelegate)
+	{
+		DirectionButtonDelegate->DirectionDelegateFromButton.AddDynamic(this, &ASLSnake::QueueInput);
+	}
 	
-	AActor* SnakeDirection = UGameplayStatics::GetActorOfClass(GetWorld(),ASLPlayerPawn::StaticClass());
+	AActor* SnakeDirection = UGameplayStatics::GetActorOfClass(GetWorld(), ASLPlayerPawn::StaticClass());
 	PlayerPawn = Cast<ASLPlayerPawn>(SnakeDirection);
 	if(PlayerPawn)
 	{
@@ -49,7 +56,7 @@ void ASLSnake::BeginPlay()
 
 void ASLSnake::QueueInput(FInt32Point& Direction)
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("This is what I got king %s"), *Direction.ToString())
 	if (Queue.Count() < QLenMax)
 	{
 		if (Queue.Count() > 0)
@@ -66,16 +73,15 @@ void ASLSnake::QueueInput(FInt32Point& Direction)
 		LastQueuedDirection = Direction;
 		Queue.Enqueue(Direction);
 	}
-	
 }
 
 FInt32Point ASLSnake::DeQueueInput()
 {
 	if (Queue.Count() > 0)
 	{
-		FInt32Point yaya;
-		Queue.Dequeue(yaya);
-		return yaya;
+		FInt32Point DequeDirection;
+		Queue.Dequeue(DequeDirection);
+		return DequeDirection;
 	}
 	return FInt32Point(0,0);
 }
@@ -144,7 +150,7 @@ void ASLSnake::SnakeMove(FInt32Point Direction)
 	
 	NextGridPos = GetNextGridPos(Direction);
 
-	SnakeTail->SetActorLocation(GridManager->GetGridArrayLocation(NextGridPos));
+	SnakeTail->SetActorLocation(GridManager->GetGridArrayWorldPos(NextGridPos));
 	
 	GridManager->UnRegisterCell(SnakeTail->CurrentGridPos, SnakeTail);
 
@@ -191,17 +197,15 @@ void ASLSnake::KillSnake(ASLSnakeBody* InSnakeBody, bool MoveTail)
 
 void ASLSnake::Grow()
 {
-	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass, GridManager->GetGridArrayLocation(PrevTailGridPos), FRotator::ZeroRotator, SpawnParams);
+	ASLSnakeBody* NewBody = GetWorld()->SpawnActor<ASLSnakeBody>(SnakeBodySubclass, GridManager->GetGridArrayWorldPos(PrevTailGridPos), FRotator::ZeroRotator, SpawnParams);
 
 	NewBody->SetOwner(this);
-	
-	NewBody->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 
 	//GridManager->RegisterCell(PrevTailGridPos, NewBody);
 
 	NewBody->CurrentGridPos = PrevTailGridPos;
 	
-	NewBody->SetActorLocation(GridManager->GetGridArrayLocation(PrevTailGridPos));
+	NewBody->SetActorLocation(GridManager->GetGridArrayWorldPos(PrevTailGridPos));
 
 	if (!SnakeHead)
 	{

@@ -13,7 +13,7 @@
 ASLPlayerPawn::ASLPlayerPawn()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	RootComp = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = RootComp;
@@ -50,20 +50,26 @@ void ASLPlayerPawn::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
 	}
-	
 }
 
 void ASLPlayerPawn::Clicked()
+{	
+	if (InteractionComp)
+	{
+		InteractionComp->PrimaryInteractStarted();
+	}
+}
+
+void ASLPlayerPawn::ClickReleased()
 {
 	if (InteractionComp)
 	{
-		InteractionComp->PrimaryInteract();
+		InteractionComp->PrimaryInteractEnded();
 	}
 }
 
 void ASLPlayerPawn::Up()
 {
-
 	Direction = FInt32Point(0,1);
 	DirectionDelegate.Broadcast(Direction);
 	
@@ -72,17 +78,14 @@ void ASLPlayerPawn::Up()
 
 void ASLPlayerPawn::Down()
 {
-
 	Direction = FInt32Point(0,-1);
 	DirectionDelegate.Broadcast(Direction);
-
 	
 	InputTriggeredDelegate.Broadcast(DownAction);
 }
 
 void ASLPlayerPawn::Left()
 {
-
 	Direction = FInt32Point(-1,0);
 	DirectionDelegate.Broadcast(Direction);
 
@@ -91,7 +94,6 @@ void ASLPlayerPawn::Left()
 
 void ASLPlayerPawn::Right()
 {
-
 	Direction = FInt32Point(1,0);
 	DirectionDelegate.Broadcast(Direction);
 
@@ -125,7 +127,8 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	if(UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Triggered, this, &ASLPlayerPawn::Clicked);
+		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Clicked);
+		EnhancedInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
 		
 		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
 		EnhancedInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
@@ -140,7 +143,4 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
 		EnhancedInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
 	}
-
 }
-
-

@@ -32,6 +32,36 @@ public:
 	
 protected:
 	
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UStaticMeshComponent* ConsoleMesh;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UChildActorComponent* UpDirectionActorComponent;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UChildActorComponent* DownDirectionActorComponent;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UChildActorComponent* LeftDirectionActorComponent;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UChildActorComponent* RightDirectionActorComponent;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	UChildActorComponent* ScoreWidgetActorComponent;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USceneComponent* Ability01;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USceneComponent* Ability02;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USceneComponent* Ability03;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USceneComponent* Ability04;
+	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 WidthSpacing;
 	
@@ -43,16 +73,12 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 GlobalOffset;
-	
-	FVector SpawnPosition = FVector::ZeroVector;
 
 	// The speed of the game
 	UPROPERTY(BlueprintReadOnly)
 	float TimerSpeed;
 	
 	FString Hello = "Hello From Grid Manager";
-	
-	FString TileName;
 
 	FTimerHandle SnakeSpawnHandle;
 
@@ -121,11 +147,11 @@ protected:
 public:
 	// Gets the location of the position
 	UFUNCTION()
-	FVector GetGridArrayLocation(FIntPoint Position);
+	FVector GetGridArrayWorldPos(FIntPoint Position);
 
 	// Gets the position based on location
 	UFUNCTION()
-	FIntPoint GetGridArrayPosition(const FVector& Location);
+	FIntPoint GetGridArrayGridPos(const FVector& Location);
 	
 	// Adds objects from a cell
 	UFUNCTION()

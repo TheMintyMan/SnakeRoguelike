@@ -6,7 +6,7 @@
 #include "SLInterface.h"
 
 // Sets default values for this component's properties
-USLInteractionComponent::USLInteractionComponent()
+USLInteractionComponent::USLInteractionComponent(): PreviousHitActor(nullptr)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -14,7 +14,6 @@ USLInteractionComponent::USLInteractionComponent()
 
 	// ...
 }
-
 
 
 // Called when the game starts
@@ -35,7 +34,7 @@ void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
-void USLInteractionComponent::PrimaryInteract()
+void USLInteractionComponent::PrimaryInteractStarted()
 {
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
@@ -53,15 +52,30 @@ void USLInteractionComponent::PrimaryInteract()
 	GetWorld()->LineTraceSingleByObjectType(Hit, Start, End, ObjectQueryParams);
 
 	AActor* HitActor = Hit.GetActor();
+	PreviousHitActor = HitActor;
+	
 	if (HitActor)
 	{  
 		if (HitActor->Implements<USLInterface>())
 		{
 			APawn* MyPawn = Cast<APawn>(MyOwner);
-			ISLInterface::Execute_Interact(HitActor, MyPawn);
+
+			ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);
 		}
 	}
 	
-	DrawDebugLine(GetWorld(), Start, End, Hit.bBlockingHit ? FColor::Green : FColor::Red, false, 1.0f, 0, 0.1f);
-	
+	// DrawDebugLine(GetWorld(), Start, End, Hit.bBlockingHit ? FColor::Green : FColor::Red, false, 1.0f, 0, 0.1f);
+}
+
+void USLInteractionComponent::PrimaryInteractEnded()
+{
+	AActor* MyOwner = GetOwner();
+	APawn* MyPawn = Cast<APawn>(MyOwner);
+	if (PreviousHitActor)
+	{
+		if (PreviousHitActor->Implements<USLInterface>())
+		{
+			ISLInterface::Execute_InteractFinished(PreviousHitActor, MyPawn);
+		}
+	}
 }

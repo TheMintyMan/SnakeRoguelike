@@ -1,0 +1,1 @@
+Gameplay Effects are good for passive effects/buffs, etc

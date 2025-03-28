@@ -7,7 +7,6 @@
 
 
 // Event Dispatchers for InputAction
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputTriggeredDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, FIntPoint, DirectionSend);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggeredActionVisualDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleaseActionVisualDelegate, UInputAction*, ReleasedAction);
@@ -30,7 +29,6 @@ public:
 	ASLPlayerPawn();
 
 	FDirectionDelegate DirectionDelegate;
-
 	FTriggeredActionVisualDelegate InputTriggeredDelegate;
 	FReleaseActionVisualDelegate InputReleasedDelegate;
 
@@ -65,6 +63,9 @@ protected:
 	
 	UFUNCTION()
 	void Clicked();
+
+	UFUNCTION()
+	void ClickReleased();
 
 	UFUNCTION()
 	void Up();

@@ -1,0 +1,26 @@
+{
+	"nodes":[
+		{"id":"6c5d0e6f9a8390ea","type":"text","text":" **Game State**\n```cpp\n: GameStateBase\n\nScore();\nWinGame();\nLoseGame();\n```","x":1520,"y":-1102,"width":396,"height":247},
+		{"id":"1d570f19c8fe318b","type":"text","text":"Cell Object\n```cpp\n: Actor\n```","x":110,"y":-719,"width":250,"height":130},
+		{"id":"bab90060f384cf8c","type":"text","text":"Obstacle\n```cpp\n: CellObject\n```","x":475,"y":-420,"width":250,"height":175},
+		{"id":"722a8d98e3c20006","type":"text","text":"Moving Obstacle\n```cpp\n: Obstacle\n```","x":475,"y":-165,"width":250,"height":175},
+		{"id":"37615bab8ea418f3","type":"text","text":"Snake Body\n```cpp\n: CellObject\n```","x":-225,"y":-420,"width":250,"height":175},
+		{"id":"22567d2fffc5c960","type":"text","text":"Food\n```cpp\n: CellObject\n```","x":110,"y":-420,"width":250,"height":175},
+		{"id":"5976d5e42d9e4335","type":"text","text":"Snake Manager\n\nSnake Manager could be an UObject\n\n```cpp\n: Actor\n```","x":-780,"y":-411,"width":250,"height":157},
+		{"id":"f17bc5814d838559","type":"text","text":"Cell\n```cpp\n: Actor\n```","x":-60,"y":-1039,"width":250,"height":120},
+		{"id":"43b9acf7f0cbb95d","type":"text","text":"**GridManager**\n\nContains Console Mesh\nContains Child Actor Component for each direction\n```cpp\n: Actor\n\nHitObjectsAtGridPos()\n\nGetGridArrayLocation()\n\nGetGridArrayPosition()\n\nRegisterCell()\n\nUnRegisterCell()\n\nGetObjectsAt()\n\nGetCellAt()\n\n```","x":560,"y":-1240,"width":426,"height":520}
+	],
+	"edges":[
+		{"id":"4dec42596324c095","fromNode":"1d570f19c8fe318b","fromSide":"bottom","toNode":"22567d2fffc5c960","toSide":"top","color":"1"},
+		{"id":"97591e739027767f","fromNode":"1d570f19c8fe318b","fromSide":"bottom","toNode":"bab90060f384cf8c","toSide":"top","color":"1"},
+		{"id":"ee4974c3e625e022","fromNode":"1d570f19c8fe318b","fromSide":"bottom","toNode":"37615bab8ea418f3","toSide":"top","color":"1"},
+		{"id":"fd98bcd09e2396a3","fromNode":"bab90060f384cf8c","fromSide":"bottom","toNode":"722a8d98e3c20006","toSide":"top","color":"1"},
+		{"id":"b010c9d9b6e1c309","fromNode":"5976d5e42d9e4335","fromSide":"right","toNode":"37615bab8ea418f3","toSide":"left"},
+		{"id":"b954f6bf4a704744","fromNode":"5976d5e42d9e4335","fromSide":"right","toNode":"43b9acf7f0cbb95d","toSide":"left"},
+		{"id":"f81924c616390278","fromNode":"1d570f19c8fe318b","fromSide":"right","toNode":"43b9acf7f0cbb95d","toSide":"left"},
+		{"id":"1a70fd59d67f7c6c","fromNode":"f17bc5814d838559","fromSide":"right","toNode":"43b9acf7f0cbb95d","toSide":"left"},
+		{"id":"5c3f7dc086e6b40d","fromNode":"43b9acf7f0cbb95d","fromSide":"left","toNode":"f17bc5814d838559","toSide":"right"},
+		{"id":"829969ca00b500e1","fromNode":"43b9acf7f0cbb95d","fromSide":"right","toNode":"6c5d0e6f9a8390ea","toSide":"left","fromEnd":"arrow"},
+		{"id":"ed21fdd127dca4b3","fromNode":"22567d2fffc5c960","fromSide":"right","toNode":"6c5d0e6f9a8390ea","toSide":"left"}
+	]
+}

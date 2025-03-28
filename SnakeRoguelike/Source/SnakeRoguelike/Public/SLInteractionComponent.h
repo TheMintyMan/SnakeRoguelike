@@ -16,7 +16,14 @@ public:
 	// Sets default values for this component's properties
 	USLInteractionComponent();
 
-	void PrimaryInteract();
+	// AActor* GetHitActor();
+
+	void PrimaryInteractStarted();
+
+	void PrimaryInteractEnded();
+
+	UPROPERTY()
+	AActor* PreviousHitActor;
 
 protected:
 	// Called when the game starts
