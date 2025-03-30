@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "SLCellObject.h"
+#include "SLInterface.h"
 #include "Containers/CircularQueue.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
@@ -18,7 +19,7 @@ class ASLGridManager;
 class ASLSnakeBody;
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLSnake : public AActor
+class SNAKEROGUELIKE_API ASLSnake : public AActor, public ISLInterface
 {
 	GENERATED_BODY()
 	
@@ -26,7 +27,9 @@ public:
 	// Sets default values for this actor's properties
 	ASLSnake();
 
-	
+	// Input a FIntPoint direction from the key pressed, then adds that value to the queue
+	UFUNCTION()
+	void QueueInput(FInt32Point& Direction);
 
 protected:
 	// Called when the game starts or when spawned
@@ -70,10 +73,7 @@ protected:
 	
 	
 	
-	///// - Movement /////
-	UPROPERTY()
-	ASLButtonDirections* DirectionButtonDelegate;
-	
+	///// - Movement /////	
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
@@ -99,9 +99,7 @@ protected:
 	
 	TCircularQueue<FInt32Point> Queue{6};
 
-	// Input a FIntPoint direction from the key pressed, then adds that value to the queue
-	UFUNCTION()
-	void QueueInput(FInt32Point& Direction);
+	
 
 	// Returns the last FIntPoint queue value then removes it from the queue
 	UFUNCTION()

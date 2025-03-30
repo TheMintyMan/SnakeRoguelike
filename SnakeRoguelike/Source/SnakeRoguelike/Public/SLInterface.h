@@ -24,7 +24,7 @@ class SNAKEROGUELIKE_API ISLInterface
 public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void Interact(APawn* InstigatorPawn, AActor* InHitActor);
+	void Interact(APawn* InstigatorPawn, AActor* HitActor);
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void InteractFinished(APawn* InstigatorPawn);

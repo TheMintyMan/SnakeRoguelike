@@ -3,7 +3,10 @@
 
 #include "SLInteractionComponent.h"
 
+#include "SLButtonDirections.h"
 #include "SLInterface.h"
+#include "SLSnake.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 USLInteractionComponent::USLInteractionComponent(): PreviousHitActor(nullptr)
@@ -61,6 +64,13 @@ void USLInteractionComponent::PrimaryInteractStarted()
 			APawn* MyPawn = Cast<APawn>(MyOwner);
 
 			ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);
+
+			if (ASLButtonDirections* ButtonDirections = Cast<ASLButtonDirections>(HitActor))
+			{
+				AActor* SnakeActor = UGameplayStatics::GetActorOfClass(GetWorld(), ASLSnake::StaticClass());
+				ASLSnake* Snake = Cast<ASLSnake>(SnakeActor);
+				Snake->QueueInput(ButtonDirections->DirectionIntPoint);
+			}
 		}
 	}
 	

@@ -57,11 +57,7 @@ void ASLButtonDirections::ReleasedAnim_Implementation()
 }
 
 void ASLButtonDirections::Interact_Implementation(APawn* InstigatorPawn, AActor* HitActor)
-{
-	ButtonDirections = Cast<ASLButtonDirections>(HitActor);
-	DirectionDelegateFromButton.Broadcast(ButtonDirections->DirectionIntPoint);
-	UE_LOG(LogTemp, Warning, TEXT("Button was hit by: %s"), *ButtonDirections->DirectionIntPoint.ToString());
-	
+{	
 	PressedAnim();
 }
 

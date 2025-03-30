@@ -6,8 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "SLInteractionComponent.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+
 class SNAKEROGUELIKE_API USLInteractionComponent : public UActorComponent
 {
 	GENERATED_BODY()

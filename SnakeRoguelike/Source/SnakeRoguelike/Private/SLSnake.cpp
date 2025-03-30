@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SLSnake.h"
-#include "SLButtonDirections.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
 #include "SLSnakeBody.h"
@@ -10,7 +9,7 @@
 // Sets default values
 ASLSnake::ASLSnake(): NumberOfBodies(), GridManager(), SpawnWorldPos(),
                       NextGridPos(), PrevTailGridPos(), MinPos(), MaxPos(),
-                      PlayerPawn(), DirectionButtonDelegate(nullptr), CurrentDirection(),
+                      PlayerPawn(), CurrentDirection(),
                       LastQueuedDirection(), FruitBase(), GrowthAmount(),
                       GrowthQueue(),
                       bGridWrap(false), SnakeHead(), SnakeTail()
@@ -36,13 +35,6 @@ void ASLSnake::BeginPlay()
 		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::OnUpdateTick);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
 	}
-
-	AActor* SnakeButtonDirection = UGameplayStatics::GetActorOfClass(GetWorld(), ASLButtonDirections::StaticClass());
-	DirectionButtonDelegate = Cast<ASLButtonDirections>(SnakeButtonDirection);
-	if(DirectionButtonDelegate)
-	{
-		DirectionButtonDelegate->DirectionDelegateFromButton.AddDynamic(this, &ASLSnake::QueueInput);
-	}
 	
 	AActor* SnakeDirection = UGameplayStatics::GetActorOfClass(GetWorld(), ASLPlayerPawn::StaticClass());
 	PlayerPawn = Cast<ASLPlayerPawn>(SnakeDirection);
@@ -56,7 +48,6 @@ void ASLSnake::BeginPlay()
 
 void ASLSnake::QueueInput(FInt32Point& Direction)
 {
-	UE_LOG(LogTemp, Warning, TEXT("This is what I got king %s"), *Direction.ToString())
 	if (Queue.Count() < QLenMax)
 	{
 		if (Queue.Count() > 0)

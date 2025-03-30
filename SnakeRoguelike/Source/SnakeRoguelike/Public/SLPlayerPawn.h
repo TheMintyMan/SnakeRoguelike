@@ -11,13 +11,13 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, FIntPoint, 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggeredActionVisualDelegate, UInputAction*, TriggeredAction);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleaseActionVisualDelegate, UInputAction*, ReleasedAction);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint&, DirectionSend);
+
 class USLInteractionComponent;
 class UInputAction;
 class UInputMappingContext;
 class UCameraComponent;
 class USceneComponent;
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegate, FIntPoint&, DirectionSend);
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn

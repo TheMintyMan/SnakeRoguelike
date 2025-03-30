@@ -12,26 +12,21 @@ class UStaticMeshComponent;
 class USceneComponent;
 class UInputAction;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDirectionDelegateFromButton, FIntPoint&, DirectionSendFromButton);
-
 UCLASS()
 class SNAKEROGUELIKE_API ASLButtonDirections : public AActor, public ISLInterface
 {
 	GENERATED_BODY()
 	
 public:
+	// Sets default values for this actor's properties
+	ASLButtonDirections();
 	
 	UPROPERTY(EditAnywhere)
 	float TargetLocation;
 	
-	void Interact_Implementation(APawn* InstigatorPawn, AActor* HitActor) override;
+	void Interact_Implementation(APawn* InstigatorPawn, AActor* HitActor);
 
 	void InteractFinished_Implementation(APawn* InstigatorPawn) override;;
-	
-	// Sets default values for this actor's properties
-	ASLButtonDirections();
-
-	FDirectionDelegateFromButton DirectionDelegateFromButton;
 
 	UPROPERTY(EditAnywhere, Category = "components");
 	FInt32Point DirectionIntPoint;

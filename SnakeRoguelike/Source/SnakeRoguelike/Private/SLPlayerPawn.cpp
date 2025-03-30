@@ -31,8 +31,8 @@ void ASLPlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FString InputTriggeredString = "YO Yo Yo";
-	print((("Hello: %s"), InputTriggeredString));
+	// FString InputTriggeredString = "YO Yo Yo";
+	// print((("Hello: %s"), InputTriggeredString));
 	
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	
