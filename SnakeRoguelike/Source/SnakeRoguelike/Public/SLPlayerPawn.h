@@ -3,9 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
+#include "GameplayTagsManager.h"
 #include "SLPlayerPawn.generated.h"
 
 
+class USLInputConfig;
+class UGameplayTagsManager;
+class UGameplayEffect;
 // Event Dispatchers for InputAction
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReleasedActionDelegate, FIntPoint, DirectionSend);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggeredActionVisualDelegate, UInputAction*, TriggeredAction);
@@ -18,9 +23,13 @@ class UInputAction;
 class UInputMappingContext;
 class UCameraComponent;
 class USceneComponent;
+class UGameplayAbility;
+class USLAttributeSet;
+
+class USLAbilitySystemComponent;
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn
+class SNAKEROGUELIKE_API ASLPlayerPawn : public APawn, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -32,7 +41,34 @@ public:
 	FTriggeredActionVisualDelegate InputTriggeredDelegate;
 	FReleaseActionVisualDelegate InputReleasedDelegate;
 
-protected:	
+protected:
+
+	// Header related to gameplay abilities
+#pragma region Abilities
+	
+	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USLAbilitySystemComponent> AbilitySystemComponent;
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	virtual USLAttributeSet* GetAttributeSet() const;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Ability")
+	TArray<TSubclassOf<UGameplayAbility>> PlayerAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Ability")
+	TSubclassOf<UGameplayEffect> AttributeEffect;
+
+	UFUNCTION()
+	void GiveDefaultAbilities();
+
+	UFUNCTION()
+	void InitDefaultAttributes() const;
+
+#pragma endregion Abilities
+	
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 	
@@ -47,7 +83,10 @@ protected:
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
-
+#pragma region Input
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	USLInputConfig* InputConfig;
+	
 	// All the input actions
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* UpAction;
@@ -91,7 +130,7 @@ protected:
 	UFUNCTION()
 	void RightReleased();
 
-	
+#pragma endregion Input
 
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;

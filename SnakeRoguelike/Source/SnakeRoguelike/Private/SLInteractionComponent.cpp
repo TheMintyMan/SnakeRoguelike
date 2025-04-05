@@ -18,7 +18,6 @@ USLInteractionComponent::USLInteractionComponent(): PreviousHitActor(nullptr)
 	// ...
 }
 
-
 // Called when the game starts
 void USLInteractionComponent::BeginPlay()
 {

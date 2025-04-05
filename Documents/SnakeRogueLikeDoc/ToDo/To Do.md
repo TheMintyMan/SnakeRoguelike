@@ -1,7 +1,6 @@
 
-- [ ] Watch videos on GAS to learn
-- [ ] Fix buttons up
-- [ ] Set up my clicking interface. I might need a click on pressed and on released.
+- [x] Watch videos on GAS to learn
+
 
 ### DONE:
 - [x] Eat (WIP, need to add tail)
@@ -22,6 +21,9 @@
 - [x] Make the game all relative space. Allow the game to be attached to the portable console
 - [x] Import models into Unreal Engine
 
+- [x] Fix buttons up
+- [x] Set up my clicking interface. I might need a click on pressed and on released.
+
 LATER:
 - [ ] Map picker
 - [ ] Prototype Visuals of Shop
@@ -32,6 +34,7 @@ LATER:
 - [ ] Saving Highscore
 - [ ] Start on ability system
 - [ ] Screen shake
+- [ ] On Begin Cursor over and End Cursor over events. Change material of the button.
 
 1 mechanic is that boss in real life starts talking to you and have to flip the device over so that your IRL boss doesn't see you playing the game. Eye icon shows up and shows "Flip Device". When bar gets full, the game punishes you by shooting extra lasers or something
 

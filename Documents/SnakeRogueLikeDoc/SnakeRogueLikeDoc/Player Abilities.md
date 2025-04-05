@@ -128,3 +128,11 @@ Allows players head to go underground for a duration of time
 ### Ability Reroll
 
 Allows the player to reroll the map when the player hits the edge of the map.
+
+### Other Ability Ides
+
+Some sort of charge up ability? 
+The Snake can shoot a laser from the head and destroys everything in its way of the Snakes forward vector. Depending on the time the player holds the ability for, the further the reach of the laser will be.
+
+
+
