@@ -7,4 +7,5 @@ USLAbilitySystemComponent::USLAbilitySystemComponent()
 {
 	//PrimaryComponentTick.bCanEverTick = true;
 	//SetIsReplicated(false);
+	
 }

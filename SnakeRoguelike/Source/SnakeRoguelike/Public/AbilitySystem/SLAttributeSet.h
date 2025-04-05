@@ -27,9 +27,9 @@ public:
 	FGameplayAttributeData Score;
 	ATTRIBUTE_ACCESSORS(USLAttributeSet, Score)
 
-	UPROPERTY(BlueprintReadOnly, Category = "ScoreRoundTarget")
-	FGameplayAttributeData ScoreRoundTarget;
-	ATTRIBUTE_ACCESSORS(USLAttributeSet, ScoreRoundTarget)
+	UPROPERTY(BlueprintReadOnly, Category = "ScoreTarget")
+	FGameplayAttributeData ScoreTarget;
+	ATTRIBUTE_ACCESSORS(USLAttributeSet, ScoreTarget)
 
 	UPROPERTY(BlueprintReadOnly, Category = "ScoreMultiplier")
 	FGameplayAttributeData ScoreMultiplier;

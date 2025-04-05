@@ -11,6 +11,13 @@
 #include "NativeGameplayTags.h"
 
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Up, "InputTag.Up");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Down, "InputTag.Down");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Left, "InputTag.Left");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Right, "InputTag.Right");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability01, "InputTag.Ability01");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability02, "InputTag.Ability02");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability03, "InputTag.Ability03");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability04, "InputTag.Ability04");
 
 #define print(x) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, x);
 
@@ -31,6 +38,8 @@ ASLPlayerPawn::ASLPlayerPawn()
 	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
 
 	Direction = FInt32Point(0,1);
+
+	Ability01TagContainer.AddTag(InputTag_Ability01);
 }
 
 UAbilitySystemComponent* ASLPlayerPawn::GetAbilitySystemComponent() const
@@ -151,6 +160,18 @@ void ASLPlayerPawn::Right()
 	InputTriggeredDelegate.Broadcast(RightAction);
 }
 
+void ASLPlayerPawn::Ability01()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Ability 01 Activated"));
+	AbilitySystemComponent->TryActivateAbilitiesByTag(Ability01TagContainer, false);
+	
+}
+
+void ASLPlayerPawn::Ability01Released()
+{
+	
+}
+
 void ASLPlayerPawn::UpReleased()
 {
 	InputReleasedDelegate.Broadcast(UpAction);
@@ -182,18 +203,18 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
-		
-		//InputComponent->BindAction(UpAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
-		//SLInputComponent->BindAction(UpAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
 
 		SLInputComponent->BindAction(DownAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Down);
 		SLInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::DownReleased);
 
 		SLInputComponent->BindAction(LeftAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Left);
 		SLInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::LeftReleased);
-
 		
 		SLInputComponent->BindAction(RightAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
 		SLInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
+
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01Released);
 	}
 }

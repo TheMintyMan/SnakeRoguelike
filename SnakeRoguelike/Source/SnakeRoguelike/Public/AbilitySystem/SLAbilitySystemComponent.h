@@ -17,5 +17,7 @@ class SNAKEROGUELIKE_API USLAbilitySystemComponent : public UAbilitySystemCompon
 
 public:
 	USLAbilitySystemComponent();
+
+	
 	
 };

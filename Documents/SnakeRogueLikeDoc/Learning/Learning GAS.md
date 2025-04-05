@@ -98,5 +98,20 @@ Pawn - My input bindings, Ability System Component
 Tags for my game
 
 ```cpp
-FGameplayTag InputTag_
+Game.Speed
+
+Attributes.Health
+Attributes.Growth
+Attributes.ScoreTarget
+Attributes.ScoreMultiplier
+
+InputTag.Up
+InputTag.Down
+InputTag.Left
+InputTag.Right
+
+InputTag.Ability01
+InputTag.Ability02
+InputTag.Ability03
+InputTag.Abilty04
 ```

@@ -45,6 +45,8 @@ protected:
 
 	// Header related to gameplay abilities
 #pragma region Abilities
+
+	FGameplayTagContainer Ability01TagContainer;
 	
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
 	
@@ -77,13 +79,15 @@ protected:
 	
 	UPROPERTY(EditAnywhere)
 	USceneComponent* RootComp;
+	
+#pragma region Input
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	UInputMappingContext* PlayerMappingContext;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
-#pragma region Input
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	USLInputConfig* InputConfig;
 	
@@ -117,6 +121,12 @@ protected:
 
 	UFUNCTION()
 	void Right();
+
+	UFUNCTION()
+	void Ability01();
+	
+	UFUNCTION()
+	void Ability01Released();
 
 	UFUNCTION()
 	void UpReleased();
