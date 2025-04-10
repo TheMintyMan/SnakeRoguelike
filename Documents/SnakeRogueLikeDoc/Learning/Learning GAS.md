@@ -33,13 +33,13 @@ https://youtu.be/suygHt7OhrM?list=PLoReGgpfex3woa35rnoXRyF9N3_p7QVQ2
 https://youtu.be/8XyO2qRhb6c?list=PLoReGgpfex3woa35rnoXRyF9N3_p7QVQ2
 I've just finished video 5
 
-- [ ] Dev Kai on GAS with C++
+- Dev Kai on GAS with C++ 
 https://youtu.be/L-3ifQRpyB4
 
-- [ ] Amazing documentation on GAS
+- Amazing documentation on GAS
 https://github.com/tranek/GASDocumentation
 
-- [ ] Gameplay ability system for Unreal Engine
+- Gameplay ability system for Unreal Engine
 https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-for-unreal-engine
 
 - [ ] A Guided Tour of Gameplay Abilities | Inside Unreal
@@ -47,6 +47,9 @@ https://youtu.be/YvXvWa6vbAA
 
 - [ ] Action RPG: Gameplay Abilities System | Inside Unreal
 https://youtu.be/QZk3tEpZxjU
+
+Stephen Ulibarri - Create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS)!
+https://www.udemy.com/course/unreal-engine-5-gas-top-down-rpg/learn/lecture/39783704#overview
 
 
 Setting up GAS
@@ -113,5 +116,90 @@ InputTag.Right
 InputTag.Ability01
 InputTag.Ability02
 InputTag.Ability03
-InputTag.Abilty04
+InputTag.Ability04
 ```
+
+
+### Coming up with a brand new system
+
+I should probably change my movement from being an event dispatcher to Interface.
+
+SLPlayerHelper.h (Orrr. I stick to just using event dispatcher for key inputs)
+```cpp
+// Interface to bridge the key input to Actor, ability, etc.
+class USLPlayerHelper : public UInterface
+
+UFUCNTION()
+FInt32Point GetInputDirection();
+```
+
+SLGameplayAbility_Move.cpp
+```cpp
+// Inherits GameplayAbility. Move function goes in here
+
+void GetNextGridPos(const FInt32Point NextGridPos, bool GridWrap)
+{
+	
+}
+```
+
+SLGameplayAbility_GridWrap.cpp
+```cpp
+// Grid Wrap ability. As a separate class?
+
+
+```
+
+GE_GridWrap Gameplay Effect
+- Cooldown
+- Tag: GridWrap
+
+SLSnake.cpp
+```
+
+
+```
+
+### Idea with current setup
+
+GC - Gameplay Cue Notify Actor
+Cue can trigger particles, sound and things when an ability gets triggered
+A Gameplay Effect can trigger the gameplay cue
+
+PlayerPawn
+```cpp
+if (Ability01 pressed)
+{
+	Try Activate Ability by tag container "InputTag.Ability01" & "Ability.[AbilityName]"
+}
+```
+
+GC_ButtonPress
+```
+Animate the ability button when pressed
+```
+
+GE_GridWrap (GameplayEffect)
+```cpp
+duration = 5 seconds
+give tag "Ability.GridWrap" to owner
+```
+
+GA_GridWrap (GameplayAbility)
+```cpp
+Activate GameplayEffect
+```
+
+GC_GridWrap (GameplayCue)
+```
+Run sound and visuals
+```
+
+SLSnake.cpp
+```cpp
+if (PlayPawnsAbilitySystem has matching tag "Ability.GridWrap")
+{
+	GridWrap
+}
+```
+

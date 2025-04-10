@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SLSnake.h"
+
+#include "AbilitySystemComponent.h"
 #include "SLGridManager.h"
 #include "SLPlayerPawn.h"
 #include "SLSnakeBody.h"
@@ -42,6 +44,13 @@ void ASLSnake::BeginPlay()
 	{
 		PlayerPawn->DirectionDelegate.AddDynamic(this, &ASLSnake::QueueInput);
 	}
+	
+	IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(PlayerPawn);
+	if(AbilitySystemInterface)
+	{
+		Asc = AbilitySystemInterface->GetAbilitySystemComponent();
+	}
+	
 	
 	PrevTailGridPos = FInt32Point(GridManager->ColNum/2, 0);
 }
@@ -119,7 +128,7 @@ FInt32Point ASLSnake::GetNextGridPos(FInt32Point Direction)
 	int32 PosX = SnakeHead->CurrentGridPos.X + Direction.X;
 	int32 PosY = SnakeHead->CurrentGridPos.Y + Direction.Y;
 	
-	if (bGridWrap)
+	if (Asc->HasMatchingGameplayTag(GridWrapTag))
 	{
 		PosX = (PosX + MaxPos + 1) % (MaxPos + 1);
 		PosY = (PosY + MaxPos + 1) % (MaxPos + 1);

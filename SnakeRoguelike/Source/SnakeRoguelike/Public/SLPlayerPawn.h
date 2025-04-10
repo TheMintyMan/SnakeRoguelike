@@ -5,9 +5,12 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayTagsManager.h"
+#include "InputAction.h"
 #include "SLPlayerPawn.generated.h"
 
 
+class ASLButtonAbility;
+class UPhysicsHandleComponent;
 class USLInputConfig;
 class UGameplayTagsManager;
 class UGameplayEffect;
@@ -25,7 +28,6 @@ class UCameraComponent;
 class USceneComponent;
 class UGameplayAbility;
 class USLAttributeSet;
-
 class USLAbilitySystemComponent;
 
 UCLASS()
@@ -41,11 +43,13 @@ public:
 	FTriggeredActionVisualDelegate InputTriggeredDelegate;
 	FReleaseActionVisualDelegate InputReleasedDelegate;
 
-protected:
 
-	// Header related to gameplay abilities
+
 #pragma region Abilities
 
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
 	FGameplayTagContainer Ability01TagContainer;
 	
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
@@ -62,6 +66,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Ability")
 	TSubclassOf<UGameplayEffect> AttributeEffect;
+
+	// UPROPERTY(EditDefaultsOnly, Category = "Ability")
+	// TSubclassOf<UGameplayEffect> Ability01Effect;
+
 
 	UFUNCTION()
 	void GiveDefaultAbilities();
@@ -81,12 +89,17 @@ protected:
 	USceneComponent* RootComp;
 	
 #pragma region Input
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	UInputMappingContext* PlayerMappingContext;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPhysicsHandleComponent* PhysicsHandle;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
+
+	FInputActionInstance ActiveInstance;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	USLInputConfig* InputConfig;
@@ -94,7 +107,7 @@ protected:
 	// All the input actions
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* UpAction;
-
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* DownAction;
 
@@ -103,12 +116,21 @@ protected:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* RightAction;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
+	float ClickHeldThreshHold;
+
+	UPROPERTY()
+	bool bIsGrabbing;
 	
 	UFUNCTION()
-	void Clicked();
+	void Clicked(const FInputActionInstance& InstancedAction);
 
 	UFUNCTION()
-	void ClickReleased();
+	void ClickReleased(const FInputActionInstance& InstancedAction);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Input")
+	void ClickHeld(const FInputActionInstance& InstancedAction);
 
 	UFUNCTION()
 	void Up();
@@ -122,7 +144,7 @@ protected:
 	UFUNCTION()
 	void Right();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintNativeEvent)
 	void Ability01();
 	
 	UFUNCTION()
@@ -140,8 +162,15 @@ protected:
 	UFUNCTION()
 	void RightReleased();
 
+public:
+
+	UFUNCTION()
+	FInputActionInstance GetButtonHeld();
+	
 #pragma endregion Input
 
+protected:
+	
 	UPROPERTY(EditAnywhere)
 	USLInteractionComponent* InteractionComp;
 	

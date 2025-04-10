@@ -1,6 +1,5 @@
-
-- [x] Watch videos on GAS to learn
-
+- [ ] Set up all ability buttons and mesh for it
+- [ ] Allow the ability button to be placed in different slots which will update the tags and input binding of that ability to the respective slots key binding
 
 ### DONE:
 - [x] Eat (WIP, need to add tail)
@@ -20,9 +19,11 @@
 20/03/2025
 - [x] Make the game all relative space. Allow the game to be attached to the portable console
 - [x] Import models into Unreal Engine
-
 - [x] Fix buttons up
 - [x] Set up my clicking interface. I might need a click on pressed and on released.
+- [x] Watch videos on GAS to learn
+08/04/2025
+- [x] Set up the Grid Wrap ability
 
 LATER:
 - [ ] Map picker
@@ -42,12 +43,4 @@ Add a screen effect to the capsule art
 
 Questions to myself:
 
-How much of the meta am I incorporating into the game?
-
-Rewarding in terms of area
-
-Designing ways the narrative can be told
-
-In-between rounds, you could go through your email. During the peace period
-
-The game is more real to you than the world you are in.
+Whats the best way to set up my level editor and sequences?

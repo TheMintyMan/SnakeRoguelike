@@ -24,9 +24,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float TargetLocation;
 	
-	void Interact_Implementation(APawn* InstigatorPawn, AActor* HitActor);
+	void Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AActor* HitActor);
 
-	void InteractFinished_Implementation(APawn* InstigatorPawn) override;;
+	void InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn) override;;
 
 	UPROPERTY(EditAnywhere, Category = "components");
 	FInt32Point DirectionIntPoint;

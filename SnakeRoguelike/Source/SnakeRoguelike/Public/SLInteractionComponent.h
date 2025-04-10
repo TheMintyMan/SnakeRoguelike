@@ -22,12 +22,30 @@ public:
 
 	void PrimaryInteractEnded();
 
+	void GrabInteractStarted();
+
+	void GrabInteractEnded();
+
 	UPROPERTY()
-	AActor* PreviousHitActor;
+	AActor* CurrentHitActor;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float MouseDirectionLength;
+
+	UPROPERTY()
+	UPrimitiveComponent* GrabbedComponent;
+
+	float VelX = 0;
+	float VelY = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float Momentum;
+
+	void MoveGrabbedComponent(float InDeltaTime);
 
 public:	
 	// Called every frame

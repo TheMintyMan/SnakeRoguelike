@@ -3,12 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "SLCellObject.h"
 #include "SLInterface.h"
 #include "Containers/CircularQueue.h"
 #include "GameFramework/Actor.h"
 #include "SLSnake.generated.h"
 
+
+class UGameplayEffect;
+class UAbilitySystemComponent;
+class USLAbilitySystemComponent;
+struct FGameplayTagContainer;
 class ASLButtonDirections;
 class ASLCell;
 class ASLSnakeBody;
@@ -47,8 +53,9 @@ protected:
 	///// Snake Body information - /////
 	
 
+	//FGameplayTagContainer GameplayTags;
 	
-	///// - Grid Information /////
+#pragma region GridInformation
 
 	UPROPERTY()
 	TArray<ASLCellObject*> CellObjects;
@@ -69,11 +76,15 @@ protected:
 	UPROPERTY()
 	int32 MaxPos;
 	
-	///// Grid Information - /////
+#pragma endregion	GridInformation
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability")
+	FGameplayTag GridWrapTag;
+
 	
+	UPROPERTY()
+	UAbilitySystemComponent* Asc;
 	
-	///// - Movement /////	
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 	
@@ -91,7 +102,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 	int32 GrowthQueue;
-	
 	
 	// The max length a queue can be
 	UPROPERTY(EditDefaultsOnly, Category = "Components")

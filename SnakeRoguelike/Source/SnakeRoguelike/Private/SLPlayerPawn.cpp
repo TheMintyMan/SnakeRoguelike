@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "../Public/SLPlayerPawn.h"
+
+#include "AudioDevice.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
@@ -9,6 +11,7 @@
 #include "AbilitySystem/SLAbilitySystemComponent.h"
 #include "Input/SLInputComponent.h"
 #include "NativeGameplayTags.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Up, "InputTag.Up");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Down, "InputTag.Down");
@@ -31,6 +34,8 @@ ASLPlayerPawn::ASLPlayerPawn()
 	RootComponent = RootComp;
 
 	AbilitySystemComponent = CreateDefaultSubobject<USLAbilitySystemComponent>("AbilitySystemComponent");
+
+	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>("PhysicsHandle");
 	
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(RootComponent);
@@ -40,6 +45,9 @@ ASLPlayerPawn::ASLPlayerPawn()
 	Direction = FInt32Point(0,1);
 
 	Ability01TagContainer.AddTag(InputTag_Ability01);
+
+	ClickHeldThreshHold = 1.0f;
+	
 }
 
 UAbilitySystemComponent* ASLPlayerPawn::GetAbilitySystemComponent() const
@@ -86,7 +94,6 @@ void ASLPlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-
 	// FString InputTriggeredString = "YO Yo Yo";
 	// print((("Hello: %s"), InputTriggeredString));
 	
@@ -110,22 +117,31 @@ void ASLPlayerPawn::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
 	}
+
+	ClickHeldThreshHold = 1.0f;
 }
 
-void ASLPlayerPawn::Clicked()
-{	
+void ASLPlayerPawn::Clicked(const FInputActionInstance& InstancedAction)
+{
+	ActiveInstance = InstancedAction;
 	if (InteractionComp)
 	{
 		InteractionComp->PrimaryInteractStarted();
 	}
 }
 
-void ASLPlayerPawn::ClickReleased()
+void ASLPlayerPawn::ClickReleased(const FInputActionInstance& InstancedAction)
 {
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, FString::Printf(TEXT("Time Held for: %f"), InstancedAction.GetElapsedTime()), true);
 	if (InteractionComp)
 	{
 		InteractionComp->PrimaryInteractEnded();
 	}
+}
+
+void ASLPlayerPawn::ClickHeld_Implementation(const FInputActionInstance& InstancedAction)
+{
+	
 }
 
 void ASLPlayerPawn::Up()
@@ -160,11 +176,10 @@ void ASLPlayerPawn::Right()
 	InputTriggeredDelegate.Broadcast(RightAction);
 }
 
-void ASLPlayerPawn::Ability01()
+void ASLPlayerPawn::Ability01_Implementation()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Ability 01 Activated"));
-	AbilitySystemComponent->TryActivateAbilitiesByTag(Ability01TagContainer, false);
-	
+	AbilitySystemComponent->TryActivateAbilitiesByTag(Ability01TagContainer);
 }
 
 void ASLPlayerPawn::Ability01Released()
@@ -192,6 +207,12 @@ void ASLPlayerPawn::RightReleased()
 	InputReleasedDelegate.Broadcast(RightAction);
 }
 
+FInputActionInstance ASLPlayerPawn::GetButtonHeld()
+{
+	
+	return ActiveInstance;
+}
+
 // Called to bind functionality to input
 void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -201,6 +222,7 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	{		
 		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Clicked);
 		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
+		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Ongoing, this, &ASLPlayerPawn::ClickHeld);
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);

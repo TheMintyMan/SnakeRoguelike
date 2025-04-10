@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "SLInterface.generated.h"
 
+class ASLPlayerPawn;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class USLInterface : public UInterface
@@ -24,8 +25,8 @@ class SNAKEROGUELIKE_API ISLInterface
 public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void Interact(APawn* InstigatorPawn, AActor* HitActor);
+	void Interact(ASLPlayerPawn* InstigatorPawn, AActor* HitActor);
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void InteractFinished(APawn* InstigatorPawn);
+	void InteractFinished(ASLPlayerPawn* InstigatorPawn);
 };

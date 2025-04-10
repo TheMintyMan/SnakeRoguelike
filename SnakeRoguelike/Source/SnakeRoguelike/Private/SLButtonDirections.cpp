@@ -56,12 +56,12 @@ void ASLButtonDirections::ReleasedAnim_Implementation()
 {
 }
 
-void ASLButtonDirections::Interact_Implementation(APawn* InstigatorPawn, AActor* HitActor)
+void ASLButtonDirections::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AActor* HitActor)
 {	
 	PressedAnim();
 }
 
-void ASLButtonDirections::InteractFinished_Implementation(APawn* InstigatorPawn)
+void ASLButtonDirections::InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn)
 {
 	ReleasedAnim();
 }

@@ -34,7 +34,7 @@ The game uses grid based movement just like the original Snake.
 Monopoly - Growing exponentially big.
 
 Game Inspiration:
-Slay The Spire, Snake, Balatro
+Snake, Balatro
 
 ## Game Mechanics
 

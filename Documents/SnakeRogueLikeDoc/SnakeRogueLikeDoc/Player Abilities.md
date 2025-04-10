@@ -1,5 +1,4 @@
-Initialise
-De-Initialise
+This is where all player ability ideas will be held
 ### Ability SlowTime
 
 There will be a base Ability Component cpp file. Each ability will inherit the base Ability Component.
@@ -35,7 +34,7 @@ void SlowTimeAbility
 }
 ```
 
-### Ability WrapAround
+### Ability GridWrap
 
 Allows the player to wrap around the grid for a period of time.
 
@@ -125,14 +124,22 @@ Mega Fruit will add a lot to the score and it will also decrease the size of the
 
 Allows players head to go underground for a duration of time
 
-### Ability Reroll
+### Ability Room Refresh
 
 Allows the player to reroll the map when the player hits the edge of the map.
+### Ability Bomb
 
-### Other Ability Ides
+Drops a bomb object from the tail. After 3 seconds, on the next tick, the bomb will destroy any object that is of 2 blocks in radius (5x5) around it as well as the bomb itself.
+
+This ability can be use a couple of times through out a single round
+
+### Other Ability Ideas
 
 Some sort of charge up ability? 
 The Snake can shoot a laser from the head and destroys everything in its way of the Snakes forward vector. Depending on the time the player holds the ability for, the further the reach of the laser will be.
 
 
 
+### Ability
+
+Description
