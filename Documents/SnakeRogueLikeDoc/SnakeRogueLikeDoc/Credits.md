@@ -16,6 +16,8 @@ Game Design and Programming Mentor, Friend
 
 Jonathan Davey - Intern Programmer
 
+Cadell Boorman - Intern Programmer
+
 Polina Read - Intern Artist
 
 Anthony Sae Jang - Intern UI Artist

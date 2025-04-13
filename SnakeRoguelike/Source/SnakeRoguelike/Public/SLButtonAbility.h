@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SLInterface.h"
 #include "GameFramework/Actor.h"
 #include "SLButtonAbility.generated.h"
 
 UCLASS()
-class SNAKEROGUELIKE_API ASLButtonAbility : public AActor
+class SNAKEROGUELIKE_API ASLButtonAbility : public AActor, public ISLInterface
 {
 	GENERATED_BODY()
 
@@ -22,7 +23,20 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Components")
 	UStaticMeshComponent* ButtonMesh;
 
+	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
+	FVector DropppingPoint;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AActor* HitActor) override;
+
+	void InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn) override;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void PressedAnim();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ReleasedAnim();
 };

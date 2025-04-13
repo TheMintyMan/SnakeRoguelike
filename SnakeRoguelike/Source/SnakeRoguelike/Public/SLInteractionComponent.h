@@ -22,7 +22,7 @@ public:
 
 	void PrimaryInteractEnded();
 
-	void GrabInteractStarted();
+	void GrabInteractStarted(FHitResult Hit);
 
 	void GrabInteractEnded();
 
@@ -34,22 +34,49 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
-	float MouseDirectionLength;
+	float MouseDirectionLength = 120.f;
 
 	UPROPERTY()
 	UPrimitiveComponent* GrabbedComponent;
 
-	float VelX = 0;
-	float VelY = 0;
+	FTimerHandle GrabTimerHandle;
 
+	float VelX = 0.f;
+	float VelY = 0.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float RollAmount = 60.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float PitchAmount = 60.f;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
 	float Momentum;
 
+	UFUNCTION()
 	void MoveGrabbedComponent(float InDeltaTime);
+
+	
+	UPROPERTY()
+	TArray<FVector> SnappingPoints;
+
+	FVector PickUpPoint;
+	
+	FVector DropPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float SnappingRadius = 5.0f;
+
+	UFUNCTION()
+	void MoveComponent(FVector TargetPos, FVector ObjectPos, float InMomentum, float InDeltaTime);
+
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	FVector GetDroppingPoint();
 		
 };
+
+

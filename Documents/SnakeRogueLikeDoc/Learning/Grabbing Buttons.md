@@ -55,3 +55,11 @@ Set bIsGrabbing to false when released
 SetActorTicksEnabled is False when grabbing is false
 
 Maybeee, I could use Ability system here.
+
+
+
+Setting up grabby snapping points
+```cpp
+// I want to get the sockets locations
+TArray<FVector> SnappingPositions;
+```

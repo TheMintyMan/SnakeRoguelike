@@ -3,6 +3,9 @@
 
 #include "SLButtonAbility.h"
 
+#include "SLInteractionComponent.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 ASLButtonAbility::ASLButtonAbility()
@@ -25,5 +28,31 @@ void ASLButtonAbility::BeginPlay()
 void ASLButtonAbility::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AActor* HitActor)
+{
+	PressedAnim();
+}
+
+void ASLButtonAbility::InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn)
+{
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
+
+	DropppingPoint = InteractComp->GetDroppingPoint();
+	
+	ReleasedAnim();
+}
+
+
+void ASLButtonAbility::ReleasedAnim_Implementation()
+{
+	
+}
+
+void ASLButtonAbility::PressedAnim_Implementation()
+{
+	
 }
 

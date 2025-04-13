@@ -100,6 +100,8 @@ void ASLGridManager::BuildGrid()
 			}
 		}
 	}
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -236,6 +238,16 @@ void ASLGridManager::GridClear()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grid Stopped"));
 	GetWorldTimerManager().ClearTimer(TickingHandle);
+}
+
+inline TArray<FVector> ASLGridManager::GetAbilitySocketPos()
+{
+	TArray<FVector> SocketPos;
+	SocketPos.Add(Ability01->GetComponentLocation());
+	SocketPos.Add(Ability02->GetComponentLocation());
+	SocketPos.Add(Ability03->GetComponentLocation());
+	SocketPos.Add(Ability04->GetComponentLocation());
+	return SocketPos;
 }
 
 FString ASLGridManager::GetHello()

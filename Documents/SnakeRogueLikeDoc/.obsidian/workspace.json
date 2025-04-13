@@ -1,107 +1,41 @@
 {
   "main": {
-    "id": "95b75fd1f6b9b6ef",
+    "id": "dd5333dd3de4a372",
     "type": "split",
     "children": [
       {
-        "id": "ac0d252954dc4844",
+        "id": "287ce5d4beac5b2d",
         "type": "tabs",
-        "dimension": 49.048223350253814,
         "children": [
           {
-            "id": "461bce6e35ecd55e",
+            "id": "22895d331d2271ec",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Learning/GAS PseudoCodes.md",
+                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "GAS PseudoCodes"
-            }
-          },
-          {
-            "id": "b7d8310bdf8af005",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "SnakeRogueLikeDoc/Player Abilities.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Player Abilities"
+              "title": "Snake Like GDD"
             }
           }
-        ],
-        "currentTab": 1
-      },
-      {
-        "id": "545330fc2d3c652f",
-        "type": "split",
-        "dimension": 50.951776649746186,
-        "children": [
-          {
-            "id": "97c02f6dde79ddce",
-            "type": "tabs",
-            "dimension": 55.86538461538461,
-            "children": [
-              {
-                "id": "fd87c552ec2990ef",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "Learning/Learning GAS.md",
-                    "mode": "source",
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "Learning GAS"
-                }
-              }
-            ]
-          },
-          {
-            "id": "23573af30e44d64a",
-            "type": "tabs",
-            "dimension": 44.13461538461539,
-            "children": [
-              {
-                "id": "6be5485f4e015ed0",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "ToDo/Schedule.md",
-                    "mode": "source",
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "Schedule"
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "horizontal"
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "6985a16d6b935455",
+    "id": "f9c05015abba9469",
     "type": "split",
     "children": [
       {
-        "id": "afa2f82fbe349721",
+        "id": "0fed6a6e38938d0e",
         "type": "tabs",
         "children": [
           {
-            "id": "c78dc26fc8c9d14c",
+            "id": "771796e76ef91a01",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -114,7 +48,7 @@
             }
           },
           {
-            "id": "c0d99e58d1bc9906",
+            "id": "a9e1b4e5d479d0a6",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -131,7 +65,7 @@
             }
           },
           {
-            "id": "961ef5da8f3892a1",
+            "id": "78946383871dbb80",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -147,20 +81,20 @@
     "width": 300
   },
   "right": {
-    "id": "4e9b4dab11de53e3",
+    "id": "9f08b89aa84a3e88",
     "type": "split",
     "children": [
       {
-        "id": "05a85e50d0356537",
+        "id": "b30d2098e22199b6",
         "type": "tabs",
         "children": [
           {
-            "id": "6b7e9d5a36097628",
+            "id": "eedd40c906d573dc",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Systems/Abilities.md",
+                "file": "ToDo/To Do.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -170,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Abilities"
+              "title": "Backlinks for To Do"
             }
           },
           {
-            "id": "21d0b564aebcd193",
+            "id": "daeb5a4e001232ea",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Systems/ScoringWinningLosing.md",
+                "file": "ToDo/To Do.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from ScoringWinningLosing"
+              "title": "Outgoing links from To Do"
             }
           },
           {
-            "id": "d7d5eef52192b2d2",
+            "id": "f4d7b5e5e4b7c521",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -203,18 +137,18 @@
             }
           },
           {
-            "id": "44a10d3d57042b28",
+            "id": "d19a268749cd5b0e",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Systems/ScoringWinningLosing.md",
+                "file": "ToDo/To Do.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of ScoringWinningLosing"
+              "title": "Outline of To Do"
             }
           }
         ]
@@ -234,42 +168,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "b7d8310bdf8af005",
+  "active": "22895d331d2271ec",
   "lastOpenFiles": [
-    "chrome_jXfK71YZIG.png",
-    "Learning/Grabbing Buttons.md",
-    "Learning/What I've Learnt for Next Project.md",
     "SnakeRogueLikeDoc/Room Mechanics.md",
     "SnakeRogueLikeDoc/Player Abilities.md",
-    "Learning/GAS PseudoCodes.md",
-    "Learning/Learning GAS.md",
-    "ToDo/To Do.md",
-    "Learning/Pseudocodes.md",
-    "SnakeRogueLikeDoc/Credits.md",
     "SnakeRogueLikeDoc/Game References.md",
-    "SnakeRogueLikeDoc/Creating Snake Like.md",
-    "SnakeRogueLikeDoc/Art.md",
-    "Learning/ScoringWinningLosing.md",
+    "Learning/Pseudocodes.md",
     "Learning/Seeded Runs.md",
     "Learning/Spawn Food.md",
-    "Learning/SystemSetup.canvas",
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
-    "ToDo/Schedule.md",
-    "Learning/OLD Pseudocodes.md",
-    "SnakeRogueLikeDoc/Narrative.md",
-    "SnakeRogueLikeDoc/VFX References.md",
-    "ToDo/Issues List.md",
-    "Images/IRL_Game_UI.png",
-    "Images/Thumbnail_01.jpg",
-    "Images/SnakePlusPlus_CapsuleArt_01.jpg",
-    "Images/Thumbnail_01.png",
-    "Images/LaserBeam_JetPackJoyride.mp4",
-    "Systems/Untitled 1.md",
-    "2025-03-13.md",
-    "ToDo",
-    "Pasted image 20250305191551.png",
-    "SnakeRogueLikeDoc",
-    "Learning",
-    "Untitled.canvas"
+    "SnakeRogueLikeDoc/Credits.md",
+    "Learning/Grabbing Buttons.md",
+    "SnakeRogueLikeDoc/Marketing.md",
+    "ToDo/To Do.md"
   ]
 }

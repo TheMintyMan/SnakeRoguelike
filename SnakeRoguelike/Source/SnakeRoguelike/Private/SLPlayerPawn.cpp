@@ -29,6 +29,7 @@ ASLPlayerPawn::ASLPlayerPawn()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	RootComp = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = RootComp;
@@ -47,6 +48,7 @@ ASLPlayerPawn::ASLPlayerPawn()
 	Ability01TagContainer.AddTag(InputTag_Ability01);
 
 	ClickHeldThreshHold = 1.0f;
+	
 	
 }
 
@@ -113,6 +115,7 @@ void ASLPlayerPawn::BeginPlay()
 		PC->bEnableClickEvents = true;
 		PC->bEnableMouseOverEvents = true;
 		PC->bEnableTouchEvents = true;
+		PC->bAllowTickBeforeBeginPlay = false;
 	} else
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));

@@ -5,6 +5,7 @@
 
 #include "SLButtonAbility.h"
 #include "SLButtonDirections.h"
+#include "SLGridManager.h"
 #include "SLInterface.h"
 #include "SLPlayerPawn.h"
 #include "SLSnake.h"
@@ -26,12 +27,13 @@ USLInteractionComponent::USLInteractionComponent(): CurrentHitActor(nullptr), Mo
 void USLInteractionComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	SetComponentTickEnabled(false);
 
-	// ...
-	
+	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
+	ASLGridManager* GridManager = Cast<ASLGridManager>(Grid);
+
+	SnappingPoints = GridManager->GetAbilitySocketPos();
 }
-
-
 
 void USLInteractionComponent::PrimaryInteractStarted()
 {
@@ -51,24 +53,24 @@ void USLInteractionComponent::PrimaryInteractStarted()
 	GetWorld()->LineTraceSingleByObjectType(Hit, Start, End, ObjectQueryParams);
 
 	AActor* HitActor = Hit.GetActor();
-	CurrentHitActor = HitActor;
 
-	if (HitActor == Cast<ASLButtonAbility>(HitActor))
+	PickUpPoint = Hit.GetComponent()->GetComponentLocation();
+	
+	// Needed for Interact Ended
+	CurrentHitActor = HitActor;
+	
+	if (HitActor->Implements<USLInterface>())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitActor is ASLButtonAbility"));
-		GrabbedComponent = Hit.GetComponent();
-	}
-	
-	// FVector HitLocation = Hit.ImpactPoint;
-	
-	if (HitActor)
-	{  
-		if (HitActor->Implements<USLInterface>())
+		ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(MyOwner);
+
+		if (HitActor == Cast<ASLButtonAbility>(HitActor))
 		{
-			ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(MyOwner);
-			
-			ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);			
+			FTimerDelegate GrabTimerDelegate;
+			GrabTimerDelegate.BindUObject(this, &USLInteractionComponent::GrabInteractStarted, Hit);
+			GetWorld()->GetTimerManager().SetTimer(GrabTimerHandle, GrabTimerDelegate, 2.1f, false);
 		}
+		
+		ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);	
 	}
 	
 	// DrawDebugLine(GetWorld(), Start, End, Hit.bBlockingHit ? FColor::Green : FColor::Red, false, 1.0f, 0, 0.1f);
@@ -88,20 +90,25 @@ void USLInteractionComponent::PrimaryInteractEnded()
 				ASLSnake* Snake = Cast<ASLSnake>(SnakeActor);
 				Snake->QueueInput(ButtonDirections->DirectionIntPoint);
 			}
+			GrabInteractEnded();
 			ISLInterface::Execute_InteractFinished(CurrentHitActor, MyPawn);
 		}
 	}
-	GrabbedComponent = nullptr;
+	
 }
 
-void USLInteractionComponent::GrabInteractStarted()
+void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 {
-	
+	SetComponentTickEnabled(true);
+	GrabbedComponent = Hit.GetComponent();
+	UE_LOG(LogTemp, Warning, TEXT("Grab has Started"));
 }
 
 void USLInteractionComponent::GrabInteractEnded()
 {
-	
+	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
+	SetComponentTickEnabled(false);
+	GrabbedComponent = nullptr;
 }
 
 void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
@@ -117,14 +124,44 @@ void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 	PC->DeprojectMousePositionToWorld(MouseStartLocation, MouseWorldDirection);
 
 	FVector TargetPos = MouseWorldDirection*MouseDirectionLength+MouseStartLocation;
+	DropPoint = PickUpPoint;
 
+	float NewMomentum = Momentum;
+
+	Momentum = NewMomentum;
+
+	for (int i = 0; i < SnappingPoints.Num(); i++)
+	{
+		FVector NewSnappingPoint = SnappingPoints[i];
+		NewSnappingPoint.Z = TargetPos.Z;
+		if (FVector::Dist(TargetPos, NewSnappingPoint) <= SnappingRadius)
+		{
+			NewMomentum = 0.3;
+			TargetPos = NewSnappingPoint;
+			DropPoint = SnappingPoints[i];
+		}
+	}
+	
+	MoveComponent(ObjectPos, TargetPos, NewMomentum, InDeltaTime);
+}
+
+
+void USLInteractionComponent::MoveComponent(FVector TargetPos, FVector ObjectPos, float InMomentum, float InDeltaTime)
+{
 	if (TargetPos.X != ObjectPos.X || VelX != 0 || TargetPos.Y != ObjectPos.Y || VelY !=0)
 	{
-		VelX = Momentum * VelX + (1 - Momentum) * (TargetPos.X - ObjectPos.X) * 30 * InDeltaTime;
-		VelY = Momentum * VelY + (1 - Momentum) * (TargetPos.Y - ObjectPos.Y) * 30 * InDeltaTime;
-		
+		VelX = InMomentum * VelX + (1 - InMomentum) * (TargetPos.X - ObjectPos.X) * 30 * InDeltaTime;
+		VelY = InMomentum * VelY + (1 - InMomentum) * (TargetPos.Y - ObjectPos.Y) * 30 * InDeltaTime;
+
+		FRotator NewRotator;
+
+		NewRotator.Roll = VelY*RollAmount*-1;
+		NewRotator.Pitch = VelX*PitchAmount;
+		NewRotator.Yaw = 0.0f;
+	
 		FVector NewObjectPos = FVector(ObjectPos.X + VelX, ObjectPos.Y + VelY, ObjectPos.Z);
-		
+
+		GrabbedComponent->SetWorldRotation(NewRotator);
 		GrabbedComponent->SetWorldLocation(NewObjectPos);
 	}
 }
@@ -134,19 +171,14 @@ void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
-	// ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(GetOwner());
-	// GEngine->AddOnScreenDebugMessage(-1, 0, FColor::Cyan, FString::Printf(TEXT("Time Held: %f"), MyPawn->GetButtonHeld().GetElapsedTime()), true);
-
 	if (GrabbedComponent)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 0, FColor::Cyan, FString::Printf(TEXT("Grabbed Component: %s"), *GrabbedComponent->GetName()), true);
-		//UE_LOG(LogTemp, Warning, TEXT("Grabbed Component"));
 		MoveGrabbedComponent(DeltaTime);
 	}
-	
-	//GEngine->AddOnSMouseDirectionLengthcreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("%s"), MouseLocation)
-	
-	
-	// ...
+}
+
+FVector USLInteractionComponent::GetDroppingPoint()
+{
+	return DropPoint;
 }
 
