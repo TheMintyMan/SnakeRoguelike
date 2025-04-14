@@ -26,6 +26,9 @@ protected:
 	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
 	FVector DropppingPoint;
 
+	UPROPERTY(BlueprintReadOnly, Category="Components")
+	bool bIsGrabbing = false;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

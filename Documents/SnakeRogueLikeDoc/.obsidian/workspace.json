@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
+                "file": "ToDo/To Do.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Snake Like GDD"
+              "title": "To Do"
             }
           }
         ]
@@ -170,6 +170,10 @@
   },
   "active": "22895d331d2271ec",
   "lastOpenFiles": [
+    "Learning/Untitled.canvas",
+    "Learning/Grabbing Buttons.md",
+    "ToDo/To Do.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
     "SnakeRogueLikeDoc/Room Mechanics.md",
     "SnakeRogueLikeDoc/Player Abilities.md",
     "SnakeRogueLikeDoc/Game References.md",
@@ -177,8 +181,6 @@
     "Learning/Seeded Runs.md",
     "Learning/Spawn Food.md",
     "SnakeRogueLikeDoc/Credits.md",
-    "Learning/Grabbing Buttons.md",
-    "SnakeRogueLikeDoc/Marketing.md",
-    "ToDo/To Do.md"
+    "SnakeRogueLikeDoc/Marketing.md"
   ]
 }

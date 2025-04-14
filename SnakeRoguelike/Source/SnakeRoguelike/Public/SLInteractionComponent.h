@@ -65,16 +65,20 @@ protected:
 	FVector DropPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
-	float SnappingRadius = 5.0f;
+	float SnappingRadius = 2.0f;
 
 	UFUNCTION()
 	void MoveComponent(FVector TargetPos, FVector ObjectPos, float InMomentum, float InDeltaTime);
 
+	UPROPERTY()
+	bool bWasGrabbing = false;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	bool GetIsGrabbing();
+	
 	FVector GetDroppingPoint();
 		
 };

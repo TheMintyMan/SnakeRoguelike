@@ -52,6 +52,8 @@ void USLInteractionComponent::PrimaryInteractStarted()
 	
 	GetWorld()->LineTraceSingleByObjectType(Hit, Start, End, ObjectQueryParams);
 
+	
+
 	AActor* HitActor = Hit.GetActor();
 
 	PickUpPoint = Hit.GetComponent()->GetComponentLocation();
@@ -67,8 +69,10 @@ void USLInteractionComponent::PrimaryInteractStarted()
 		{
 			FTimerDelegate GrabTimerDelegate;
 			GrabTimerDelegate.BindUObject(this, &USLInteractionComponent::GrabInteractStarted, Hit);
-			GetWorld()->GetTimerManager().SetTimer(GrabTimerHandle, GrabTimerDelegate, 2.1f, false);
+			GetWorld()->GetTimerManager().SetTimer(GrabTimerHandle, GrabTimerDelegate, 0.75f, false);
 		}
+
+		bWasGrabbing = false;
 		
 		ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);	
 	}
@@ -99,6 +103,7 @@ void USLInteractionComponent::PrimaryInteractEnded()
 
 void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 {
+	bWasGrabbing = true;
 	SetComponentTickEnabled(true);
 	GrabbedComponent = Hit.GetComponent();
 	UE_LOG(LogTemp, Warning, TEXT("Grab has Started"));
@@ -106,6 +111,7 @@ void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 
 void USLInteractionComponent::GrabInteractEnded()
 {
+	
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
 	SetComponentTickEnabled(false);
 	GrabbedComponent = nullptr;
@@ -124,6 +130,7 @@ void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 	PC->DeprojectMousePositionToWorld(MouseStartLocation, MouseWorldDirection);
 
 	FVector TargetPos = MouseWorldDirection*MouseDirectionLength+MouseStartLocation;
+	TargetPos.Z = ObjectPos.Z;
 	DropPoint = PickUpPoint;
 
 	float NewMomentum = Momentum;
@@ -175,6 +182,11 @@ void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	{
 		MoveGrabbedComponent(DeltaTime);
 	}
+}
+
+bool USLInteractionComponent::GetIsGrabbing()
+{
+	return bWasGrabbing;
 }
 
 FVector USLInteractionComponent::GetDroppingPoint()

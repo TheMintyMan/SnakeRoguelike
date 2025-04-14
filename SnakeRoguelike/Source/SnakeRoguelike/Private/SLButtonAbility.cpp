@@ -33,6 +33,11 @@ void ASLButtonAbility::Tick(float DeltaTime)
 void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AActor* HitActor)
 {
 	PressedAnim();
+
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);	
+	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
+
+	bIsGrabbing = InteractComp->GetIsGrabbing();
 }
 
 void ASLButtonAbility::InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn)
@@ -40,6 +45,8 @@ void ASLButtonAbility::InteractFinished_Implementation(ASLPlayerPawn* Instigator
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
 
+	bIsGrabbing = InteractComp->GetIsGrabbing();
+	
 	DropppingPoint = InteractComp->GetDroppingPoint();
 	
 	ReleasedAnim();

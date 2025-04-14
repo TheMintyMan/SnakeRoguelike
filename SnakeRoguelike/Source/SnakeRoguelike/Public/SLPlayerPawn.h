@@ -9,6 +9,7 @@
 #include "SLPlayerPawn.generated.h"
 
 
+class UPostProcessComponent;
 class ASLButtonAbility;
 class UPhysicsHandleComponent;
 class USLInputConfig;
@@ -42,8 +43,6 @@ public:
 	FDirectionDelegate DirectionDelegate;
 	FTriggeredActionVisualDelegate InputTriggeredDelegate;
 	FReleaseActionVisualDelegate InputReleasedDelegate;
-
-
 
 #pragma region Abilities
 
@@ -81,6 +80,9 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UPostProcessComponent* PostProcessComp;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

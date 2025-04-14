@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"897bf4b2c5acce1d","x":-260,"y":-380,"width":250,"height":60,"type":"text","text":"Press Button"},
+		{"id":"bd9ca514f1cebc9f","x":-60,"y":-200,"width":250,"height":60,"type":"text","text":"Hold Button For\n2.1 sec"},
+		{"id":"6d976a3d1917e184","x":-440,"y":-200,"width":250,"height":60,"type":"text","text":"Release Button Under \n2.1 sec"},
+		{"id":"68a9378625211152","x":-440,"y":-84,"width":250,"height":71,"type":"text","text":"Release Button\nPlay Button press anim"},
+		{"id":"9a8f27df54cc170e","x":-60,"y":-84,"width":250,"height":112,"type":"text","text":"Grabs Button\nMove Button towards cursor"},
+		{"id":"dc23479398123765","x":-60,"y":80,"width":250,"height":71,"type":"text","text":"Release Button\nPlay Button drop anim"}
+	],
+	"edges":[
+		{"id":"d911e4370820a8c4","fromNode":"897bf4b2c5acce1d","fromSide":"bottom","toNode":"6d976a3d1917e184","toSide":"top"},
+		{"id":"f11e7256af5495c2","fromNode":"897bf4b2c5acce1d","fromSide":"bottom","toNode":"bd9ca514f1cebc9f","toSide":"top"},
+		{"id":"9bd15091f5878a5c","fromNode":"6d976a3d1917e184","fromSide":"bottom","toNode":"68a9378625211152","toSide":"top"},
+		{"id":"3745032b0e1c166d","fromNode":"bd9ca514f1cebc9f","fromSide":"bottom","toNode":"9a8f27df54cc170e","toSide":"top"},
+		{"id":"8ca649e810a12ab0","fromNode":"9a8f27df54cc170e","fromSide":"bottom","toNode":"dc23479398123765","toSide":"top"}
+	]
+}

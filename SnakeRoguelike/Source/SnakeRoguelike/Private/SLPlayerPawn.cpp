@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "../Public/SLPlayerPawn.h"
-
-#include "AudioDevice.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
@@ -11,6 +9,7 @@
 #include "AbilitySystem/SLAbilitySystemComponent.h"
 #include "Input/SLInputComponent.h"
 #include "NativeGameplayTags.h"
+#include "Components/PostProcessComponent.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Up, "InputTag.Up");
@@ -33,6 +32,9 @@ ASLPlayerPawn::ASLPlayerPawn()
 
 	RootComp = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = RootComp;
+
+	PostProcessComp = CreateDefaultSubobject<UPostProcessComponent>("PostProcess");
+	PostProcessComp->SetupAttachment(RootComp);
 
 	AbilitySystemComponent = CreateDefaultSubobject<USLAbilitySystemComponent>("AbilitySystemComponent");
 
