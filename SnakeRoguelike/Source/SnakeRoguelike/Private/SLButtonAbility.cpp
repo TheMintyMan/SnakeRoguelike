@@ -2,7 +2,6 @@
 
 
 #include "SLButtonAbility.h"
-
 #include "SLInteractionComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -36,6 +35,10 @@ void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AA
 
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);	
 	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
+
+	DropppingPoint = InteractComp->GetDroppingPoint();
+
+	Speed = InteractComp->GetSpeed();
 
 	bIsGrabbing = InteractComp->GetIsGrabbing();
 }

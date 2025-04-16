@@ -40,27 +40,36 @@ protected:
 	UPrimitiveComponent* GrabbedComponent;
 
 	FTimerHandle GrabTimerHandle;
+	
+	float VelX;
+	float VelY;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float RollAmount = 30.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float PitchAmount = 30.f;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float Momentum = 0.75f;
 
-	float VelX = 0.f;
-	float VelY = 0.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float SnappingMomentum = 0.75f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float Speed = 30.0f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
-	float RollAmount = 60.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
-	float PitchAmount = 60.f;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
-	float Momentum;
+	float PickUpTime = 0.5f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	float ActualSpeedMoving = 0.0f;
 
 	UFUNCTION()
 	void MoveGrabbedComponent(float InDeltaTime);
-
 	
 	UPROPERTY()
 	TArray<FVector> SnappingPoints;
-
-	FVector PickUpPoint;
 	
 	FVector DropPoint;
 
@@ -78,8 +87,12 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool GetIsGrabbing();
-	
+
+	UFUNCTION()
 	FVector GetDroppingPoint();
+
+	UFUNCTION()
+	float GetSpeed();
 		
 };
 

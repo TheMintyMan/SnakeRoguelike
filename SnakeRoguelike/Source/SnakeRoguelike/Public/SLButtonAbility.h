@@ -26,6 +26,9 @@ protected:
 	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
 	FVector DropppingPoint;
 
+	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
+	float Speed;
+
 	UPROPERTY(BlueprintReadOnly, Category="Components")
 	bool bIsGrabbing = false;
 

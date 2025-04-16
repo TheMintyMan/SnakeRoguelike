@@ -36,6 +36,10 @@ Monopoly - Growing exponentially big.
 Game Inspiration:
 Snake, Balatro
 
+Ability Level Ups:
+- Locked in ability level ups
+
+
 ## Game Mechanics
 
 ### Rooms
@@ -181,3 +185,7 @@ Every time you complete a room, all the faces of the grid scales smaller and rot
 A Snake map where the obstacle is continuously moving down every 1~2 second or so. New obstacles spawn from the top.
 
 Sort of creates the illusion that the player feels like they’re moving upwards.
+
+Locked in ability. Players can't sell abilities.
+
+Story mode and Infinite mode. 

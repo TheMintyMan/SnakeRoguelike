@@ -10,7 +10,6 @@
 #include "Input/SLInputComponent.h"
 #include "NativeGameplayTags.h"
 #include "Components/PostProcessComponent.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
 
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Up, "InputTag.Up");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Down, "InputTag.Down");
@@ -37,8 +36,6 @@ ASLPlayerPawn::ASLPlayerPawn()
 	PostProcessComp->SetupAttachment(RootComp);
 
 	AbilitySystemComponent = CreateDefaultSubobject<USLAbilitySystemComponent>("AbilitySystemComponent");
-
-	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>("PhysicsHandle");
 	
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(RootComponent);

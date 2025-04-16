@@ -94,9 +94,6 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	UInputMappingContext* PlayerMappingContext;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UPhysicsHandleComponent* PhysicsHandle;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;

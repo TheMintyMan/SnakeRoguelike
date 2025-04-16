@@ -1,7 +1,5 @@
 - [ ] Set up all ability buttons and mesh for it
 	- [x] Camera Shake
-	- [ ] Post-Processing (Chromatic Aberration)
-	- [ ] VFX
 	- [ ] SFX
 - [ ] Allow the ability button to be placed in different slots which will update the tags and input binding of that ability to the respective slots key binding
 - [ ] More work on the game loop. Game loop framework. Initialisation Sequence, placeholder shop page, screen sequence. To get a vibe on the game flow and get that base system going
@@ -50,3 +48,5 @@ Add a screen effect to the capsule art
 Questions to myself:
 
 Whats the best way to set up my level editor and sequences?
+
+
