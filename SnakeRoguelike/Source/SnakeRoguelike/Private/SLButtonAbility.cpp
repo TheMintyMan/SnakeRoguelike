@@ -38,7 +38,7 @@ void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AA
 
 	DropppingPoint = InteractComp->GetDroppingPoint();
 
-	Speed = InteractComp->GetSpeed();
+	PickUpTime = InteractComp->GetPickUpTime();
 
 	bIsGrabbing = InteractComp->GetIsGrabbing();
 }

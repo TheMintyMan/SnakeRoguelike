@@ -191,7 +191,7 @@ FVector USLInteractionComponent::GetDroppingPoint()
 	return DropPoint;
 }
 
-float USLInteractionComponent::GetSpeed()
+float USLInteractionComponent::GetPickUpTime()
 {
 	return PickUpTime;
 }

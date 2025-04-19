@@ -92,7 +92,7 @@ public:
 	FVector GetDroppingPoint();
 
 	UFUNCTION()
-	float GetSpeed();
+	float GetPickUpTime();
 		
 };
 

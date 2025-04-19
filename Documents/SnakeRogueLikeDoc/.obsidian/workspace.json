@@ -6,6 +6,7 @@
       {
         "id": "287ce5d4beac5b2d",
         "type": "tabs",
+        "dimension": 49.458483754512635,
         "children": [
           {
             "id": "22895d331d2271ec",
@@ -13,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ToDo/To Do.md",
+                "file": "Learning/What I've Learnt for Next Project.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "To Do"
+              "title": "What I've Learnt for Next Project"
             }
           }
         ]
@@ -26,10 +27,12 @@
       {
         "id": "c2a9cfc159f7dc29",
         "type": "split",
+        "dimension": 50.54151624548736,
         "children": [
           {
             "id": "4d54d59a49b69c7e",
             "type": "tabs",
+            "dimension": 43.857142857142854,
             "children": [
               {
                 "id": "78391e36cbfcdd03",
@@ -50,6 +53,7 @@
           {
             "id": "2123d73a19f8c93a",
             "type": "tabs",
+            "dimension": 56.14285714285714,
             "children": [
               {
                 "id": "fa0a295a920e992b",
@@ -215,10 +219,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "22895d331d2271ec",
+  "active": "78391e36cbfcdd03",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Learning/What I've Learnt for Next Project.md",
     "ToDo/To Do.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
     "SnakeRogueLikeDoc/Player Abilities.md",
     "Learning/Untitled.canvas",
     "Learning/Grabbing Buttons.md",

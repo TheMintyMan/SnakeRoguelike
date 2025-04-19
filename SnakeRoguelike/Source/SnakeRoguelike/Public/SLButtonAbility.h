@@ -27,7 +27,7 @@ protected:
 	FVector DropppingPoint;
 
 	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
-	float Speed;
+	float PickUpTime;
 
 	UPROPERTY(BlueprintReadOnly, Category="Components")
 	bool bIsGrabbing = false;
