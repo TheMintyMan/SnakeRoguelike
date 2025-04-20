@@ -39,7 +39,6 @@ Snake, Balatro
 Ability Level Ups:
 - Locked in ability level ups
 
-
 ## Game Mechanics
 
 ### Rooms

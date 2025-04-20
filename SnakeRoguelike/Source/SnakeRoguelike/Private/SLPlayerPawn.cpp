@@ -47,8 +47,6 @@ ASLPlayerPawn::ASLPlayerPawn()
 	Ability01TagContainer.AddTag(InputTag_Ability01);
 
 	ClickHeldThreshHold = 1.0f;
-	
-	
 }
 
 UAbilitySystemComponent* ASLPlayerPawn::GetAbilitySystemComponent() const
@@ -141,11 +139,6 @@ void ASLPlayerPawn::ClickReleased(const FInputActionInstance& InstancedAction)
 	}
 }
 
-void ASLPlayerPawn::ClickHeld_Implementation(const FInputActionInstance& InstancedAction)
-{
-	
-}
-
 void ASLPlayerPawn::Up()
 {
 	Direction = FInt32Point(0,1);
@@ -224,7 +217,6 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	{		
 		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Clicked);
 		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
-		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Ongoing, this, &ASLPlayerPawn::ClickHeld);
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);

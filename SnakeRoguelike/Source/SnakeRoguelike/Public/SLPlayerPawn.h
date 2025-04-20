@@ -128,9 +128,6 @@ protected:
 	UFUNCTION()
 	void ClickReleased(const FInputActionInstance& InstancedAction);
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Input")
-	void ClickHeld(const FInputActionInstance& InstancedAction);
-
 	UFUNCTION()
 	void Up();
 

@@ -1,4 +1,13 @@
 This is where all player ability ideas will be held
+
+Idea: Colour each ability button by their types.
+eg: 
+Buttons related to movement will be blue
+Buttons related to time will be green
+Buttons related to creating space will be red
+Buttons that does not really fit in these category will be yellow
+
+Ability Upgrades such as increasing the duration of the ability.
 ### Ability SlowTime
 
 There will be a base Ability Component cpp file. Each ability will inherit the base Ability Component.
@@ -86,7 +95,7 @@ get y mod y.sizeOfArray = new y variable
 ### Ability AStar
 
 The game will basically play for you. The snake will automatically travel to the nearest Food. 
-It takes account of the static obstacles but not the moving obstacles or lasers. 
+It takes account of the static obstacles but not the moving obstacles or lasers but the snake will be invincible to these things during the duration of AStar.
 The ability is not activatable if there are no food in the map.
 
 ```cpp
@@ -120,7 +129,7 @@ Mega Fruit will add a lot to the score and it will also decrease the size of the
 
 ### Ability HeadSwap
 
-### Ability Bury
+### Ability Burrrow
 
 Allows players head to go underground for a duration of time
 
@@ -133,6 +142,13 @@ Drops a bomb object from the tail. After 3 seconds, on the next tick, the bomb w
 
 This ability can be use a couple of times through out a single round
 
+### Ability Split
+
+Splits the snake in 2 and allows the player to control both snakes at the same time.
+
+### Ability Freeze
+
+Freeze yourself for 5 Seconds. Nothing can hurt you while you're frozen
 ### Other Ability Ideas
 
 Some sort of charge up ability? 

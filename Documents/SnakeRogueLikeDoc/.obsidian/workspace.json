@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Learning/What I've Learnt for Next Project.md",
+                "file": "SnakeRogueLikeDoc/Player Abilities.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "What I've Learnt for Next Project"
+              "title": "Player Abilities"
             }
           }
         ]
@@ -219,12 +219,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "78391e36cbfcdd03",
+  "active": "22895d331d2271ec",
   "lastOpenFiles": [
-    "Learning/What I've Learnt for Next Project.md",
-    "ToDo/To Do.md",
     "SnakeRogueLikeDoc/Snake Like GDD.md",
     "SnakeRogueLikeDoc/Player Abilities.md",
+    "Learning/What I've Learnt for Next Project.md",
+    "ToDo/To Do.md",
     "Learning/Untitled.canvas",
     "Learning/Grabbing Buttons.md",
     "SnakeRogueLikeDoc/Room Mechanics.md",

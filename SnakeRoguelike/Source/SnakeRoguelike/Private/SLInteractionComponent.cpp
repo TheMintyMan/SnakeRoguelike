@@ -67,7 +67,7 @@ void USLInteractionComponent::PrimaryInteractStarted()
 			GetWorld()->GetTimerManager().SetTimer(GrabTimerHandle, GrabTimerDelegate, PickUpTime, false);
 		}
 
-		// bWasGrabbing = false;
+		bWasGrabbing = false;
 		
 		ISLInterface::Execute_Interact(HitActor, MyPawn, HitActor);	
 	}
@@ -78,6 +78,7 @@ void USLInteractionComponent::PrimaryInteractStarted()
 void USLInteractionComponent::PrimaryInteractEnded()
 {
 	AActor* MyOwner = GetOwner();
+	
 	ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(MyOwner);
 	if (CurrentHitActor)
 	{
@@ -97,14 +98,14 @@ void USLInteractionComponent::PrimaryInteractEnded()
 
 void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 {
-	bWasGrabbing = true;
+	
 	SetComponentTickEnabled(true);
 	GrabbedComponent = Hit.GetComponent();
 }
 
 void USLInteractionComponent::GrabInteractEnded()
 {
-	
+	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
 	// SetComponentTickEnabled(false);
 	GrabbedComponent = nullptr;

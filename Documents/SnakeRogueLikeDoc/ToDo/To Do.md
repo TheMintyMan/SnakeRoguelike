@@ -1,9 +1,11 @@
 - [ ] Set up all ability buttons and mesh for it
 	- [x] Camera Shake
 	- [x] SFX
-	- [ ] Learn Metasounds and use Metasounds for the buttons
+	- [x] Learn basics of Metasounds and use Metasounds for the buttons
 	- [ ] VFX maybe?
-	- [ ] BUG: You can spam the button and the button will infinitely go up
+	- [x] BUG: You can spam the button and the button will infinitely go up
+	- [ ] Model/Texture Button
+	- [ ] Move button grab to be a GA
 - [ ] Allow the ability button to be placed in different slots which will update the tags and input binding of that ability to the respective slots key binding
 - [ ] More work on the game loop. Game loop framework. Initialisation Sequence, placeholder shop page, screen sequence. To get a vibe on the game flow and get that base system going
 - [ ] Level Design tool. Take in 23x23 pixels 
