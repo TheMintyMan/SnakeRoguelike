@@ -63,3 +63,38 @@ Setting up grabby snapping points
 // I want to get the sockets locations
 TArray<FVector> SnappingPositions;
 ```
+
+Each location needs a tag assigned to it.
+Setting up tag changing
+```cpp
+
+The Button needs to change input tag when moving positions
+
+void InteractionEnd()
+{
+	for (int i = 0; i < SnappingPoints[i])
+	{
+		if(Distance(Button.Pos, SnappingPoint) <= SnappingRadius)
+		{
+			Remove Input Tags
+			Add Input Tag[i];
+			break;
+		}
+	}
+}
+
+```
+
+
+The Snapping points are just locations.
+I think I change it to a TMap with locations and a Tag assigned to it.
+
+Change SceneComponent to Array of Vectors.
+
+When change static mesh location, change button ability function.
+
+
+
+The normal way
+An Array of index.
+A slow that an object can go onto

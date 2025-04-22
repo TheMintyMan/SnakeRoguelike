@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Engine/DataAsset.h"
-
 #include "SLInputConfig.generated.h"
 
 class UInputAction;

@@ -3,9 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayAbilitySpecHandle.h"
+#include "GameplayTagContainer.h"
 #include "SLInterface.h"
 #include "GameFramework/Actor.h"
 #include "SLButtonAbility.generated.h"
+
+class UGameplayAbility;
+class UAbilitySystemComponent;
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLButtonAbility : public AActor, public ISLInterface
@@ -32,6 +37,20 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Components")
 	bool bIsGrabbing = false;
 
+	UPROPERTY()
+	UAbilitySystemComponent* ASC;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
+	TSubclassOf<UGameplayAbility> ButtonAbility;
+
+	// TODO Set the player to be the owner the ASLPlayerPawn
+	UPROPERTY()
+	ASLPlayerPawn* PlayerPawn;
+
+	FGameplayAbilitySpecHandle AbilitySpecHandle;
+
+	void GrantAbility();
+	
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -45,4 +64,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
 	void ReleasedAnim();
+
+	
 };

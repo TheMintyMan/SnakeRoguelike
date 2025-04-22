@@ -19,7 +19,6 @@ public:
 
 	template<class UserClass, typename FuncType>
 	void BindActionByTag(const USLInputConfig* InputConfig, const FGameplayTag& InputTag, ETriggerEvent TriggerEvent, UserClass* Object, FuncType Func);
-
 };
 
 template<class UserClass, typename FuncType>

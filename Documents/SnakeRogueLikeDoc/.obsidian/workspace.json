@@ -14,12 +14,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SnakeRogueLikeDoc/Player Abilities.md",
+                "file": "Learning/Grabbing Buttons.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Player Abilities"
+              "title": "Grabbing Buttons"
             }
           }
         ]
@@ -32,7 +32,7 @@
           {
             "id": "4d54d59a49b69c7e",
             "type": "tabs",
-            "dimension": 43.857142857142854,
+            "dimension": 61.25000000000001,
             "children": [
               {
                 "id": "78391e36cbfcdd03",
@@ -53,7 +53,7 @@
           {
             "id": "2123d73a19f8c93a",
             "type": "tabs",
-            "dimension": 56.14285714285714,
+            "dimension": 38.75,
             "children": [
               {
                 "id": "fa0a295a920e992b",
@@ -219,14 +219,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "22895d331d2271ec",
+  "active": "78391e36cbfcdd03",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
-    "SnakeRogueLikeDoc/Player Abilities.md",
-    "Learning/What I've Learnt for Next Project.md",
-    "ToDo/To Do.md",
-    "Learning/Untitled.canvas",
     "Learning/Grabbing Buttons.md",
+    "SnakeRogueLikeDoc/Player Abilities.md",
+    "ToDo/To Do.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Learning/What I've Learnt for Next Project.md",
+    "Learning/Untitled.canvas",
     "SnakeRogueLikeDoc/Room Mechanics.md",
     "SnakeRogueLikeDoc/Game References.md",
     "Learning/Pseudocodes.md",

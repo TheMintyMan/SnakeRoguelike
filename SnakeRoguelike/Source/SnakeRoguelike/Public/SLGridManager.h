@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
@@ -50,17 +51,20 @@ protected:
 	UPROPERTY(EditAnywhere, Category= "Component")
 	UChildActorComponent* ScoreWidgetActorComponent;
 
-	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability01;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Components")
+	TMap<FVector, FGameplayTag> AbilitySlotTags;
 
 	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability02;
+	USceneComponent* Ability01SceneComp;
 
 	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability03;
+	USceneComponent* Ability02SceneComp;
 
 	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability04;
+	USceneComponent* Ability03SceneComp;
+
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USceneComponent* Ability04SceneComp;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 WidthSpacing;
@@ -77,8 +81,6 @@ protected:
 	// The speed of the game
 	UPROPERTY(BlueprintReadOnly)
 	float TimerSpeed;
-	
-	FString Hello = "Hello From Grid Manager";
 
 	FTimerHandle SnakeSpawnHandle;
 
@@ -122,8 +124,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void GridClear();
-	
-	FString GetHello();
+
+	UFUNCTION()
+	TMap<FVector, FGameplayTag> GetAbilitySlotTags();
 
 	UFUNCTION()
 	void GameEnded();

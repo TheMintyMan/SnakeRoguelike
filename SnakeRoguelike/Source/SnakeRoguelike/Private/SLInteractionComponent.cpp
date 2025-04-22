@@ -98,7 +98,6 @@ void USLInteractionComponent::PrimaryInteractEnded()
 
 void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 {
-	
 	SetComponentTickEnabled(true);
 	GrabbedComponent = Hit.GetComponent();
 }
@@ -107,7 +106,7 @@ void USLInteractionComponent::GrabInteractEnded()
 {
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
-	// SetComponentTickEnabled(false);
+	SetComponentTickEnabled(false);
 	GrabbedComponent = nullptr;
 }
 

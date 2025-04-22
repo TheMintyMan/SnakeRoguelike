@@ -2,7 +2,13 @@
 
 
 #include "SLButtonAbility.h"
+
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemInterface.h"
+#include "GameplayAbilitySpec.h"
 #include "SLInteractionComponent.h"
+#include "SLPlayerPawn.h"
+#include "Abilities/GameplayAbility.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -12,6 +18,8 @@ ASLButtonAbility::ASLButtonAbility()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ASC = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+
 	ButtonMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ButtonMesh"));
 	ButtonMesh->SetupAttachment(RootComponent);
 }
@@ -20,6 +28,27 @@ ASLButtonAbility::ASLButtonAbility()
 void ASLButtonAbility::BeginPlay()
 {
 	Super::BeginPlay();
+
+	PlayerPawn = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	
+	IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(PlayerPawn);
+	if(AbilitySystemInterface)
+	{
+		ASC = AbilitySystemInterface->GetAbilitySystemComponent();
+	}
+
+	GrantAbility();
+}
+
+void ASLButtonAbility::GrantAbility()
+{
+	//UGameplayAbility Ability = ButtonAbility->GetDefaultObject<UGameplayAbility>();
+	
+	FGameplayAbilitySpec AbilitySpec(ButtonAbility, 1);
+	AbilitySpec.SourceObject = this;
+	AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
+	PlayerPawn->SetInputAbilityTag(AbilitySpecHandle);
+
 	
 }
 
@@ -33,7 +62,6 @@ void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AA
 {
 	PressedAnim();
 
-	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);	
 	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
 
 	DropppingPoint = InteractComp->GetDroppingPoint();
@@ -45,7 +73,6 @@ void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AA
 
 void ASLButtonAbility::InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn)
 {
-	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
 
 	bIsGrabbing = InteractComp->GetIsGrabbing();

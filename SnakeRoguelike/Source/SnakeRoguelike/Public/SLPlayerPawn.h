@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayAbilitySpecHandle.h"
 #include "GameplayTagsManager.h"
 #include "InputAction.h"
 #include "SLPlayerPawn.generated.h"
@@ -49,7 +50,7 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
-	FGameplayTagContainer Ability01TagContainer;
+	FGameplayTagContainer AbilityTags;
 	
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
 	
@@ -66,15 +67,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Ability")
 	TSubclassOf<UGameplayEffect> AttributeEffect;
 
-	// UPROPERTY(EditDefaultsOnly, Category = "Ability")
-	// TSubclassOf<UGameplayEffect> Ability01Effect;
-
-
 	UFUNCTION()
 	void GiveDefaultAbilities();
 
 	UFUNCTION()
 	void InitDefaultAttributes() const;
+
+	UPROPERTY(EditDefaultsOnly, Category="Ability")
+	TMap<FGameplayTag, FGameplayAbilitySpecHandle> InputAbilityTagMap;
+
 
 #pragma endregion Abilities
 	
@@ -116,9 +117,6 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* RightAction;
 
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
-	float ClickHeldThreshHold;
-
 	UPROPERTY()
 	bool bIsGrabbing;
 	
@@ -145,6 +143,12 @@ protected:
 	
 	UFUNCTION()
 	void Ability01Released();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void Ability02();
+	
+	UFUNCTION()
+	void Ability02Released();
 
 	UFUNCTION()
 	void UpReleased();
@@ -177,4 +181,6 @@ protected:
 public:	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void SetInputAbilityTag(FGameplayAbilitySpecHandle blah);
 };

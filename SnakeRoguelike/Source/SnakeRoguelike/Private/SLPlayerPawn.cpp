@@ -19,6 +19,7 @@ UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability01, "InputTag.Ability01");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability02, "InputTag.Ability02");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability03, "InputTag.Ability03");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability04, "InputTag.Ability04");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Click, "InputTag.Click");
 
 #define print(x) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, x);
 
@@ -43,10 +44,6 @@ ASLPlayerPawn::ASLPlayerPawn()
 	InteractionComp = CreateDefaultSubobject<USLInteractionComponent>("InteractionComp");
 
 	Direction = FInt32Point(0,1);
-
-	Ability01TagContainer.AddTag(InputTag_Ability01);
-
-	ClickHeldThreshHold = 1.0f;
 }
 
 UAbilitySystemComponent* ASLPlayerPawn::GetAbilitySystemComponent() const
@@ -117,8 +114,6 @@ void ASLPlayerPawn::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Controller not working!"));
 	}
-
-	ClickHeldThreshHold = 1.0f;
 }
 
 void ASLPlayerPawn::Clicked(const FInputActionInstance& InstancedAction)
@@ -173,11 +168,23 @@ void ASLPlayerPawn::Right()
 
 void ASLPlayerPawn::Ability01_Implementation()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Ability 01 Activated"));
-	AbilitySystemComponent->TryActivateAbilitiesByTag(Ability01TagContainer);
+	AbilityTags.AddTag(InputTag_Ability01);
+	
+	AbilitySystemComponent->TryActivateAbility(*InputAbilityTagMap.Find(InputTag_Ability01));
 }
 
 void ASLPlayerPawn::Ability01Released()
+{
+	
+}
+
+void ASLPlayerPawn::Ability02_Implementation()
+{
+	AbilityTags.AddTag(InputTag_Ability02);
+	AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTags);
+}
+
+void ASLPlayerPawn::Ability02Released()
 {
 	
 }
@@ -215,22 +222,35 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	
 	if(USLInputComponent* SLInputComponent = CastChecked<USLInputComponent>(PlayerInputComponent))
 	{		
-		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Clicked);
-		SLInputComponent->BindAction(ButtonClickedAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Click, ETriggerEvent::Started, this, &ASLPlayerPawn::Clicked);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Click, ETriggerEvent::Completed, this, &ASLPlayerPawn::ClickReleased);
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Started, this, &ASLPlayerPawn::Up);
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Up, ETriggerEvent::Completed, this, &ASLPlayerPawn::UpReleased);
 
-		SLInputComponent->BindAction(DownAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Down);
-		SLInputComponent->BindAction(DownAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::DownReleased);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Down, ETriggerEvent::Started, this, &ASLPlayerPawn::Down);
+		SLInputComponent->BindActionByTag(InputConfig, InputTag_Down, ETriggerEvent::Completed, this, &ASLPlayerPawn::DownReleased);
 
-		SLInputComponent->BindAction(LeftAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Left);
-		SLInputComponent->BindAction(LeftAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::LeftReleased);
+		SLInputComponent->BindActionByTag(InputConfig,InputTag_Left, ETriggerEvent::Started, this, &ASLPlayerPawn::Left);
+		SLInputComponent->BindActionByTag(InputConfig,InputTag_Left, ETriggerEvent::Completed, this, &ASLPlayerPawn::LeftReleased);
 		
-		SLInputComponent->BindAction(RightAction, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
-		SLInputComponent->BindAction(RightAction, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
+		SLInputComponent->BindActionByTag(InputConfig,InputTag_Right, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
+		SLInputComponent->BindActionByTag(InputConfig,InputTag_Right, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01);
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01Released);
+		
+	}
+}
+
+void ASLPlayerPawn::SetInputAbilityTag(FGameplayAbilitySpecHandle blah)
+{
+	
+	for (auto& whatever : InputAbilityTagMap)
+	{
+		if (!AbilitySystemComponent->FindAbilitySpecFromHandle(whatever.Value))
+		{
+			whatever.Value = blah;
+		}
 	}
 }

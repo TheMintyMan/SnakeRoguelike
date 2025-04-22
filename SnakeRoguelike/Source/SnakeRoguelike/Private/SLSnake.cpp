@@ -35,7 +35,6 @@ void ASLSnake::BeginPlay()
 	{
 		MaxPos = GridManager->RowNum - 1;
 		GridManager->UpdateTimeDelegate.AddDynamic(this, &ASLSnake::OnUpdateTick);
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *GridManager->GetHello());
 	}
 	
 	AActor* SnakeDirection = UGameplayStatics::GetActorOfClass(GetWorld(), ASLPlayerPawn::StaticClass());

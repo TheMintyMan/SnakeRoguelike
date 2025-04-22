@@ -34,17 +34,17 @@ ASLGridManager::ASLGridManager()
 	ScoreWidgetActorComponent = CreateDefaultSubobject<UChildActorComponent>("ScoreWidgetActorComponent");
 	ScoreWidgetActorComponent->SetupAttachment(ConsoleMesh);
 
-	Ability01 = CreateDefaultSubobject<USceneComponent>("Ability01");
-	Ability01->SetupAttachment(ConsoleMesh);
+	Ability01SceneComp = CreateDefaultSubobject<USceneComponent>("Ability01");
+	Ability01SceneComp->SetupAttachment(ConsoleMesh);
 
-	Ability02 = CreateDefaultSubobject<USceneComponent>("Ability02");
-	Ability02->SetupAttachment(ConsoleMesh);
+	Ability02SceneComp = CreateDefaultSubobject<USceneComponent>("Ability02");
+	Ability02SceneComp->SetupAttachment(ConsoleMesh);
 
-	Ability03 = CreateDefaultSubobject<USceneComponent>("Ability03");
-	Ability03->SetupAttachment(ConsoleMesh);
+	Ability03SceneComp = CreateDefaultSubobject<USceneComponent>("Ability03");
+	Ability03SceneComp->SetupAttachment(ConsoleMesh);
 
-	Ability04 = CreateDefaultSubobject<USceneComponent>("Ability04");
-	Ability04->SetupAttachment(ConsoleMesh);
+	Ability04SceneComp = CreateDefaultSubobject<USceneComponent>("Ability04");
+	Ability04SceneComp->SetupAttachment(ConsoleMesh);
 	
 	WidthSpacing = 1;
 	LengthSpacing = 1;
@@ -114,6 +114,11 @@ void ASLGridManager::BeginPlay()
 	
 	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, TickSpeed, true, SLGameState->FirstInDelay);
 	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 1.0f, false);
+}
+
+TMap<FVector, FGameplayTag> ASLGridManager::GetAbilitySlotTags()
+{
+	return AbilitySlotTags;
 }
 
 void ASLGridManager::SpawnSnake()
@@ -243,16 +248,11 @@ void ASLGridManager::GridClear()
 inline TArray<FVector> ASLGridManager::GetAbilitySocketPos()
 {
 	TArray<FVector> SocketPos;
-	SocketPos.Add(Ability01->GetComponentLocation());
-	SocketPos.Add(Ability02->GetComponentLocation());
-	SocketPos.Add(Ability03->GetComponentLocation());
-	SocketPos.Add(Ability04->GetComponentLocation());
+	SocketPos.Add(Ability01SceneComp->GetComponentLocation());
+	SocketPos.Add(Ability02SceneComp->GetComponentLocation());
+	SocketPos.Add(Ability03SceneComp->GetComponentLocation());
+	SocketPos.Add(Ability04SceneComp->GetComponentLocation());
 	return SocketPos;
-}
-
-FString ASLGridManager::GetHello()
-{
-	return Hello;
 }
 
 void ASLGridManager::GameEnded()
