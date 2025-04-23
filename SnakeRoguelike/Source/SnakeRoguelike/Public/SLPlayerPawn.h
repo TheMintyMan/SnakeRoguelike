@@ -76,6 +76,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Ability")
 	TMap<FGameplayTag, FGameplayAbilitySpecHandle> InputAbilityTagMap;
 
+	UPROPERTY(EditDefaultsOnly, Category="Ability")
+	TMap<FGameplayTag, FGameplayTag> InputAbilityTagMapTest;
 
 #pragma endregion Abilities
 	
@@ -182,5 +184,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void SetInputAbilityTag(FGameplayAbilitySpecHandle blah);
+	void SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle);
+
+	void SetInputAbilityTagTest(FGameplayTag AbilityTag);
 };

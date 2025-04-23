@@ -6,6 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "SLInteractionComponent.generated.h"
 
+struct FGameplayTag;
+class ASLGridManager;
+class ASLPlayerPawn;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 
 class SNAKEROGUELIKE_API USLInteractionComponent : public UActorComponent
@@ -38,6 +42,14 @@ protected:
 
 	UPROPERTY()
 	UPrimitiveComponent* GrabbedComponent;
+
+	UPROPERTY()
+	ASLPlayerPawn* MyPawn;
+
+	UPROPERTY()
+	ASLGridManager* GridManager;
+
+	TMap<FVector, FGameplayTag> AbilityInputTags;
 
 	FTimerHandle GrabTimerHandle;
 	

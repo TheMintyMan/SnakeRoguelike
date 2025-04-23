@@ -172,7 +172,7 @@ public:
 	ASLCell* GetCellAt(FIntPoint Position);
 
 	UFUNCTION()
-	TArray<FVector> GetAbilitySocketPos();
+	void SetAbilitySlotTags();
 
 	UFUNCTION()
 	void HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr);

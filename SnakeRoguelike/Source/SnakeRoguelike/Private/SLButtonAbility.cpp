@@ -9,6 +9,7 @@
 #include "SLInteractionComponent.h"
 #include "SLPlayerPawn.h"
 #include "Abilities/GameplayAbility.h"
+#include "BaseBehaviors/BehaviorTargetInterfaces.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -42,14 +43,11 @@ void ASLButtonAbility::BeginPlay()
 
 void ASLButtonAbility::GrantAbility()
 {
-	//UGameplayAbility Ability = ButtonAbility->GetDefaultObject<UGameplayAbility>();
-	
-	FGameplayAbilitySpec AbilitySpec(ButtonAbility, 1);
+	AbilitySpec = FGameplayAbilitySpec(ButtonAbility, 1);
 	AbilitySpec.SourceObject = this;
-	AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
+	FGameplayAbilitySpecHandle AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
 	PlayerPawn->SetInputAbilityTag(AbilitySpecHandle);
-
-	
+	AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityInputTag);
 }
 
 // Called every frame
@@ -93,3 +91,10 @@ void ASLButtonAbility::PressedAnim_Implementation()
 	
 }
 
+void ASLButtonAbility::SetAbilityInputTag(FGameplayTag InputTag)
+{
+	if (InputTag.IsValid())
+	{
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(InputTag);
+	}
+}

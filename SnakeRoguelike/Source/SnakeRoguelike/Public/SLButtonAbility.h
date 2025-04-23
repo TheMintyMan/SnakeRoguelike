@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayAbilitySpecHandle.h"
+#include "GameplayAbilitySpec.h"
 #include "GameplayTagContainer.h"
 #include "SLInterface.h"
 #include "GameFramework/Actor.h"
@@ -43,11 +43,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
 	TSubclassOf<UGameplayAbility> ButtonAbility;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Components")
+	FGameplayTag AbilityInputTag;
+
 	// TODO Set the player to be the owner the ASLPlayerPawn
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 
-	FGameplayAbilitySpecHandle AbilitySpecHandle;
+	FGameplayAbilitySpec AbilitySpec;
 
 	void GrantAbility();
 	
@@ -65,5 +68,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void ReleasedAnim();
 
+	UFUNCTION()
+	void SetAbilityInputTag(FGameplayTag InputTag);
 	
 };

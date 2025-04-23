@@ -13,7 +13,9 @@
 
 // Sets default values for this component's properties
 USLInteractionComponent::USLInteractionComponent(): CurrentHitActor(nullptr), MouseDirectionLength(0),
-                                                    GrabbedComponent(nullptr), VelX(0), VelY(0), DropPoint()
+                                                    GrabbedComponent(nullptr), MyPawn(nullptr), GridManager(nullptr),
+                                                    VelX(0), VelY(0),
+                                                    DropPoint()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -27,9 +29,11 @@ void USLInteractionComponent::BeginPlay()
 	SetComponentTickEnabled(true);
 
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
-	ASLGridManager* GridManager = Cast<ASLGridManager>(Grid);
+	GridManager = Cast<ASLGridManager>(Grid);
 
-	SnappingPoints = GridManager->GetAbilitySocketPos();
+	GridManager->GetAbilitySlotTags().GenerateKeyArray(SnappingPoints);
+
+	AbilityInputTags = GridManager->GetAbilitySlotTags();
 }
 
 void USLInteractionComponent::PrimaryInteractStarted()
@@ -79,7 +83,7 @@ void USLInteractionComponent::PrimaryInteractEnded()
 {
 	AActor* MyOwner = GetOwner();
 	
-	ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(MyOwner);
+	MyPawn = Cast<ASLPlayerPawn>(MyOwner);
 	if (CurrentHitActor)
 	{
 		if (CurrentHitActor->Implements<USLInterface>())
@@ -104,9 +108,17 @@ void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 
 void USLInteractionComponent::GrabInteractEnded()
 {
+	if (ASLButtonAbility* ButtonAbility = Cast<ASLButtonAbility>(CurrentHitActor))
+	{
+		FVector CurrentComponentLocation = FVector(GrabbedComponent->GetComponentLocation().X, GrabbedComponent->GetComponentLocation().Y, DropPoint.Z);
+		
+		// TODO BRO
+		ButtonAbility->SetAbilityInputTag(AbilityInputTags.Find());
+	}
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
 	SetComponentTickEnabled(false);
+	
 	GrabbedComponent = nullptr;
 }
 

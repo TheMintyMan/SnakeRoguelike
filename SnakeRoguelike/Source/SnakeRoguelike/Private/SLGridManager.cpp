@@ -245,16 +245,6 @@ void ASLGridManager::GridClear()
 	GetWorldTimerManager().ClearTimer(TickingHandle);
 }
 
-inline TArray<FVector> ASLGridManager::GetAbilitySocketPos()
-{
-	TArray<FVector> SocketPos;
-	SocketPos.Add(Ability01SceneComp->GetComponentLocation());
-	SocketPos.Add(Ability02SceneComp->GetComponentLocation());
-	SocketPos.Add(Ability03SceneComp->GetComponentLocation());
-	SocketPos.Add(Ability04SceneComp->GetComponentLocation());
-	return SocketPos;
-}
-
 void ASLGridManager::GameEnded()
 {
 	if (SLGameState)

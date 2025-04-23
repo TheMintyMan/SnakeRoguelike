@@ -211,7 +211,6 @@ void ASLPlayerPawn::RightReleased()
 
 FInputActionInstance ASLPlayerPawn::GetButtonHeld()
 {
-	
 	return ActiveInstance;
 }
 
@@ -243,14 +242,13 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
-void ASLPlayerPawn::SetInputAbilityTag(FGameplayAbilitySpecHandle blah)
+void ASLPlayerPawn::SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle)
 {
-	
-	for (auto& whatever : InputAbilityTagMap)
+	for (auto& It : InputAbilityTagMap)
 	{
-		if (!AbilitySystemComponent->FindAbilitySpecFromHandle(whatever.Value))
+		if (!AbilitySystemComponent->FindAbilitySpecFromHandle(It.Value))
 		{
-			whatever.Value = blah;
+			It.Value = AbilitySpecHandle;
 		}
 	}
 }
