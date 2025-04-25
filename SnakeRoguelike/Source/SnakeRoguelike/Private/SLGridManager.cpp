@@ -6,6 +6,7 @@
 #include "SLCell.h"
 #include "SLFoodBase.h"
 #include "SLGameStateBase.h"
+#include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -34,17 +35,17 @@ ASLGridManager::ASLGridManager()
 	ScoreWidgetActorComponent = CreateDefaultSubobject<UChildActorComponent>("ScoreWidgetActorComponent");
 	ScoreWidgetActorComponent->SetupAttachment(ConsoleMesh);
 
-	Ability01SceneComp = CreateDefaultSubobject<USceneComponent>("Ability01");
-	Ability01SceneComp->SetupAttachment(ConsoleMesh);
+	Ability01SlotComp = CreateDefaultSubobject<USphereComponent>("AbilitySlot01");
+	Ability01SlotComp->SetupAttachment(ConsoleMesh);
 
-	Ability02SceneComp = CreateDefaultSubobject<USceneComponent>("Ability02");
-	Ability02SceneComp->SetupAttachment(ConsoleMesh);
+	Ability02SlotComp = CreateDefaultSubobject<USphereComponent>("AbilitySlot02");
+	Ability02SlotComp->SetupAttachment(ConsoleMesh);
 
-	Ability03SceneComp = CreateDefaultSubobject<USceneComponent>("Ability03");
-	Ability03SceneComp->SetupAttachment(ConsoleMesh);
+	Ability03SlotComp = CreateDefaultSubobject<USphereComponent>("AbilitySlot03");
+	Ability03SlotComp->SetupAttachment(ConsoleMesh);
 
-	Ability04SceneComp = CreateDefaultSubobject<USceneComponent>("Ability04");
-	Ability04SceneComp->SetupAttachment(ConsoleMesh);
+	Ability04SlotComp = CreateDefaultSubobject<USphereComponent>("AbilitySlot04");
+	Ability04SlotComp->SetupAttachment(ConsoleMesh);
 	
 	WidthSpacing = 1;
 	LengthSpacing = 1;
@@ -100,8 +101,6 @@ void ASLGridManager::BuildGrid()
 			}
 		}
 	}
-
-	
 }
 
 // Called when the game starts or when spawned
@@ -114,11 +113,6 @@ void ASLGridManager::BeginPlay()
 	
 	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, TickSpeed, true, SLGameState->FirstInDelay);
 	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 1.0f, false);
-}
-
-TMap<FVector, FGameplayTag> ASLGridManager::GetAbilitySlotTags()
-{
-	return AbilitySlotTags;
 }
 
 void ASLGridManager::SpawnSnake()

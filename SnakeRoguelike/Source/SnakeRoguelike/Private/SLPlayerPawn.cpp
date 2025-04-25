@@ -242,7 +242,15 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
-void ASLPlayerPawn::SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle)
+void ASLPlayerPawn::SwitchInputAbilityTag(FGameplayTag InputTag, TSubclassOf<UGameplayAbility> InAbility)
+{
+	if (FGameplayAbilitySpec* yo = AbilitySystemComponent->FindAbilitySpecFromClass(InAbility))
+	{
+		
+	}
+}
+
+/*void ASLPlayerPawn::SetInputAbilityTag(FGameplayTag InTag, )
 {
 	for (auto& It : InputAbilityTagMap)
 	{
@@ -251,4 +259,5 @@ void ASLPlayerPawn::SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHan
 			It.Value = AbilitySpecHandle;
 		}
 	}
-}
+}*/
+

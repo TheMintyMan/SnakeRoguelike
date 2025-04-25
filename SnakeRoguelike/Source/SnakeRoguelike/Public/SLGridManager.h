@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "SLGridManager.generated.h"
 
+class USphereComponent;
 class ASLFoodBase;
 class ASLGameStateBase;
 class ASLCellObject;
@@ -51,29 +52,26 @@ protected:
 	UPROPERTY(EditAnywhere, Category= "Component")
 	UChildActorComponent* ScoreWidgetActorComponent;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Components")
-	TMap<FVector, FGameplayTag> AbilitySlotTags;
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USphereComponent* Ability01SlotComp;
 
 	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability01SceneComp;
+	USphereComponent* Ability02SlotComp;
+	
+	UPROPERTY(EditAnywhere, Category= "Component")
+	USphereComponent* Ability03SlotComp;
 
 	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability02SceneComp;
+	USphereComponent* Ability04SlotComp;
 
-	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability03SceneComp;
-
-	UPROPERTY(EditAnywhere, Category= "Component")
-	USceneComponent* Ability04SceneComp;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
+	TSubclassOf<ASLCell> SpawnCellClassTile;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 WidthSpacing;
 	
 	UPROPERTY(EditAnywhere, Category= "Grid Layout")
 	int32 LengthSpacing;
-	
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category= "Grid Layout")
-	TSubclassOf<ASLCell> SpawnCellClassTile;
 
 	UPROPERTY(BlueprintReadOnly)
 	int32 GlobalOffset;
@@ -126,9 +124,6 @@ public:
 	void GridClear();
 
 	UFUNCTION()
-	TMap<FVector, FGameplayTag> GetAbilitySlotTags();
-
-	UFUNCTION()
 	void GameEnded();
 
 protected:
@@ -170,9 +165,6 @@ public:
 
 	UFUNCTION()
 	ASLCell* GetCellAt(FIntPoint Position);
-
-	UFUNCTION()
-	void SetAbilitySlotTags();
 
 	UFUNCTION()
 	void HitObjectsAtGridPos(FInt32Point InGridPos, ASLCellObject* HitObjectPtr);

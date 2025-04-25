@@ -10,7 +10,6 @@
 #include "SLButtonAbility.generated.h"
 
 class UGameplayAbility;
-class UAbilitySystemComponent;
 
 UCLASS()
 class SNAKEROGUELIKE_API ASLButtonAbility : public AActor, public ISLInterface
@@ -37,9 +36,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Components")
 	bool bIsGrabbing = false;
 
-	UPROPERTY()
-	UAbilitySystemComponent* ASC;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
 	TSubclassOf<UGameplayAbility> ButtonAbility;
 
@@ -50,9 +46,7 @@ protected:
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
 
-	FGameplayAbilitySpec AbilitySpec;
-
-	void GrantAbility();
+	void SetAbility();
 	
 public:
 	// Called every frame
@@ -70,5 +64,7 @@ public:
 
 	UFUNCTION()
 	void SetAbilityInputTag(FGameplayTag InputTag);
+
+	TSubclassOf<UGameplayAbility> GetAbility();
 	
 };

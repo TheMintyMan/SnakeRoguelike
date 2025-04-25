@@ -2,7 +2,6 @@
 
 
 #include "SLInteractionComponent.h"
-
 #include "SLButtonAbility.h"
 #include "SLButtonDirections.h"
 #include "SLGridManager.h"
@@ -11,9 +10,16 @@
 #include "SLSnake.h"
 #include "Kismet/GameplayStatics.h"
 
+
+// TODO My custom object collision channel does not work
+#define TRACE_AbilitySlot ECollisionChannel::ECC_GameTraceChannel1
+#define ECC_AbilityButton ECollisionChannel::ECC_GameTraceChannel2
+
 // Sets default values for this component's properties
-USLInteractionComponent::USLInteractionComponent(): CurrentHitActor(nullptr), MouseDirectionLength(0),
-                                                    GrabbedComponent(nullptr), MyPawn(nullptr), GridManager(nullptr),
+USLInteractionComponent::USLInteractionComponent():
+CurrentHitActor(nullptr), MouseDirectionLength(0),
+                                                    GrabbedComponent(nullptr), MyPawn(nullptr), PC(nullptr),
+                                                    GridManager(nullptr),
                                                     VelX(0), VelY(0),
                                                     DropPoint()
 {
@@ -31,39 +37,39 @@ void USLInteractionComponent::BeginPlay()
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
 
-	GridManager->GetAbilitySlotTags().GenerateKeyArray(SnappingPoints);
+	MyPawn = Cast<ASLPlayerPawn>(GetOwner());
 
-	AbilityInputTags = GridManager->GetAbilitySlotTags();
+	PC = Cast<APlayerController>(MyPawn->GetController());
 }
 
 void USLInteractionComponent::PrimaryInteractStarted()
 {
 	FCollisionObjectQueryParams ObjectQueryParams;
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-	AActor* MyOwner = GetOwner();
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_AbilityButton);
 	
 	FVector Start;
 	FVector MouseWorldDirection;
-	APlayerController* PC = Cast<APlayerController>(MyOwner->GetInstigatorController());
 	PC->DeprojectMousePositionToWorld(Start,MouseWorldDirection);
 	
 	FVector End = MouseWorldDirection*10000+Start;
 	
 	FHitResult Hit;
-	
+
+	AActor* HitActor = nullptr;
 	GetWorld()->LineTraceSingleByObjectType(Hit, Start, End, ObjectQueryParams);
 	
-	AActor* HitActor = Hit.GetActor();
-
-	DropPoint = Hit.GetComponent()->GetComponentLocation();
-	
-	// Needed for Interact Ended
-	CurrentHitActor = HitActor;
-	
-	if (HitActor->Implements<USLInterface>())
+	if (Hit.GetActor())
 	{
-		ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(MyOwner);
+		HitActor = Hit.GetActor();
 
+		CurrentHitActor = HitActor;
+
+		DropPoint = Hit.GetComponent()->GetComponentLocation();
+	}
+	
+	
+	if (HitActor && HitActor->Implements<USLInterface>())
+	{
 		if (HitActor == Cast<ASLButtonAbility>(HitActor))
 		{
 			FTimerDelegate GrabTimerDelegate;
@@ -110,23 +116,22 @@ void USLInteractionComponent::GrabInteractEnded()
 {
 	if (ASLButtonAbility* ButtonAbility = Cast<ASLButtonAbility>(CurrentHitActor))
 	{
-		FVector CurrentComponentLocation = FVector(GrabbedComponent->GetComponentLocation().X, GrabbedComponent->GetComponentLocation().Y, DropPoint.Z);
-		
-		// TODO BRO
-		ButtonAbility->SetAbilityInputTag(AbilityInputTags.Find());
+		if (FGameplayTag* FoundTag = AbilityInputTags.Find(DropPoint))
+		{
+			ButtonAbility->SetAbilityInputTag(*FoundTag);
+
+			MyPawn->SetInputAbilityTag() = CurrentSocket->ComponentTags[0];
+		}		
 	}
+	
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
-	SetComponentTickEnabled(false);
 	
 	GrabbedComponent = nullptr;
 }
 
 void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 {
-	ASLPlayerPawn* MyPawn = Cast<ASLPlayerPawn>(GetOwner());
-	APlayerController* PC = Cast<APlayerController>(MyPawn->GetController());
-
 	FVector MouseStartLocation;
 	FVector MouseWorldDirection;
 	
@@ -138,19 +143,18 @@ void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 	
 	float NewMomentum = Momentum;
 
-	for (int i = 0; i < SnappingPoints.Num(); i++)
-	{
-		FVector NewSnappingPoint = SnappingPoints[i];
-		NewSnappingPoint.Z = TargetPos.Z;
-		if (FVector::Dist(TargetPos, NewSnappingPoint) <= SnappingRadius)
-		{
-			TargetPos = NewSnappingPoint;
-			DropPoint = SnappingPoints[i];
-
-			NewMomentum = SnappingMomentum;
-		}
-	}
+	FHitResult Hit;
+	PC->GetHitResultUnderCursor(TRACE_AbilitySlot, false, Hit);
 	
+	if (Hit.Component.IsValid())
+	{
+		FVector NewSnappingPoint = Hit.GetComponent()->GetComponentLocation();
+		NewSnappingPoint.Z = ObjectPos.Z;
+
+		NewMomentum = SnappingMomentum;
+
+		TargetPos = NewSnappingPoint;
+	}
 	MoveComponent(TargetPos, ObjectPos, NewMomentum, InDeltaTime);
 }
 
@@ -174,11 +178,11 @@ void USLInteractionComponent::MoveComponent(FVector TargetPos, FVector ObjectPos
 
 		GrabbedComponent->SetWorldRotation(NewRotator);
 
-		// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, FString::Printf(TEXT("New Position %s"), *NewObjectPos.ToString()), true);
-
-		GrabbedComponent->SetWorldLocation(NewObjectPos);
+		GrabbedComponent->SetWorldLocation(NewObjectPos);	
 	}
 }
+
+
 
 // Called every frame
 void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -189,7 +193,6 @@ void USLInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	{
 		MoveGrabbedComponent(DeltaTime);
 	}
-
 	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, FString::Printf(TEXT("New Position %s"), *DropPoint.ToString()), true);
 }
 

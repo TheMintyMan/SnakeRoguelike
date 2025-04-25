@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameplayTagContainer.h"
 #include "SLInteractionComponent.generated.h"
 
-struct FGameplayTag;
+
 class ASLGridManager;
 class ASLPlayerPawn;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom),meta=(BlueprintSpawnableComponent) )
 
 class SNAKEROGUELIKE_API USLInteractionComponent : public UActorComponent
 {
@@ -30,7 +31,7 @@ public:
 
 	void GrabInteractEnded();
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	AActor* CurrentHitActor;
 
 protected:
@@ -44,12 +45,18 @@ protected:
 	UPrimitiveComponent* GrabbedComponent;
 
 	UPROPERTY()
+	UPrimitiveComponent* CurrentSocket;
+
+	UPROPERTY()
 	ASLPlayerPawn* MyPawn;
+
+	UPROPERTY()
+	APlayerController* PC;
 
 	UPROPERTY()
 	ASLGridManager* GridManager;
 
-	TMap<FVector, FGameplayTag> AbilityInputTags;
+	//TMap<FVector, FGameplayTag> AbilityInputTags;
 
 	FTimerHandle GrabTimerHandle;
 	
@@ -80,10 +87,12 @@ protected:
 	UFUNCTION()
 	void MoveGrabbedComponent(float InDeltaTime);
 	
-	UPROPERTY()
 	TArray<FVector> SnappingPoints;
 	
 	FVector DropPoint;
+
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult HitSnappingPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
 	float SnappingRadius = 2.0f;

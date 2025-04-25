@@ -4,12 +4,8 @@
 #include "SLButtonAbility.h"
 
 #include "AbilitySystemComponent.h"
-#include "AbilitySystemInterface.h"
-#include "GameplayAbilitySpec.h"
 #include "SLInteractionComponent.h"
 #include "SLPlayerPawn.h"
-#include "Abilities/GameplayAbility.h"
-#include "BaseBehaviors/BehaviorTargetInterfaces.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -18,8 +14,6 @@ ASLButtonAbility::ASLButtonAbility()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	ASC = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
 
 	ButtonMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ButtonMesh"));
 	ButtonMesh->SetupAttachment(RootComponent);
@@ -31,23 +25,13 @@ void ASLButtonAbility::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerPawn = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+
 	
-	IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(PlayerPawn);
-	if(AbilitySystemInterface)
-	{
-		ASC = AbilitySystemInterface->GetAbilitySystemComponent();
-	}
-
-	GrantAbility();
 }
-
-void ASLButtonAbility::GrantAbility()
+ 
+void ASLButtonAbility::SetAbility()
 {
-	AbilitySpec = FGameplayAbilitySpec(ButtonAbility, 1);
-	AbilitySpec.SourceObject = this;
-	FGameplayAbilitySpecHandle AbilitySpecHandle = ASC->GiveAbility(AbilitySpec);
-	PlayerPawn->SetInputAbilityTag(AbilitySpecHandle);
-	AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityInputTag);
+	// TODO Sets the Gameplay Ability
 }
 
 // Called every frame
@@ -93,8 +77,10 @@ void ASLButtonAbility::PressedAnim_Implementation()
 
 void ASLButtonAbility::SetAbilityInputTag(FGameplayTag InputTag)
 {
-	if (InputTag.IsValid())
-	{
-		AbilitySpec.GetDynamicSpecSourceTags().AddTag(InputTag);
-	}
+	AbilityInputTag = InputTag;
+}
+
+TSubclassOf<UGameplayAbility> ASLButtonAbility::GetAbility()
+{
+	return ButtonAbility;
 }

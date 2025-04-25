@@ -10,6 +10,7 @@
 #include "SLPlayerPawn.generated.h"
 
 
+struct FGameplayAbilitySpec;
 class UPostProcessComponent;
 class ASLButtonAbility;
 class UPhysicsHandleComponent;
@@ -173,7 +174,7 @@ public:
 
 protected:
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	USLInteractionComponent* InteractionComp;
 	
 
@@ -184,7 +185,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle);
+	// void SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle);
 
-	void SetInputAbilityTagTest(FGameplayTag AbilityTag);
+	void SwitchInputAbilityTag(FGameplayTag InputTag, TSubclassOf<UGameplayAbility> InAbility);
 };
