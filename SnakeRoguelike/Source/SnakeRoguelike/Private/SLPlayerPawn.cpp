@@ -36,7 +36,7 @@ ASLPlayerPawn::ASLPlayerPawn()
 	PostProcessComp = CreateDefaultSubobject<UPostProcessComponent>("PostProcess");
 	PostProcessComp->SetupAttachment(RootComp);
 
-	AbilitySystemComponent = CreateDefaultSubobject<USLAbilitySystemComponent>("AbilitySystemComponent");
+	ASC = CreateDefaultSubobject<USLAbilitySystemComponent>("ASC");
 	
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(RootComponent);
@@ -48,7 +48,7 @@ ASLPlayerPawn::ASLPlayerPawn()
 
 UAbilitySystemComponent* ASLPlayerPawn::GetAbilitySystemComponent() const
 {
-	return AbilitySystemComponent;
+	return ASC;
 }
 
 USLAttributeSet* ASLPlayerPawn::GetAttributeSet() const
@@ -58,7 +58,7 @@ USLAttributeSet* ASLPlayerPawn::GetAttributeSet() const
 
 void ASLPlayerPawn::GiveDefaultAbilities()
 {
-	if (!AbilitySystemComponent)
+	if (!ASC)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Ability System on %s not valid"), *this->GetName())
 		return;
@@ -66,22 +66,22 @@ void ASLPlayerPawn::GiveDefaultAbilities()
 	for (TSubclassOf<UGameplayAbility>& StartUpAbility : PlayerAbilities)
 	{
 		const FGameplayAbilitySpec AbilitySpec(StartUpAbility, 1);
-		AbilitySystemComponent->GiveAbility(AbilitySpec);
+		ASC->GiveAbility(AbilitySpec);
 	}
 }
 
 void ASLPlayerPawn::InitDefaultAttributes() const
 {
-	if (!AbilitySystemComponent || !AttributeEffect){return; }
+	if (!ASC || !AttributeEffect){return; }
 
-	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
 	EffectContext.AddSourceObject(this);
 
-	const FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(AttributeEffect, 1.0f, EffectContext);
+	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(AttributeEffect, 1.0f, EffectContext);
 
 	if (SpecHandle.IsValid())
 	{
-		AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	}
 }
 
@@ -93,7 +93,7 @@ void ASLPlayerPawn::BeginPlay()
 	// FString InputTriggeredString = "YO Yo Yo";
 	// print((("Hello: %s"), InputTriggeredString));
 	
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	ASC->InitAbilityActorInfo(this, this);
 	GiveDefaultAbilities();
 	InitDefaultAttributes();
 	
@@ -170,7 +170,7 @@ void ASLPlayerPawn::Ability01_Implementation()
 {
 	AbilityTags.AddTag(InputTag_Ability01);
 	
-	AbilitySystemComponent->TryActivateAbility(*InputAbilityTagMap.Find(InputTag_Ability01));
+	ASC->TryActivateAbility(*InputAbilityTagMap.Find(InputTag_Ability01));
 }
 
 void ASLPlayerPawn::Ability01Released()
@@ -181,7 +181,7 @@ void ASLPlayerPawn::Ability01Released()
 void ASLPlayerPawn::Ability02_Implementation()
 {
 	AbilityTags.AddTag(InputTag_Ability02);
-	AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTags);
+	ASC->TryActivateAbilitiesByTag(AbilityTags);
 }
 
 void ASLPlayerPawn::Ability02Released()
@@ -242,22 +242,18 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
-void ASLPlayerPawn::SwitchInputAbilityTag(FGameplayTag InputTag, TSubclassOf<UGameplayAbility> InAbility)
+void ASLPlayerPawn::SwitchInputAbilityTag(FGameplayTag InputNewTag, TSubclassOf<UGameplayAbility> InAbility)
 {
-	if (FGameplayAbilitySpec* yo = AbilitySystemComponent->FindAbilitySpecFromClass(InAbility))
+	if (FGameplayAbilitySpec* FoundAbilitySpec = ASC->FindAbilitySpecFromClass(InAbility))
 	{
-		
+		FGameplayTagContainer AllFoundTags = FoundAbilitySpec->GetDynamicSpecSourceTags();
+		FoundAbilitySpec->GetDynamicSpecSourceTags().RemoveTags(AllFoundTags);
+		FoundAbilitySpec->GetDynamicSpecSourceTags().AddTag(InputNewTag);
 	}
 }
 
-/*void ASLPlayerPawn::SetInputAbilityTag(FGameplayTag InTag, )
+void ASLPlayerPawn::AddAbility(const TSubclassOf<UGameplayAbility>& InAbility) const
 {
-	for (auto& It : InputAbilityTagMap)
-	{
-		if (!AbilitySystemComponent->FindAbilitySpecFromHandle(It.Value))
-		{
-			It.Value = AbilitySpecHandle;
-		}
-	}
-}*/
-
+	const FGameplayAbilitySpec AbilitySpec(InAbility, 1);
+	ASC->GiveAbility(AbilitySpec);
+}

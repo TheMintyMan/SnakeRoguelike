@@ -17,11 +17,11 @@
 
 // Sets default values for this component's properties
 USLInteractionComponent::USLInteractionComponent():
-CurrentHitActor(nullptr), MouseDirectionLength(0),
-                                                    GrabbedComponent(nullptr), MyPawn(nullptr), PC(nullptr),
-                                                    GridManager(nullptr),
-                                                    VelX(0), VelY(0),
-                                                    DropPoint()
+	CurrentHitActor(nullptr), MouseDirectionLength(0),
+	GrabbedComponent(nullptr), CurrentSocket(nullptr), MyPawn(nullptr), PC(nullptr),
+	GridManager(nullptr),
+	VelX(0), VelY(0),
+	DropPoint()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -114,16 +114,6 @@ void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 
 void USLInteractionComponent::GrabInteractEnded()
 {
-	if (ASLButtonAbility* ButtonAbility = Cast<ASLButtonAbility>(CurrentHitActor))
-	{
-		if (FGameplayTag* FoundTag = AbilityInputTags.Find(DropPoint))
-		{
-			ButtonAbility->SetAbilityInputTag(*FoundTag);
-
-			MyPawn->SetInputAbilityTag() = CurrentSocket->ComponentTags[0];
-		}		
-	}
-	
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
 	
@@ -155,6 +145,7 @@ void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 
 		TargetPos = NewSnappingPoint;
 	}
+	
 	MoveComponent(TargetPos, ObjectPos, NewMomentum, InDeltaTime);
 }
 

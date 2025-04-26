@@ -26,12 +26,7 @@ void ASLButtonAbility::BeginPlay()
 
 	PlayerPawn = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 
-	
-}
- 
-void ASLButtonAbility::SetAbility()
-{
-	// TODO Sets the Gameplay Ability
+	PlayerPawn->AddAbility(ButtonAbility);
 }
 
 // Called every frame
@@ -56,7 +51,7 @@ void ASLButtonAbility::Interact_Implementation(ASLPlayerPawn* InstigatorPawn, AA
 void ASLButtonAbility::InteractFinished_Implementation(ASLPlayerPawn* InstigatorPawn)
 {
 	USLInteractionComponent* InteractComp = PlayerPawn->FindComponentByClass<USLInteractionComponent>();
-
+	
 	bIsGrabbing = InteractComp->GetIsGrabbing();
 	
 	DropppingPoint = InteractComp->GetDroppingPoint();

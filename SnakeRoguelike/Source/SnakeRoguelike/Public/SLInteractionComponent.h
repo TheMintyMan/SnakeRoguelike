@@ -56,8 +56,6 @@ protected:
 	UPROPERTY()
 	ASLGridManager* GridManager;
 
-	//TMap<FVector, FGameplayTag> AbilityInputTags;
-
 	FTimerHandle GrabTimerHandle;
 	
 	float VelX;

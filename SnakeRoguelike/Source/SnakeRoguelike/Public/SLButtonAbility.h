@@ -45,8 +45,6 @@ protected:
 	// TODO Set the player to be the owner the ASLPlayerPawn
 	UPROPERTY()
 	ASLPlayerPawn* PlayerPawn;
-
-	void SetAbility();
 	
 public:
 	// Called every frame

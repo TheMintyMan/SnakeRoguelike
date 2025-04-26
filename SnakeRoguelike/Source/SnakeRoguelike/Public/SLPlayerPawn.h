@@ -56,7 +56,7 @@ protected:
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USLAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<USLAbilitySystemComponent> ASC;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
@@ -185,7 +185,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	// void SetInputAbilityTag(FGameplayAbilitySpecHandle AbilitySpecHandle);
+	void SwitchInputAbilityTag(FGameplayTag InputNewTag, TSubclassOf<UGameplayAbility> InAbility);
 
-	void SwitchInputAbilityTag(FGameplayTag InputTag, TSubclassOf<UGameplayAbility> InAbility);
+	void AddAbility(const TSubclassOf<UGameplayAbility>& InAbility) const;
+	
 };
