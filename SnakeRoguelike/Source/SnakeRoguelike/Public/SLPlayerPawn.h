@@ -7,10 +7,9 @@
 #include "GameplayAbilitySpecHandle.h"
 #include "GameplayTagsManager.h"
 #include "InputAction.h"
+#include "SLUtility.h"
 #include "SLPlayerPawn.generated.h"
 
-
-struct FGameplayAbilitySpec;
 class UPostProcessComponent;
 class ASLButtonAbility;
 class UPhysicsHandleComponent;
@@ -76,9 +75,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="Ability")
 	TMap<FGameplayTag, FGameplayAbilitySpecHandle> InputAbilityTagMap;
-
-	UPROPERTY(EditDefaultsOnly, Category="Ability")
-	TMap<FGameplayTag, FGameplayTag> InputAbilityTagMapTest;
 
 #pragma endregion Abilities
 	
@@ -184,9 +180,10 @@ protected:
 public:	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	void SwitchInputAbilityTag(FGameplayAbilityInputTag InAbilityTag);
 
-	void SwitchInputAbilityTag(FGameplayTag InputNewTag, TSubclassOf<UGameplayAbility> InAbility);
-
-	void AddAbility(const TSubclassOf<UGameplayAbility>& InAbility) const;
+	UFUNCTION()
+	FGameplayTag InitAbility(const TSubclassOf<UGameplayAbility>& InAbility);
 	
 };

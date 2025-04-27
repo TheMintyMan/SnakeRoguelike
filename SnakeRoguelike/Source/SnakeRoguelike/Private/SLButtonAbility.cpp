@@ -26,7 +26,7 @@ void ASLButtonAbility::BeginPlay()
 
 	PlayerPawn = Cast<ASLPlayerPawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 
-	PlayerPawn->AddAbility(ButtonAbility);
+	PlayerPawn->InitAbility(InputAbility.GameplayAbility);
 }
 
 // Called every frame
@@ -72,10 +72,21 @@ void ASLButtonAbility::PressedAnim_Implementation()
 
 void ASLButtonAbility::SetAbilityInputTag(FGameplayTag InputTag)
 {
-	AbilityInputTag = InputTag;
+	InputAbility.InputTag = InputTag;
 }
 
-TSubclassOf<UGameplayAbility> ASLButtonAbility::GetAbility()
+FGameplayAbilityInputTag ASLButtonAbility::GetAbilityInputTag()
 {
-	return ButtonAbility;
+	return InputAbility;
+}
+
+void ASLButtonAbility::OnBought()
+{
+	InputAbility.InputTag = PlayerPawn->InitAbility(InputAbility.GameplayAbility);
+}
+
+void ASLButtonAbility::OnSold()
+{
+	// TODO Remove the ability. Call something like PlayerPawn->RemoveAbility(Ability)
+	
 }

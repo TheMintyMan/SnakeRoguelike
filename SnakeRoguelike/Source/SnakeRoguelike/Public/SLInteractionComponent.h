@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "GameplayTagContainer.h"
+#include "SLUtility.h"
 #include "SLInteractionComponent.generated.h"
 
 
+class ASLButtonAbility;
 class ASLGridManager;
 class ASLPlayerPawn;
 
@@ -40,6 +41,19 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Interaction")
 	float MouseDirectionLength = 120.f;
+
+#pragma region Ability
+
+	UPROPERTY()
+	FGameplayAbilityInputTag InputAbility;
+
+	UPROPERTY()
+	ASLButtonAbility* ButtonActor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	UPrimitiveComponent* OverlappedComponent;
+	
+#pragma endregion Ability
 
 	UPROPERTY()
 	UPrimitiveComponent* GrabbedComponent;

@@ -11,3 +11,8 @@ You can call static methods without needing an instance.
 You can call it by (Name of Class)::(Name of Method). Use the "::". When you call a static method, you can only call other static methods and static member variables. 
 FMath:: is probs a good built in Unreal static methods to see how they do it.
 
+Timeline Nodes
+Not the easiest thing to work with. It's not friendly with GAS.
+
+
+

@@ -70,9 +70,14 @@ void USLInteractionComponent::PrimaryInteractStarted()
 	
 	if (HitActor && HitActor->Implements<USLInterface>())
 	{
-		if (HitActor == Cast<ASLButtonAbility>(HitActor))
+		if (Cast<ASLButtonAbility>(HitActor))
 		{
+			ButtonActor = Cast<ASLButtonAbility>(HitActor);
+			
 			FTimerDelegate GrabTimerDelegate;
+
+			InputAbility = ButtonActor->GetAbilityInputTag();
+			
 			GrabTimerDelegate.BindUObject(this, &USLInteractionComponent::GrabInteractStarted, Hit);
 			GetWorld()->GetTimerManager().SetTimer(GrabTimerHandle, GrabTimerDelegate, PickUpTime, false);
 		}
@@ -109,15 +114,26 @@ void USLInteractionComponent::PrimaryInteractEnded()
 void USLInteractionComponent::GrabInteractStarted(FHitResult Hit)
 {
 	SetComponentTickEnabled(true);
+	
 	GrabbedComponent = Hit.GetComponent();
 }
 
 void USLInteractionComponent::GrabInteractEnded()
 {
+	if (OverlappedComponent->ComponentTags[0].IsValid())
+	{
+		InputAbility.InputTag = FGameplayTag::RequestGameplayTag(OverlappedComponent->ComponentTags[0], false);
+	}
+
+	DropPoint = OverlappedComponent->GetComponentLocation();
+	
+	MyPawn->SwitchInputAbilityTag(InputAbility);
+	
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);
 	
 	GrabbedComponent = nullptr;
+	
 }
 
 void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
@@ -138,6 +154,8 @@ void USLInteractionComponent::MoveGrabbedComponent(float InDeltaTime)
 	
 	if (Hit.Component.IsValid())
 	{
+		OverlappedComponent = Hit.GetComponent();
+		
 		FVector NewSnappingPoint = Hit.GetComponent()->GetComponentLocation();
 		NewSnappingPoint.Z = ObjectPos.Z;
 

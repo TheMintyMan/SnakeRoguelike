@@ -238,22 +238,40 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01);
 		SLInputComponent->BindActionByTag(InputConfig, InputTag_Ability01, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability01Released);
-		
 	}
 }
 
-void ASLPlayerPawn::SwitchInputAbilityTag(FGameplayTag InputNewTag, TSubclassOf<UGameplayAbility> InAbility)
+void ASLPlayerPawn::SwitchInputAbilityTag(FGameplayAbilityInputTag InAbilityTag)
 {
-	if (FGameplayAbilitySpec* FoundAbilitySpec = ASC->FindAbilitySpecFromClass(InAbility))
+	if (FGameplayAbilitySpec* FoundAbilitySpec = ASC->FindAbilitySpecFromClass(InAbilityTag.GameplayAbility))
 	{
 		FGameplayTagContainer AllFoundTags = FoundAbilitySpec->GetDynamicSpecSourceTags();
+		
 		FoundAbilitySpec->GetDynamicSpecSourceTags().RemoveTags(AllFoundTags);
-		FoundAbilitySpec->GetDynamicSpecSourceTags().AddTag(InputNewTag);
+		
+		FoundAbilitySpec->GetDynamicSpecSourceTags().AddTag(InAbilityTag.InputTag);
+
+		UE_LOG(LogTemp, Warning, TEXT("Current Tag: %s Current Ability: %s"), *InAbilityTag.InputTag.ToString(), *InAbilityTag.GameplayAbility->GetName());
 	}
 }
 
-void ASLPlayerPawn::AddAbility(const TSubclassOf<UGameplayAbility>& InAbility) const
+FGameplayTag ASLPlayerPawn::InitAbility(const TSubclassOf<UGameplayAbility>& InAbility)
 {
-	const FGameplayAbilitySpec AbilitySpec(InAbility, 1);
-	ASC->GiveAbility(AbilitySpec);
+	FGameplayAbilitySpec AbilitySpec(InAbility, 1);
+	const FGameplayAbilitySpecHandle SpecHandle = ASC->GiveAbility(AbilitySpec);
+	
+	for (auto& It : InputAbilityTagMap)
+	{
+		if (!It.Value.IsValid())
+		{
+			It.Value = SpecHandle;
+			
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(It.Key);
+			
+			return It.Key;
+		}
+	}
+
+	UE_LOG(LogTemp,Warning,TEXT("All Slots Full"));
+	return FGameplayTag();
 }

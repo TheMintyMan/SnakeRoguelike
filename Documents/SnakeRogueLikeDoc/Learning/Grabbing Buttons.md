@@ -98,3 +98,120 @@ When change static mesh location, change button ability function.
 The normal way
 An Array of index.
 A slow that an object can go onto
+
+
+Maybe I create a Snake++ Utility .cpp
+
+
+### Switching Buttons
+
+SLUtility.h
+```cpp
+
+struct FGameplayAbilityInputTag
+{
+	InputTag
+	GameplayAbility
+}
+
+static void BouncyMovement()
+{
+	// Idea to make bouncy movement a function accessible from anywhere.
+}
+```
+
+AbilityButton.cpp
+```cpp
+FGameplayAbilityTag InputAbility;
+
+void OnBeginPlay()
+{
+	// Keep this on BeginPlay for now
+	OnBought();
+}
+
+void OnBought()
+{
+	InputAbility.InputTag = PlayerPawn->AddAbility(GameplayAbility);
+	
+	Mesh->SetLocation(GridManager->GetComponentbyTag(InputTag).Location);
+}
+
+void SetInputAbilityTag(InInputTag)
+{
+	InputAbility.InputTag = InInputTag;
+}
+
+FGameplayAbilityTag GetInputAbility()
+{
+	return InputAbility;
+}
+```
+
+InteractionComponent.cpp
+```cpp
+void InteractionStarted()
+{
+	FGameplayAbilityTag InputAbility = AbilityButton->GetInputAbility();
+}
+
+void EndInteraction()
+{
+	// I coud have some sort of interface here probably that runs SwitchAbilityTag instead of running 2 functions to the button and the player pawn
+	
+	NewInputTag = DroppedAtTag;
+	
+	AbilityButton->SetInputAbilityTag(NewInputTag);
+	
+	PlayerPawn=->SwitchAbilitySlot(GameplayAbility, NewInputTag);
+}
+```
+
+PlayerPawn.cpp
+```cpp
+TMap<InputTag, GameplayAbility> InputAbility
+
+void SwitchAbilitySlot(GameplayAbility, InputTag)
+{
+	AbilitySpec = GameplayAbility->GetSpec;
+	
+	AblitySpec->RemoveAllDynamicTags;
+	
+	AbilitySpec->AddDynamicTag(InputTag);
+}
+
+InputTag InitAbility(InGameplayAbility)
+{
+	ASC->GiveAbility(InGameplayAbility);
+	
+	for (auto& It : InputAbility)
+	{
+		if (!It.Value)
+		{
+			// This will set the value of the key to the InGameplayAbility
+			It.Key = InGameplayAbility;
+			
+			AbilitySpec->AddDynamicTag(It.Key);
+			
+			return It.Key;
+		}
+	}
+	Log("All Input Slots Full");
+	return;
+}
+```
+
+GridManager.cpp (Should be renamed or the console should be a different class)
+```cpp
+// These really should be on a different class that is easier to access with less code in it
+// It really shouldn't be in the GridManager
+
+USphereComponent AbilitySlot01;
+
+USphereComponent AbilitySlot02;
+
+USphereComponent AbilitySlot03;
+
+USphereComponent AbilitySlot04;
+```
+

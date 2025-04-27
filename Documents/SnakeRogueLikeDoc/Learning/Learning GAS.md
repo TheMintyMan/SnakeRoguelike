@@ -203,3 +203,10 @@ if (PlayPawnsAbilitySystem has matching tag "Ability.GridWrap")
 }
 ```
 
+
+
+What is GAS?
+
+Encapsulates Actions into single objects (Gameplay Abilities)
+- Drink Potion
+- Reload

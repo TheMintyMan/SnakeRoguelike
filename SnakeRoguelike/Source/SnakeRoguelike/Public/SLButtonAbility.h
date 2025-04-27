@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameplayAbilitySpec.h"
 #include "GameplayTagContainer.h"
 #include "SLInterface.h"
+#include "SLUtility.h"
 #include "GameFramework/Actor.h"
 #include "SLButtonAbility.generated.h"
 
@@ -33,14 +33,11 @@ protected:
 	UPROPERTY(Blueprintable, BlueprintReadOnly, Category="Components")
 	float PickUpTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
+	FGameplayAbilityInputTag InputAbility;
+
 	UPROPERTY(BlueprintReadOnly, Category="Components")
 	bool bIsGrabbing = false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Components")
-	TSubclassOf<UGameplayAbility> ButtonAbility;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Components")
-	FGameplayTag AbilityInputTag;
 
 	// TODO Set the player to be the owner the ASLPlayerPawn
 	UPROPERTY()
@@ -63,6 +60,12 @@ public:
 	UFUNCTION()
 	void SetAbilityInputTag(FGameplayTag InputTag);
 
-	TSubclassOf<UGameplayAbility> GetAbility();
+	FGameplayAbilityInputTag GetAbilityInputTag();
+
+	UFUNCTION()
+	void OnBought();
+	
+	UFUNCTION()
+	void OnSold();
 	
 };
