@@ -102,7 +102,6 @@ A slow that an object can go onto
 
 Maybe I create a Snake++ Utility .cpp
 
-
 ### Switching Buttons
 
 SLUtility.h
@@ -123,6 +122,8 @@ static void BouncyMovement()
 AbilityButton.cpp
 ```cpp
 FGameplayAbilityTag InputAbility;
+
+bool bIsGrabMode = true;
 
 void OnBeginPlay()
 {
@@ -215,3 +216,56 @@ USphereComponent AbilitySlot03;
 USphereComponent AbilitySlot04;
 ```
 
+
+### Activating Buttons
+
+AbilityButton.cpp
+```cpp
+
+```
+
+InteractionComponent.cpp
+```cpp
+
+bool bIsGrabMode = false;
+
+void InteractionStarted()
+{
+	FGameplayAbilityTag InputAbility = AbilityButton->GetInputAbility();
+	
+	if (bIsGrabMode)
+	{
+		// Do the grabby thing
+	}
+	else
+	{
+		
+		AbilityButton->PlayButtonPress();
+	}
+}
+
+```
+
+PlayerPawn.cpp
+```cpp
+TMap<InputTag, GameplayAbility> InputAbility
+
+// Each Ability Slot
+void ActivateAbility01()
+{
+	// Do I need a check? Or can I just activate ability by tag and if I try activating a tag with no ability assigned to it, will it just do nothing? I probably want an option to make the slot flash red and play a sound if a player tries to activate an ability with no buttons on it.
+	ASC->ActivateAbilityByTag(InputTag.AbilityTag01);
+}
+
+// This is only for when I'm activating the ability by clicking on the button by mouse.
+// Running the ability by button will be just run through EnhancedInput.
+void ActivateAbilityByClick(FGameplayTag InputTag)
+{
+	FGameplayAbilitySpec Ability = InputAbility.FindFromKey(InputTag);
+	ASC->ActivateAbilityByTag(InputTag);
+}
+
+```
+
+Note: Theoretically, what happens if a player were to click on the button by mouse as well as press the shortcut key for the ability at the exact same time?? Is there a way to make it so that the player can only press keys or the mouse button but not both at the same time?
+Do I need to check? Or will the Gameplay Ability handle that?
