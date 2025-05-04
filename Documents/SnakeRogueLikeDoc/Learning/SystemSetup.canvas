@@ -6,7 +6,7 @@
 		{"id":"722a8d98e3c20006","type":"text","text":"Moving Obstacle\n```cpp\n: Obstacle\n```","x":475,"y":-165,"width":250,"height":175},
 		{"id":"37615bab8ea418f3","type":"text","text":"Snake Body\n```cpp\n: CellObject\n```","x":-225,"y":-420,"width":250,"height":175},
 		{"id":"22567d2fffc5c960","type":"text","text":"Food\n```cpp\n: CellObject\n```","x":110,"y":-420,"width":250,"height":175},
-		{"id":"5976d5e42d9e4335","type":"text","text":"Snake Manager\n\nSnake Manager could be an UObject\n\n```cpp\n: Actor\n```","x":-780,"y":-411,"width":250,"height":157},
+		{"id":"5976d5e42d9e4335","type":"text","text":"Snake Manager\n\nSnake Manager could be an UObject\n\n```cpp\n: Actor\n```","x":-780,"y":-411,"width":220,"height":246},
 		{"id":"f17bc5814d838559","type":"text","text":"Cell\n```cpp\n: Actor\n```","x":-60,"y":-1039,"width":250,"height":120},
 		{"id":"43b9acf7f0cbb95d","type":"text","text":"**GridManager**\n\nContains Console Mesh\nContains Child Actor Component for each direction\n```cpp\n: Actor\n\nHitObjectsAtGridPos()\n\nGetGridArrayLocation()\n\nGetGridArrayPosition()\n\nRegisterCell()\n\nUnRegisterCell()\n\nGetObjectsAt()\n\nGetCellAt()\n\n```","x":560,"y":-1240,"width":426,"height":520}
 	],

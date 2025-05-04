@@ -90,9 +90,6 @@ void ASLPlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// FString InputTriggeredString = "YO Yo Yo";
-	// print((("Hello: %s"), InputTriggeredString));
-	
 	ASC->InitAbilityActorInfo(this, this);
 	GiveDefaultAbilities();
 	InitDefaultAttributes();

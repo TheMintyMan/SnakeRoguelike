@@ -17,7 +17,7 @@
 
 // Sets default values for this component's properties
 USLInteractionComponent::USLInteractionComponent():
-	CurrentHitActor(nullptr), MouseDirectionLength(0),
+	CurrentHitActor(nullptr), MouseDirectionLength(0), ButtonActor(nullptr), OverlappedComponent(nullptr),
 	GrabbedComponent(nullptr), CurrentSocket(nullptr), MyPawn(nullptr), PC(nullptr),
 	GridManager(nullptr),
 	VelX(0), VelY(0),
@@ -38,7 +38,7 @@ void USLInteractionComponent::BeginPlay()
 	GridManager = Cast<ASLGridManager>(Grid);
 
 	MyPawn = Cast<ASLPlayerPawn>(GetOwner());
-
+		
 	PC = Cast<APlayerController>(MyPawn->GetController());
 }
 

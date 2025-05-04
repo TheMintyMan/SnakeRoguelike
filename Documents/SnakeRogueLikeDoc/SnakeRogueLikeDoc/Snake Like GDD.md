@@ -188,3 +188,4 @@ Sort of creates the illusion that the player feels like they’re moving upwards
 Locked in ability. Players can't sell abilities.
 
 Story mode and Infinite mode. 
+

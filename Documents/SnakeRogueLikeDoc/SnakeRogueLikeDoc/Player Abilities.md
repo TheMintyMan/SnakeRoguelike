@@ -7,6 +7,14 @@ Buttons related to time will be green
 Buttons related to creating space will be red
 Buttons that does not really fit in these category will be yellow
 
+IDEAS:
+Information I can collect which I can use for abilities?
+Turns - I could collect the amount of turns the player has made throughout the game.
+Distance - I can collect how many cells the snakes has traversed.
+Points - Amount of score points the player has collected in total.
+
+With these info, I could use them for my ability or a permanent perk. Maybe depending on the amount of turns or distance the snake has travelled, there's a chance that when the snake eats a fruit, the snake won't grow but still add the score. etc. 
+
 Ability Upgrades such as increasing the duration of the ability.
 ### Ability SlowTime
 
@@ -159,3 +167,4 @@ The Snake can shoot a laser from the head and destroys everything in its way of 
 ### Ability
 
 Description
+
