@@ -6,28 +6,43 @@
       {
         "id": "287ce5d4beac5b2d",
         "type": "tabs",
-        "dimension": 43.772563176895304,
+        "dimension": 46.7005076142132,
         "children": [
+          {
+            "id": "22895d331d2271ec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Learning/What I've Learnt for Next Project.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "What I've Learnt for Next Project"
+            }
+          },
           {
             "id": "0342b6f212c2da99",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Learning/Grabbing Buttons.md",
+                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Grabbing Buttons"
+              "title": "Snake Like GDD"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "c2a9cfc159f7dc29",
         "type": "split",
-        "dimension": 56.227436823104696,
+        "dimension": 53.299492385786806,
         "children": [
           {
             "id": "4d54d59a49b69c7e",
@@ -145,7 +160,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
+                "file": "ToDo/To Do.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +170,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Snake Like GDD"
+              "title": "Backlinks for To Do"
             }
           },
           {
@@ -219,30 +234,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0342b6f212c2da99",
+  "active": "78391e36cbfcdd03",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Room Mechanics.md",
-    "SnakeRogueLikeDoc/Player Abilities.md",
-    "SnakeRogueLikeDoc/Marketing.md",
-    "SnakeRogueLikeDoc/Game References.md",
-    "SnakeRogueLikeDoc/Credits.md",
-    "Learning/SystemSetup.canvas",
-    "Learning/Untitled.canvas",
-    "SnakeRogueLikeDoc/Art.md",
-    "ToDo/Schedule.md",
-    "ToDo/To Do.md",
-    "ToDo/Issues List.md",
     "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "Images/chrome_jXfK71YZIG.png",
     "Images/Pasted image 20250503231333.png",
     "Images/Pasted image 20250503230759.png",
-    "Learning/What I've Learnt for Next Project.md",
-    "Learning/OLD Pseudocodes.md",
-    "Learning/Learning GAS.md",
     "Learning/Grabbing Buttons.md",
-    "Learning/GAS PseudoCodes.md",
+    "Learning/Untitled.canvas",
+    "Learning/SystemSetup.canvas",
     "Learning/Spawn Food.md",
     "Learning/Seeded Runs.md",
     "Learning/ScoringWinningLosing.md",
-    "Learning/Pseudocodes.md"
+    "Learning/Pseudocodes.md",
+    "Learning/OLD Pseudocodes.md",
+    "ToDo/To Do.md",
+    "Learning/GAS PseudoCodes.md",
+    "Learning/What I've Learnt for Next Project.md",
+    "Learning/Learning GAS.md",
+    "SnakeRogueLikeDoc/Player Abilities.md",
+    "SnakeRogueLikeDoc/Room Mechanics.md",
+    "SnakeRogueLikeDoc/Game References.md",
+    "SnakeRogueLikeDoc/Credits.md",
+    "SnakeRogueLikeDoc/Marketing.md"
   ]
 }
