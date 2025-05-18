@@ -137,17 +137,11 @@ protected:
 	UFUNCTION()
 	void Right();
 
-	UFUNCTION(BlueprintNativeEvent)
-	void Ability01();
+	UFUNCTION()
+	void Ability(FGameplayTag InputTag);
 	
 	UFUNCTION()
-	void Ability01Released();
-
-	UFUNCTION(BlueprintNativeEvent)
-	void Ability02();
-	
-	UFUNCTION()
-	void Ability02Released();
+	void AbilityReleased();
 
 	UFUNCTION()
 	void UpReleased();
