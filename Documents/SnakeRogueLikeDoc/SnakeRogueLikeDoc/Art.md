@@ -22,6 +22,10 @@ Tongue mesh and a head mesh
 
 Does the tail have a distinct look?
 
+## In-Game Game Environment
+
+Idea: nfs hologram barrier for the wall idea 
+
 ## Art Assets
 
 I’ll probably create an asset list somewhere else that’s a bit more appropriate for creating asset lists.
@@ -45,3 +49,5 @@ Distortion on the screen of the game and the computer
 
 ![[IRL_Game_UI.png]]
 E-Mail UI Design. Simple. Retro futuristic.
+
+

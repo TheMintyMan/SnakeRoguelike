@@ -153,7 +153,7 @@ After getting X amount of score using the base snake, players will be able to un
 
 Players will be able to play the game indefinitely with the same snake if they wish to do so. The game will continuously become harder due to the game becoming faster and faster per room.
 
-### Just Notes
+### Notes from others
 
 Demands
 Monopoly - Growing exponentially big. The growth of the snake, consuming competitors.

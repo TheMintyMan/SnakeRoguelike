@@ -29,3 +29,28 @@ Either way, doing something better will require doing something different and do
 ### Wayyy down the track after there's enough money
 
 Live Action 1~2 minute short would be pretty sick. Gathering like the film people I know and making a little cubicle work skit. And getting a working Snake++ portable console 3D printed would be crazy. 
+
+
+## Socials
+
+All posts. Videos, Images and Reposts
+Bluesky
+Twitter
+
+Short videos
+Tik Tok
+Youtube
+
+Only for important posts
+Instagram
+
+### Posting Schedule
+
+Every other day, can be an "if" there is something to post.
+
+Repost games, Comment on games whenever.
+
+|        | Mon | Tue | Wed | Thu | Fri | Sat                   | Sun                                                       |
+| ------ | --- | --- | --- | --- | --- | --------------------- | --------------------------------------------------------- |
+| Week 1 |     |     |     |     |     | Img post<br>(gamedev) | Img post<br>(life, walkies)                               |
+| Week 2 |     |     |     |     |     | Img post<br>(gamedev) | Vid post<br>(gamedev)<br>+<br>Img post<br>(life, walkies) |
