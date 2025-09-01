@@ -5,7 +5,7 @@
 
 ## Overview
 
-| Genre         | Roguelike, Real-Time, Action, Maze |
+| Genre         | Real-Time, Action, Maze, Narrative |
 | ------------- | ---------------------------------- |
 | Platform      | PC, Mac, Android, Linux            |
 | Point of View | Top Down, Grid                     |

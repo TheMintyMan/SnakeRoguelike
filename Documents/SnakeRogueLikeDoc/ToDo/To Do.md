@@ -10,6 +10,7 @@
 - [ ] More work on the game loop. Game loop framework. Initialisation Sequence, placeholder shop page, screen sequence. To get a vibe on the game flow and get that base system going
 - [ ] Level Design tool. Take in 23x23 pixels
 
+Note for Snake Plus Plus: I could inject the key when I press on the buttons to clean some of my code maybe. Look into injecting Enhanced Input.
 ### DONE:
 - [x] Eat (WIP, need to add tail)
 - [x] KYS

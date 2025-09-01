@@ -28,12 +28,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SnakeRogueLikeDoc/Art.md",
+                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Art"
+              "title": "Snake Like GDD"
             }
           }
         ],
@@ -47,7 +47,7 @@
           {
             "id": "4d54d59a49b69c7e",
             "type": "tabs",
-            "dimension": 61.25000000000001,
+            "dimension": 45.396145610278374,
             "children": [
               {
                 "id": "78391e36cbfcdd03",
@@ -55,12 +55,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "SnakeRogueLikeDoc/Marketing.md",
+                    "file": "SnakeRogueLikeDoc/Art.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Marketing"
+                  "title": "Art"
                 }
               }
             ]
@@ -68,7 +68,7 @@
           {
             "id": "2123d73a19f8c93a",
             "type": "tabs",
-            "dimension": 38.75,
+            "dimension": 54.603854389721626,
             "children": [
               {
                 "id": "fa0a295a920e992b",
@@ -76,12 +76,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
+                    "file": "SnakeRogueLikeDoc/Player Abilities.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Snake Like GDD"
+                  "title": "Player Abilities"
                 }
               }
             ]
@@ -236,14 +236,19 @@
   },
   "active": "0342b6f212c2da99",
   "lastOpenFiles": [
+    "SnakeRogueLikeDoc/Player Abilities.md",
     "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "ToDo/Schedule.md",
+    "ToDo/To Do.md",
+    "ToDo/Issues List.md",
+    "SnakeRogueLikeDoc/Narrative.md",
+    "Learning/What I've Learnt for Next Project.md",
+    "SnakeRogueLikeDoc/Art.md",
     "SnakeRogueLikeDoc/Marketing.md",
-    "SnakeRogueLikeDoc/Credits.md",
     "SnakeRogueLikeDoc/Game References.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
-    "SnakeRogueLikeDoc/Art.md",
+    "SnakeRogueLikeDoc/Credits.md",
     "SnakeRogueLikeDoc/VFX References.md",
-    "ToDo/To Do.md",
     "Images/chrome_jXfK71YZIG.png",
     "Images/Pasted image 20250503231333.png",
     "Images/Pasted image 20250503230759.png",
@@ -256,9 +261,7 @@
     "Learning/Pseudocodes.md",
     "Learning/OLD Pseudocodes.md",
     "Learning/GAS PseudoCodes.md",
-    "Learning/What I've Learnt for Next Project.md",
     "Learning/Learning GAS.md",
-    "SnakeRogueLikeDoc/Player Abilities.md",
     "SnakeRogueLikeDoc/Room Mechanics.md"
   ]
 }

@@ -99,7 +99,6 @@ get y mod y.sizeOfArray = new y variable
 
 
 
-
 ### Ability AStar
 
 The game will basically play for you. The snake will automatically travel to the nearest Food. 
