@@ -15,6 +15,7 @@ What does the head look like?
 Ideas:
 -  Tongue Mesh that faces the direction the snake is moving
 -  A hat  that the snake is 
+- Readability
 
 ![[Pasted image 20250503231333.png | 200]]
 Tongue mesh and a head mesh

@@ -6,7 +6,7 @@
       {
         "id": "287ce5d4beac5b2d",
         "type": "tabs",
-        "dimension": 45.81218274111675,
+        "dimension": 47.6985559566787,
         "children": [
           {
             "id": "22895d331d2271ec",
@@ -35,19 +35,33 @@
               "icon": "lucide-file",
               "title": "Snake Like GDD"
             }
+          },
+          {
+            "id": "92a0c28e2b8799d6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SnakeRogueLikeDoc/Snake Like GDD.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Snake Like GDD"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "c2a9cfc159f7dc29",
         "type": "split",
-        "dimension": 54.18781725888325,
+        "dimension": 52.3014440433213,
         "children": [
           {
             "id": "4d54d59a49b69c7e",
             "type": "tabs",
-            "dimension": 45.396145610278374,
+            "dimension": 53.42857142857142,
             "children": [
               {
                 "id": "78391e36cbfcdd03",
@@ -55,12 +69,12 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "SnakeRogueLikeDoc/Art.md",
+                    "file": "ToDo/To Do.md",
                     "mode": "source",
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "Art"
+                  "title": "To Do"
                 }
               }
             ]
@@ -68,20 +82,23 @@
           {
             "id": "2123d73a19f8c93a",
             "type": "tabs",
-            "dimension": 54.603854389721626,
+            "dimension": 46.57142857142857,
             "children": [
               {
                 "id": "fa0a295a920e992b",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
+                  "type": "canvas",
                   "state": {
-                    "file": "SnakeRogueLikeDoc/Player Abilities.md",
-                    "mode": "source",
-                    "source": false
+                    "file": "Learning/SystemSetup.canvas",
+                    "viewState": {
+                      "x": 565.0649835112151,
+                      "y": -552.9768273633172,
+                      "zoom": -1.3040878692261595
+                    }
                   },
-                  "icon": "lucide-file",
-                  "title": "Player Abilities"
+                  "icon": "lucide-layout-dashboard",
+                  "title": "SystemSetup"
                 }
               }
             ]
@@ -226,6 +243,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -234,17 +252,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0342b6f212c2da99",
+  "active": "92a0c28e2b8799d6",
   "lastOpenFiles": [
-    "SnakeRogueLikeDoc/Player Abilities.md",
-    "SnakeRogueLikeDoc/Snake Like GDD.md",
-    "ToDo/Schedule.md",
     "ToDo/To Do.md",
+    "SnakeRogueLikeDoc/Snake Like GDD.md",
+    "SnakeRogueLikeDoc/Funding.md",
+    "SnakeRogueLikeDoc/Marketing.md",
+    "Learning/SystemSetup.canvas",
+    "SnakeRogueLikeDoc/Player Abilities.md",
+    "ToDo/Schedule.md",
     "ToDo/Issues List.md",
+    "SnakeRogueLikeDoc/Art.md",
     "SnakeRogueLikeDoc/Narrative.md",
     "Learning/What I've Learnt for Next Project.md",
-    "SnakeRogueLikeDoc/Art.md",
-    "SnakeRogueLikeDoc/Marketing.md",
     "SnakeRogueLikeDoc/Game References.md",
     "SnakeRogueLikeDoc/Creating Snake Like.md",
     "SnakeRogueLikeDoc/Credits.md",
@@ -254,7 +274,6 @@
     "Images/Pasted image 20250503230759.png",
     "Learning/Grabbing Buttons.md",
     "Learning/Untitled.canvas",
-    "Learning/SystemSetup.canvas",
     "Learning/Spawn Food.md",
     "Learning/Seeded Runs.md",
     "Learning/ScoringWinningLosing.md",

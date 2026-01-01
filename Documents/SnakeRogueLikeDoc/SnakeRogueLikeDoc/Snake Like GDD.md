@@ -7,11 +7,11 @@
 
 | Genre         | Real-Time, Action, Maze, Narrative |
 | ------------- | ---------------------------------- |
-| Platform      | PC, Mac, Android, Linux            |
-| Point of View | Top Down, Grid                     |
+| Platform      | PC, Mac, Linux, Andoid?            |
+| Point of View | Top Down, First Person, Grid       |
 | Theme / Mood  | Arcade, Retro Futurism             |
 
-Snake but with abilities and upgrades you can buy with a roguelike game loop.
+Play as an office worker playing Snake in a dystopian world.
 
 "You play as an office worker in a retro futuristic world, stuck at a mundane desk job. Instead of working, you immerse yourself in Snake++, a game on your portable console where you grow by consuming competitors and rising to the top of the corporate food chain."
 
@@ -43,12 +43,12 @@ Ability Level Ups:
 
 ### Rooms
 
-Players will be put on a timer for each room they have to survive in. There are only 2 types of rooms. The boss rooms and the normal rooms. There will be variations of normal rooms and boss rooms.
+Players will be put on a timer for each room they have to survive in. There are only 2 types of rooms. The **boss rooms** and the **normal rooms**. There will be variations of normal rooms and boss rooms.
 
 Room Types:
 - Shop
-- 3 different room types (speed multiplied room, room with more walls, etc)
-- Boss
+- Normal Rooms (There will be bunch of variations of normal rooms)
+- Boss Rooms (There will be a set of 5 bosses)
 
 ### Non-Boss Mechanics
 

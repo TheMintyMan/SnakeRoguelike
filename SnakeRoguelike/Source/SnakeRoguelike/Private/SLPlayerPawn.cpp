@@ -15,10 +15,10 @@ UE_DEFINE_GAMEPLAY_TAG(InputTag_Up, "InputTag.Up");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Down, "InputTag.Down");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Left, "InputTag.Left");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Right, "InputTag.Right");
-/*UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability01, "InputTag.Ability01");
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability01, "InputTag.Ability01");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability02, "InputTag.Ability02");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability03, "InputTag.Ability03");
-UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability04, "InputTag.Ability04");*/
+UE_DEFINE_GAMEPLAY_TAG(InputTag_Ability04, "InputTag.Ability04");
 UE_DEFINE_GAMEPLAY_TAG(InputTag_Click, "InputTag.Click");
 
 #define print(x) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, x);
@@ -113,6 +113,28 @@ void ASLPlayerPawn::BeginPlay()
 	}
 }
 
+void ASLPlayerPawn::SwitchMappingContext()
+{
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
+		{
+			if (Subsystem->HasMappingContext(PlayerMappingContext))
+			{
+				Subsystem->RemoveMappingContext(PlayerMappingContext);
+				Subsystem->AddMappingContext(EmailMappingContext, 0);
+				UE_LOG(LogTemp,	Warning, TEXT("Successfully Switched to Email Mapping Context"));
+			}
+			if (Subsystem->HasMappingContext(EmailMappingContext))
+			{
+				Subsystem->RemoveMappingContext(EmailMappingContext);
+				Subsystem->AddMappingContext(PlayerMappingContext, 0);
+				UE_LOG(LogTemp, Warning, TEXT("Successfully Switched to Gameplay Input Mapping Context"));
+			}
+		}
+	}
+}
+
 void ASLPlayerPawn::Clicked(const FInputActionInstance& InstancedAction)
 {
 	ActiveInstance = InstancedAction;
@@ -163,13 +185,37 @@ void ASLPlayerPawn::Right()
 	InputTriggeredDelegate.Broadcast(RightAction);
 }
 
-void ASLPlayerPawn::Ability(FGameplayTag InputTag)
-{
-	//AbilityTags.AddTag(InputTag_Ability01);
-	/*if (InputTag == )
+void ASLPlayerPawn::Ability(const FInputActionInstance& Instance)
+{	
+	const UInputAction* TriggeredAction = Instance.GetSourceAction();
+	
+	UE_LOG(LogTemp, Log, TEXT("Key %s Activated"), *Instance.GetSourceAction().GetName());
+	
+	for (const FTaggedInputAction& TaggedAction : InputConfig->TaggedInputActions)
 	{
-		ASC->TryActivateAbility(*InputAbilityTagMap.Find(InputTag_Ability01));
-	}*/
+		if (TaggedAction.InputAction == TriggeredAction)
+		{
+			if (TaggedAction.InputTag == InputTag_Ability01)
+			{
+				ASC->TryActivateAbility(*InputAbilityTagMap.Find(InputTag_Ability01));
+				
+			}
+			else if (TaggedAction.InputTag == InputTag_Ability02)
+			{
+				
+			}
+			else if (TaggedAction.InputTag == InputTag_Ability03)
+			{
+				
+			}
+			else if (TaggedAction.InputTag == InputTag_Ability04)
+			{
+				
+				return;
+			}
+		}
+	}
+	
 }
 
 void ASLPlayerPawn::AbilityReleased()
@@ -224,11 +270,15 @@ void ASLPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		SLInputComponent->BindActionByTag(InputConfig,InputTag_Right, ETriggerEvent::Started, this, &ASLPlayerPawn::Right);
 		SLInputComponent->BindActionByTag(InputConfig,InputTag_Right, ETriggerEvent::Completed, this, &ASLPlayerPawn::RightReleased);
 		
-		
-		for (FTaggedInputAction InputAction : InputConfig->TaggedInputActions)
+		for (const FTaggedInputAction& InputAction : InputConfig->TaggedInputActions)
 		{
-			SLInputComponent->BindActionByTag(InputConfig, InputAction.InputTag, ETriggerEvent::Started, this, &ASLPlayerPawn::Ability);
-			SLInputComponent->BindActionByTag(InputConfig, InputAction.InputTag, ETriggerEvent::Completed, this, &ASLPlayerPawn::AbilityReleased);
+			if (!InputAction.InputTag.IsValid())
+			{
+				continue;
+			}
+			
+			SLInputComponent->BindActionByTag(InputConfig, InputAction.InputTag , ETriggerEvent::Triggered, this, &ASLPlayerPawn::Ability);
+			//SLInputComponent->BindActionByTag(InputConfig, InputAction.InputTag, ETriggerEvent::Completed, this, &ASLPlayerPawn::AbilityReleased);
 		}
 	}
 }

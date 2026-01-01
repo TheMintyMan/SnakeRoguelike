@@ -20,8 +20,7 @@ USLInteractionComponent::USLInteractionComponent():
 	CurrentHitActor(nullptr), MouseDirectionLength(0), ButtonActor(nullptr), OverlappedComponent(nullptr),
 	GrabbedComponent(nullptr), CurrentSocket(nullptr), MyPawn(nullptr), PC(nullptr),
 	GridManager(nullptr),
-	VelX(0), VelY(0),
-	DropPoint()
+	VelX(0), VelY(0)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -124,10 +123,13 @@ void USLInteractionComponent::GrabInteractEnded()
 	{
 		InputAbility.InputTag = FGameplayTag::RequestGameplayTag(OverlappedComponent->ComponentTags[0], false);
 	}
-
+	
 	DropPoint = OverlappedComponent->GetComponentLocation();
 	
-	MyPawn->SwitchInputAbilityTag(InputAbility);
+	if (ASLButtonDirections* ButtonDirections = Cast<ASLButtonDirections>(CurrentHitActor))
+	{
+		MyPawn->SwitchInputAbilityTag(InputAbility);
+	}
 	
 	bWasGrabbing = true;
 	GetWorld()->GetTimerManager().ClearTimer(GrabTimerHandle);

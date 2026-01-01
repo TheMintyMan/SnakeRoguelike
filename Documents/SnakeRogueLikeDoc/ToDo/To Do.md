@@ -1,3 +1,8 @@
+- [ ] Create Computer Model - Deadline: 26th October
+- [ ] Create a desk - Deadline: 2th October
+- [ ] Create UI for the computer - Deadline: 9th November
+- [ ] After that, work on the overall game loop. Make a level editor
+- [x] Create Portable Console Art
 - [ ] Set up all ability buttons and mesh for it
 	- [x] Camera Shake
 	- [x] SFX
@@ -8,7 +13,7 @@
 	- [x] Button Grab to be a GA. Button Press to GA. (Not Needed)
 - [x] Button Switching: Allow the ability button to be placed in different slots which will update the tags and input binding of that ability to the respective slots key binding
 - [ ] More work on the game loop. Game loop framework. Initialisation Sequence, placeholder shop page, screen sequence. To get a vibe on the game flow and get that base system going
-- [ ] Level Design tool. Take in 23x23 pixels
+- [ ] Level Design tool
 
 Note for Snake Plus Plus: I could inject the key when I press on the buttons to clean some of my code maybe. Look into injecting Enhanced Input.
 ### DONE:

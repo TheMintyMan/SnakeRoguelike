@@ -107,10 +107,13 @@ void ASLGridManager::BuildGrid()
 void ASLGridManager::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	AGameStateBase* GameState = GetWorld()->GetGameState();
 	SLGameState = Cast<ASLGameStateBase>(GameState);
-	
+}
+
+void ASLGridManager::GameStarted()
+{
 	GetWorldTimerManager().SetTimer(TickingHandle, this, &ASLGridManager::UpdateTime, TickSpeed, true, SLGameState->FirstInDelay);
 	GetWorldTimerManager().SetTimer(SnakeSpawnHandle, this, &ASLGridManager::SpawnSnake, 1.0f, false);
 }

@@ -24,6 +24,9 @@ class SNAKEROGUELIKE_API ASLGameStateBase : public AGameStateBase
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintCallable)
+	void GameStart();
+	
+	UFUNCTION(BlueprintCallable)
 	void GameReset();
 	
 	UPROPERTY()

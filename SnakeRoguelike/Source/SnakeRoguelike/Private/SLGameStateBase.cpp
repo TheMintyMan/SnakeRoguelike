@@ -8,7 +8,11 @@
 void ASLGameStateBase::BeginPlay()
 {
 	Super::BeginPlay();
+	
+}
 
+void ASLGameStateBase::GameStart()
+{
 	AActor* Grid = UGameplayStatics::GetActorOfClass(GetWorld(),ASLGridManager::StaticClass());
 	GridManager = Cast<ASLGridManager>(Grid);
 

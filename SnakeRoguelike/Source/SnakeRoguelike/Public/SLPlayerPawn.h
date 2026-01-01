@@ -95,6 +95,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	UInputMappingContext* PlayerMappingContext;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	UInputMappingContext* EmailMappingContext;
+	
+	UFUNCTION(BlueprintCallable, Category="Input")
+	void SwitchMappingContext();
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* ButtonClickedAction;
 
@@ -115,6 +121,9 @@ protected:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Input")
 	UInputAction* RightAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	TArray<UInputAction*> AbilityActions;
 
 	UPROPERTY()
 	bool bIsGrabbing;
@@ -138,7 +147,7 @@ protected:
 	void Right();
 
 	UFUNCTION()
-	void Ability(FGameplayTag InputTag);
+	void Ability(const FInputActionInstance& Instance);
 	
 	UFUNCTION()
 	void AbilityReleased();
